@@ -1,0 +1,80 @@
+## cuda
+https://developer.nvidia.com/cuda-downloads
+Follow instructions, add all .debs before installing.
+
+## Add to .bashrc
+# setup Cuda paths
+export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+## Install cudnn
+https://developer.nvidia.com/rdp/cudnn-download
+https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-tar
+
+## Chrome
+https://www.google.com/chrome/
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get update
+sudo apt-get install google-chrome-stable
+
+## Bunch of programs
+sudo apt-get install terminator silversearcher-ag vim texmaker texlive-science tmux htop meld ninja-build
+
+## terminator
+Scroll on output = False
+Infinie scrollback = True
+
+## powerline
+https://powerline.readthedocs.io/en/latest/installation/linux.html
+https://powerline.readthedocs.io/en/latest/usage/shell-prompts.html
+
+### bash (.bashrc)
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
+### show branches
+mkdir ~/.config/powerline
+gedit ~/.config/powerline/config.json
+{
+    "ext": {
+        "shell": {
+            "theme": "default_leftonly"
+        }
+    }
+}
+
+### vim (.vimrc)
+set  rtp+=/home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+set laststatus=2
+set t_Co=256
+
+### tmux (.tmux.conf)
+source "/home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
+
+## conda
+https://conda.io/docs/user-guide/install/linux.html
+
+## pycharm
+https://www.jetbrains.com/pycharm/download
+https://confluence.tobii.intra/display/PTOOL/PyCharm
+
+## spotify
+Use Debian package
+https://www.spotify.com/se/download/linux/
+
+## dropbox
+https://www.dropbox.com/install
+
+## mendeley
+https://www.mendeley.com/download-desktop/Linux/
+
+## power settings
+Disable screen turning off
+
+## imagej
+https://fiji.sc/#download
+
+## p4merge
+http://blogs.pdmlab.com/alexander.zeitler/articles/installing-and-configuring-p4merge-for-git-on-ubuntu/
