@@ -10,15 +10,15 @@ _REPO = os.path.abspath(os.path.split(__file__)[0])
 
 
 def main():
-    with open(os.path.join(_REPO, "files")) as f:
+    with open(os.path.join(_REPO, "file-list")) as f:
         paths = [l.strip() for l in f.readlines()]
 
     for path in paths:
         try:
             _copy(path)
-            print("Copied \"{}\"".format(path))
+            print("{} copied".format(path))
         except IOError:
-            print("FAILED TO COPY \"{}\"".format(path))
+            print("{} FAILED TO COPY".format(path))
 
 
 def _copy(path):
