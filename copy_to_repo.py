@@ -5,17 +5,13 @@ from __future__ import print_function
 import os
 import shutil
 
+_HOME = os.path.abspath(os.path.expanduser("~"))
+_REPO = os.path.abspath(os.path.split(__file__)[0])
+
 
 def main():
-    paths = [
-        ".gitconfig",
-        ".inputrc",
-        ".bashrc",
-        ".tmux.conf",
-        ".vimrc",
-        ".config/terminator/config",
-        ".config/powerline/config.json"
-    ]
+    with open(os.path.join(_REPO, "files")) as f:
+        paths = [l.strip() for l in f.readlines()]
 
     for path in paths:
         try:
@@ -26,11 +22,8 @@ def main():
 
 
 def _copy(path):
-    home = os.path.abspath(os.path.expanduser("~"))
-    here = os.path.abspath(os.path.split(__file__)[0])
-
-    src = os.path.join(home, path)
-    dst = os.path.join(here, "dotfiles", path)
+    src = os.path.join(_HOME, path)
+    dst = os.path.join(_REPO, "dotfiles", path)
 
     dirs = os.path.split(dst)[0]
     if not os.path.exists(dirs):

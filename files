@@ -1,0 +1,7 @@
+.gitconfig
+.inputrc
+.bashrc
+.tmux.conf
+.vimrc
+.config/terminator/config
+.config/powerline/config.json
