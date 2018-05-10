@@ -27,9 +27,7 @@ def _copy(path):
     if not os.path.exists(dst):
         dirs = os.path.split(dst)[0]
         if not os.path.exists(dirs):
-            print("mkdirs", dirs)
             os.makedirs(dirs)
-        print("copy", src, dst)
         shutil.copy(src, dst)
         print("{} created".format(path))
         return
