@@ -30,7 +30,7 @@ def _copy(path):
     here = os.path.abspath(os.path.split(__file__)[0])
 
     src = os.path.join(home, path)
-    dst = os.path.join(here, path)
+    dst = os.path.join(here, "dotfiles", path)
 
     dirs = os.path.split(dst)[0]
     if not os.path.exists(dirs):
