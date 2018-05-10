@@ -77,7 +77,9 @@ def _interactive_patch(src_lines, dst_lines):
             # decide what to do
             while True:
                 print("".join(80 * ["#"]))
-                for l in diff[block_begin - _PAD:block_end + _PAD]:
+                display_begin = max(0, block_begin - _PAD)
+                display_end = min(len(diff), block_end + _PAD)
+                for l in diff[display_begin:display_end]:
                     print(l, end="")
 
                 key = input("Apply change [y, n, q]? ").lower().strip()
