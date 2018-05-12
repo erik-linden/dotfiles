@@ -25,33 +25,9 @@ Scroll on output = False
 Infinie scrollback = True
 
 ## powerline
-https://powerline.readthedocs.io/en/latest/installation/linux.html
-https://powerline.readthedocs.io/en/latest/usage/shell-prompts.html
-
-### bash (.bashrc)
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-
-### show branches
-mkdir ~/.config/powerline
-gedit ~/.config/powerline/config.json
-{
-    "ext": {
-        "shell": {
-            "theme": "default_leftonly"
-        }
-    }
-}
-
-### vim (.vimrc)
-set  rtp+=/home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-set laststatus=2
-set t_Co=256
-
-### tmux (.tmux.conf)
-source "/home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
+sudo apt-get install fonts-powerline
+sudo apt-get install powerline python3-powerline
+Use dotfiles in this repo to configure bash, vim and tmux.
 
 ## conda
 https://conda.io/docs/user-guide/install/linux.html

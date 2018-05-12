@@ -124,7 +124,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-. /home/tobii.intra/elin/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+. /usr/share/powerline/bindings/bash/powerline.sh
 
 # added by Miniconda3 installer
 export PATH="/home/tobii.intra/elin/miniconda3/bin:$PATH"
