@@ -7,4 +7,3 @@ set laststatus=2
 
 " Use 256 colours
 set t_Co=256
-
