@@ -18,7 +18,7 @@ sudo apt-get update
 sudo apt-get install google-chrome-stable
 
 ## Bunch of programs
-sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build
+sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg
 
 ## terminator
 Scroll on output = False
