@@ -29,6 +29,10 @@ sudo apt-get install fonts-powerline
 sudo apt-get install powerline python3-powerline
 Use dotfiles in this repo to configure bash, vim and tmux.
 
+## ssh
+Add keys to ~/.ssh/
+If server, add public key to ~/.ssh/authorized_keys
+
 ## conda
 https://conda.io/docs/user-guide/install/linux.html
 
