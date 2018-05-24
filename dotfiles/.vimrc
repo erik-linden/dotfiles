@@ -35,3 +35,6 @@ nnoremap <C-H> <C-W><C-H>
 " More natural split opening
 set splitbelow
 set splitright
+
+" Remove trailing whitespaces on save
+autocmd BufWritePre * :%s/\s\+$//e
