@@ -11,5 +11,6 @@
 [plugins]
 [profiles]
   [[default]]
+    background_image = None
     scroll_on_output = False
     scrollback_infinite = True
