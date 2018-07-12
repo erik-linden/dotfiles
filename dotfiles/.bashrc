@@ -116,15 +116,20 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# setup Cuda paths
+# setup cuda paths
 export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-# powerline
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /usr/share/powerline/bindings/bash/powerline.sh
-
 # added by Miniconda3 installer
 export PATH="/home/tobii.intra/elin/miniconda3/bin:$PATH"
+
+# More colors for terminal
+export TERM=xterm-256color
+
+# enable powerline in bash
+if [ -f `which powerline-daemon` ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  . /usr/share/powerline/bindings/bash/powerline.sh
+fi
