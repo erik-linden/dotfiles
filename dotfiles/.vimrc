@@ -20,6 +20,7 @@ set shiftwidth=4         " Shift lines by 4 spaces
 set smarttab             " Set tabs for a shiftab logic
 set expandtab            " Expand tabs into spaces
 set autoindent           " Auto indent when moving to next line
+set nojoinspaces         " Auto format puts one space between sentences
 
 set showmatch            " Highlight matching bracket pairs
 set clipboard=unnamed    " Use system clipboard
