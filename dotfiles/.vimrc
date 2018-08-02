@@ -4,6 +4,8 @@ python3 powerline_setup()
 python3 del powerline_setup
 
 syntax on
+set background=dark
+colorscheme gruvbox
 filetype indent plugin on
 
 set nocompatible         " Be iMproved

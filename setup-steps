@@ -20,6 +20,10 @@ sudo apt-get install google-chrome-stable
 ## Bunch of programs
 sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc
 
+# vim
+mkdir ~/.vim
+git clone https://github.com/flazz/vim-colorschemes.git ~/.vim
+
 ## terminator
 Scroll on output = False
 Infinie scrollback = True
