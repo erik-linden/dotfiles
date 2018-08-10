@@ -123,9 +123,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY
 # added by Miniconda3 installer
 export PATH="/home/tobii.intra/elin/miniconda3/bin:$PATH"
 
-# More colors for terminal
-export TERM=xterm-256color
-
 # enable powerline in bash
 if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
