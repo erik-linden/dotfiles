@@ -2,25 +2,28 @@
 https://developer.nvidia.com/cuda-downloads
 Follow instructions, add all .debs before installing.
 
-## Add to .bashrc
-# setup Cuda paths
-export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-## Install cudnn
+## install cudnn
 https://developer.nvidia.com/rdp/cudnn-download
 https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-tar
 
-## Chrome
+## chrome
 https://www.google.com/chrome/
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt-get update
 sudo apt-get install google-chrome-stable
 
-## Bunch of programs
+## bunch of programs
 sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc
 
-# vim
+## fish
+sudo apt-add-repository ppa:fish-shell/release-2
+sudo apt-get update
+sudo apt-get install fish
+
+We can't set the default shell with `chsh`, since we are using LDAP.
+But the dotfiles should enable fish in Terminator and tmux.
+
+## vim
 mkdir ~/.vim
 git clone https://github.com/flazz/vim-colorschemes.git ~/.vim
 
@@ -31,7 +34,9 @@ Infinie scrollback = True
 ## powerline
 sudo apt-get install fonts-powerline
 sudo apt-get install powerline python3-powerline
-Use dotfiles in this repo to configure bash, vim and tmux.
+
+It may be necessary to modify the argument order in the fish bindings file manually.
+https://groups.google.com/forum/#!topic/powerline-support/m94nK0Bmg28
 
 ## ssh
 Add keys to ~/.ssh/
