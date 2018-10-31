@@ -27,15 +27,12 @@ But the dotfiles should enable fish in Terminator and tmux.
 mkdir ~/.vim
 git clone https://github.com/flazz/vim-colorschemes.git ~/.vim
 
-## terminator
-Scroll on output = False
-Infinie scrollback = True
-
 ## powerline
 sudo apt-get install fonts-powerline
 sudo apt-get install powerline python3-powerline
 
 It may be necessary to modify the argument order in the fish bindings file manually.
+/usr/share/powerline/bindings/fish/powerline-setup.fish
 https://groups.google.com/forum/#!topic/powerline-support/m94nK0Bmg28
 
 ## ssh
