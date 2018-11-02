@@ -10,6 +10,3 @@ source /home/tobii.intra/elin/miniconda3/etc/fish/conf.d/conda.fish
 # powerline
 set fish_function_path $fish_function_path /usr/share/powerline/bindings/fish
 powerline-setup
-
-# make caps-lock a ctrl key instead
-setxkbmap -option ctrl:nocaps
