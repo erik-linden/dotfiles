@@ -13,7 +13,12 @@ sudo apt-get update
 sudo apt-get install google-chrome-stable
 
 ## bunch of programs
-sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc
+sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc dconf-tools
+
+## remap caps-lock to ctrl
+Run dconf-editor
+Navigate to org.gnome.desktop.input-sources
+Set xkb-options to ['ctrl:nocaps']
 
 ## fish
 sudo apt-add-repository ppa:fish-shell/release-2
