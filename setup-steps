@@ -13,7 +13,7 @@ sudo apt-get update
 sudo apt-get install google-chrome-stable
 
 ## bunch of programs
-sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc dconf-tools
+sudo apt-get install terminator silversearcher-ag vim texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc dconf-tools unclutter
 
 ## remap caps-lock to ctrl
 Run dconf-editor

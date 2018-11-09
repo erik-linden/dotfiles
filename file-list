@@ -6,3 +6,4 @@
 .config/terminator/config
 .config/powerline/config.json
 .config/fish/config.fish
+.config/fish/functions/fish_user_key_bindings.fish
