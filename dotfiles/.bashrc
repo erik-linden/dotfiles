@@ -120,8 +120,8 @@ fi
 export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-# added by Miniconda3 installer
-export PATH="/home/tobii.intra/elin/miniconda3/bin:$PATH"
+# conda python, append instead of prepend to keep system interpreter
+export PATH="$PATH:/home/tobii.intra/elin/miniconda3/bin"
 
 # enable powerline in bash
 if [ -f `which powerline-daemon` ]; then
