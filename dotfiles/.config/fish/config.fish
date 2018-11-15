@@ -1,6 +1,9 @@
 # empty greeting
 set fish_greeting
 
+# https://unix.stackexchange.com/questions/230238/starting-x-applications-from-the-terminal-and-the-warnings-that-follow
+set NO_AT_BRIDGE 1
+
 # conda python, append instead of prepend to keep system interpreter
 set PATH $PATH /home/tobii.intra/elin/miniconda3/bin
 

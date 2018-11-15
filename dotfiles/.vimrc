@@ -28,6 +28,7 @@ set expandtab           " Expand tabs into spaces
 set autoindent          " Auto indent when moving to next line
 set nojoinspaces        " Auto format puts one space between sentences
 
+set mouse=a             " Enable mouse support
 set clipboard=unnamed   " Use system clipboard
 
 set nobackup            " Disable backups
