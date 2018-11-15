@@ -13,11 +13,8 @@
                         "replace-one": "R",
                         "visual": "V"
                     }
-                }
-            },
-            {
-                "function": "powerline.segments.common.net.hostname",
-                "priority": 10
+                },
+                "priority": 20
             },
             {
                 "function": "powerline.segments.common.env.virtualenv",
@@ -25,7 +22,7 @@
             },
             {
                 "function": "powerline.segments.common.vcs.branch",
-                "priority": 40
+                "priority": 30
             },
             {
                 "function": "powerline.segments.shell.cwd",
@@ -35,7 +32,7 @@
                     "dir_limit_depth": 3,
                     "use_path_separator": false
                 },
-                "priority": 10
+                "priority": 40
             },
             {
                 "function": "powerline.segments.shell.jobnum",
