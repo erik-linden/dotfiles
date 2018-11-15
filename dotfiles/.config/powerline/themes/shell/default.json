@@ -1,4 +1,5 @@
 {
+    "default_module": "powerline.segments.common",
     "segments": {
         "left": [
             {
@@ -23,6 +24,10 @@
                 "priority": 50
             },
             {
+                "function": "powerline.segments.common.vcs.branch",
+                "priority": 40
+            },
+            {
                 "function": "powerline.segments.shell.cwd",
                 "args":
                 {
@@ -35,17 +40,12 @@
             {
                 "function": "powerline.segments.shell.jobnum",
                 "priority": 20
-            }
-        ],
-        "right": [
-            {
-                "function": "powerline.segments.shell.last_pipe_status",
-                "priority": 10
             },
             {
-                "function": "powerline.segments.common.vcs.branch",
-                "priority": 40
+                "function": "powerline.segments.shell.last_status",
+                "priority": 10
             }
-        ]
+        ],
+        "right": []
     }
 }
