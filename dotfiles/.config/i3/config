@@ -58,19 +58,16 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym $mod+Shift+v split h
-
-# split in vertical orientation
+# split orientation
+bindsym $mod+g split h
 bindsym $mod+v split v
+
+# change container layout
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -154,6 +151,10 @@ workspace_auto_back_and_forth yes
 # Need this to auto-connect to wifi
 exec --no-startup-id nm-applet
 
+# Power-manager: screen brightness, suspend when lid closes, etc.
+# Try xfce4-power-manager-settings
+exec xfce4-power-manage
+
 # Remap the section key (left of '1') to '~'
 exec_always --no-startup-id "xmodmap -e 'keycode 49 = asciitilde'"
 
@@ -172,8 +173,16 @@ exec --no-startup-id "feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg"
 # Dropbox
 exec --no-startup-id "dropbox start"
 
+# Volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# Windows+ P to pull up screen config GUI
+bindsym Mod4+p exec "arandr"
+
 # Browser with internal password storage
 bindsym $mod+Shift+w exec "google-chrome-stable --password-store=basic"
 
 # Touchpad toggle
-bindsym Control+Shift+F9 exec "~/toggle-touchpad.sh"
+bindsym $mod+Shift+Return exec "~/toggle-touchpad.sh"

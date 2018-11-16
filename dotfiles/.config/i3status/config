@@ -1,0 +1,63 @@
+general {
+    output_format = "i3bar"
+    colors = true
+    interval = 1
+}
+
+order += "disk /"
+order += "volume master"
+order += "path_exists VPN"
+order += "wireless _first_"
+order += "ethernet eth0"
+order += "battery all"
+order += "cpu_temperature 0"
+order += "load"
+order += "tztime local"
+
+volume master {
+    format = " %volume"
+    format_muted = " (%volume)"
+    device = "sysdefault"
+    mixer = "Master"
+}
+
+wireless _first_ {
+    format_up = " %essid - %quality"
+    format_down = "down"
+}
+
+ethernet eth0 {
+    format_up = "🖧connected"
+    format_down = "🖧down"
+}
+
+battery all {
+    format = "%status %percentage %remaining (%consumption)"
+    format_down = "No battery"
+    status_chr = "⚡ CHR"
+    status_bat = "🔋 BAT"
+    status_full = "☻ FULL"
+    path = "/sys/class/power_supply/BAT%d/uevent"
+    last_full_capacity = true
+    integer_battery_capacity = true
+    hide_seconds = true
+    threshold_type = percentage
+    low_threshold = 30
+}
+
+path_exists VPN {
+    # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+    path = "/proc/sys/net/ipv4/conf/ppp0"
+}
+
+tztime local {
+    format = "%Y-%m-%d %H:%M:%S"
+}
+
+load {
+    format = "% %1min"
+}
+
+disk "/" {
+    format = " %avail"
+}

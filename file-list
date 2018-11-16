@@ -11,3 +11,4 @@ toggle-touchpad.sh
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_user_key_bindings.fish
 .config/i3/config
+.config/i3status/config
