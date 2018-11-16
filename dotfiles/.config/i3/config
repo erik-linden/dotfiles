@@ -15,11 +15,14 @@ set $mod Mod1
 # is used in the bar {} block below.
 font pango:DejaVue Sans Mono 8
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Don't let the mouse refocus windows
+# don't let the mouse refocus windows
 focus_follows_mouse no
+
+# alt-tab like toggling between workspaces
+workspace_auto_back_and_forth yes
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -106,11 +109,10 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Control+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Control+Shift+r restart
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -135,8 +137,21 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
+
+set $system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$system" {
+    bindsym l exec --no-startup-id i3lock -c 404040, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Control+Shift+l mode "$system"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -145,44 +160,39 @@ bar {
     tray_output primary
 }
 
-# Alt-tab like toggling between workspaces
-workspace_auto_back_and_forth yes
-
-# Need this to auto-connect to wifi
+# need this to auto-connect to wifi
 exec --no-startup-id nm-applet
 
-# Power-manager: screen brightness, suspend when lid closes, etc.
-# Try xfce4-power-manager-settings
-exec xfce4-power-manage
+# Power-manager: screen brightness, suspend when lid closes, etc. Try xfce4-power-manager-settings.
+exec --no-startup-id xfce4-power-manager
 
-# Remap the section key (left of '1') to '~'
+# wallpaper
+exec --no-startup-id "feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg"
+
+# dropbox
+exec --no-startup-id "dropbox start"
+
+# remap the section key (left of '1') to '~'
 exec_always --no-startup-id "xmodmap -e 'keycode 49 = asciitilde'"
 
-# Make caps-lock a ctrl key
-# Some say to use setxkbmap, but that breaks the tilde remap
+# Make caps-lock a ctrl key. Some say to use setxkbmap, but that breaks the tilde remap.
 exec_always --no-startup-id "xmodmap -e 'keycode 66 = Control_L'"
 exec_always --no-startup-id "xmodmap -e 'clear Lock'"
 exec_always --no-startup-id "xmodmap -e 'add Control = Control_L'"
 
-# Turn numlock on
+# turn numlock on
 exec_always --no-startup-id "numlockx on"
 
-# Wallpaper
-exec --no-startup-id "feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg"
-
-# Dropbox
-exec --no-startup-id "dropbox start"
-
-# Volume control
+# volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
-# Windows+ P to pull up screen config GUI
+# Windows+ P to pull up a screen config GUI
 bindsym Mod4+p exec "arandr"
 
-# Browser with internal password storage
+# browser with internal password storage
 bindsym $mod+Shift+w exec "google-chrome-stable --password-store=basic"
 
-# Touchpad toggle
+# touchpad toggle
 bindsym $mod+Shift+Return exec "~/toggle-touchpad.sh"

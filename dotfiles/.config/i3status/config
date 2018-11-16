@@ -23,12 +23,12 @@ volume master {
 
 wireless _first_ {
     format_up = " %essid - %quality"
-    format_down = "down"
+    format_down = " down"
 }
 
 ethernet eth0 {
-    format_up = "🖧connected"
-    format_down = "🖧down"
+    format_up = "🖧 connected"
+    format_down = "🖧 down"
 }
 
 battery all {
