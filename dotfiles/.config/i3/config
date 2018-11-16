@@ -18,6 +18,9 @@ font pango:DejaVue Sans Mono 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Don't let the mouse refocus windows
+focus_follows_mouse no
+
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -114,26 +117,26 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -141,8 +144,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
-        tray_output primary
+    status_command i3status
+    tray_output primary
 }
 
 # Alt-tab like toggling between workspaces
@@ -151,14 +154,14 @@ workspace_auto_back_and_forth yes
 # Need this to auto-connect to wifi
 exec --no-startup-id nm-applet
 
-#
+# Remap the section key (left of '1') to '~'
 exec_always --no-startup-id "xmodmap -e 'keycode 49 = asciitilde'"
+
+# Make caps-lock a ctrl key
+# Some say to use setxkbmap, but that breaks the tilde remap
 exec_always --no-startup-id "xmodmap -e 'keycode 66 = Control_L'"
 exec_always --no-startup-id "xmodmap -e 'clear Lock'"
 exec_always --no-startup-id "xmodmap -e 'add Control = Control_L'"
-
-# Turn caps-lock into a ctrl key
-# exec_always --no-startup-id "setxkbmap -option 'ctrl:nocaps'"
 
 # Turn numlock on
 exec_always --no-startup-id "numlockx on"

@@ -10,7 +10,7 @@
                     "override": {
                         "default": "N",
                         "insert": "I",
-                        "replace-one": "R",
+                        "replace_one": "R",
                         "visual": "V"
                     }
                 },
