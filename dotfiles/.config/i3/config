@@ -84,6 +84,10 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+z focus child
 
+# move the current workspace to the next output
+# effectively toggles when you only have two outputs
+bindsym $mod+p move workspace to output right
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -163,36 +167,38 @@ bar {
 # need this to auto-connect to wifi
 exec --no-startup-id nm-applet
 
-# Power-manager: screen brightness, suspend when lid closes, etc. Try xfce4-power-manager-settings.
+# power-manager: screen brightness, suspend when lid closes, etc
+# try xfce4-power-manager-settings
 exec --no-startup-id xfce4-power-manager
 
 # wallpaper
-exec --no-startup-id "feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg"
+exec --no-startup-id feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg
 
 # dropbox
-exec --no-startup-id "dropbox start"
+exec --no-startup-id dropbox start
 
 # remap the section key (left of '1') to '~'
-exec_always --no-startup-id "xmodmap -e 'keycode 49 = asciitilde'"
+exec_always --no-startup-id xmodmap -e 'keycode 49 = asciitilde'
 
-# Make caps-lock a ctrl key. Some say to use setxkbmap, but that breaks the tilde remap.
-exec_always --no-startup-id "xmodmap -e 'keycode 66 = Control_L'"
-exec_always --no-startup-id "xmodmap -e 'clear Lock'"
-exec_always --no-startup-id "xmodmap -e 'add Control = Control_L'"
+# make caps-lock a ctrl key
+# some say to use setxkbmap, but that breaks the tilde remap
+exec_always --no-startup-id xmodmap -e 'keycode 66 = Control_L'
+exec_always --no-startup-id xmodmap -e 'clear Lock'
+exec_always --no-startup-id xmodmap -e 'add Control = Control_L'
 
 # turn numlock on
-exec_always --no-startup-id "numlockx on"
+exec_always --no-startup-id numlockx on
 
 # volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
-# Windows+ P to pull up a screen config GUI
-bindsym Mod4+p exec "arandr"
+# Windows+P to pull up a screen config GUI
+bindsym Mod4+p exec arandr
 
 # browser with internal password storage
-bindsym $mod+Shift+w exec "google-chrome-stable --password-store=basic"
+bindsym $mod+Shift+w exec google-chrome-stable --password-store=basic
 
 # touchpad toggle
-bindsym $mod+Shift+Return exec "~/toggle-touchpad.sh"
+bindsym $mod+Shift+Return exec ~/toggle-touchpad.sh

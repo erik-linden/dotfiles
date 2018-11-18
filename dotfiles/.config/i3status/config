@@ -34,9 +34,9 @@ ethernet eth0 {
 battery all {
     format = "%status %percentage %remaining (%consumption)"
     format_down = "No battery"
-    status_chr = "⚡ CHR"
+    status_chr = "🗲 CHR"
     status_bat = "🔋 BAT"
-    status_full = "☻ FULL"
+    status_full = "🔌 FULL"
     path = "/sys/class/power_supply/BAT%d/uevent"
     last_full_capacity = true
     integer_battery_capacity = true
