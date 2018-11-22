@@ -62,8 +62,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split orientation
-bindsym $mod+g split h
-bindsym $mod+v split v
+bindsym $mod+i split h
+bindsym $mod+n split v
 
 # change container layout
 bindsym $mod+w layout tabbed

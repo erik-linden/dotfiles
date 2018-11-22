@@ -6,6 +6,7 @@ toggle-touchpad.sh
 .vimrc
 .config/terminator/config
 .config/powerline/config.json
+.config/powerline/colorschemes/shell/default.json
 .config/powerline/themes/shell/default.json
 .config/fish/config.fish
 .config/fish/functions/fish_mode_prompt.fish

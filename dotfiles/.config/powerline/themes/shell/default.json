@@ -4,8 +4,7 @@
         "left": [
             {
                 "function": "powerline.segments.shell.mode",
-                "args":
-                {
+                "args": {
                     "default": "dummy",
                     "override": {
                         "default": "N",
@@ -14,20 +13,35 @@
                         "visual": "V"
                     }
                 },
-                "priority": 20
+                "priority": 30
             },
+			{
+				"function": "powerline.segments.common.net.hostname",
+				"priority": 20,
+                "args": {
+                    "only_if_ssh": true,
+                    "exclude_domain": true
+                }
+			},
+			{
+				"function": "powerline.segments.common.env.user",
+				"priority": 10
+			},
             {
                 "function": "powerline.segments.common.env.virtualenv",
                 "priority": 50
             },
             {
                 "function": "powerline.segments.common.vcs.branch",
-                "priority": 30
+                "priority": 30,
+                "args": {
+                    "status_colors": true,
+                    "ignore_statuses": ["U"]
+                }
             },
             {
                 "function": "powerline.segments.shell.cwd",
-                "args":
-                {
+                "args": {
                     "dir_shorten_len": 3,
                     "dir_limit_depth": 5,
                     "use_path_separator": false

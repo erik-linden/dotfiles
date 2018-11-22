@@ -14,6 +14,7 @@ set wildmenu            " Better command completion
 
 set laststatus=2        " Always show statusbar
 set number              " Show line numbers
+set cursorline          " Highlight the current line
 set showmatch           " Highlight matching bracket pairs
 
 set ignorecase          " Ignore case when searching
