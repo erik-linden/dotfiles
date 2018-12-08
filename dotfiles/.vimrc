@@ -1,42 +1,42 @@
-set nocompatible        " Be iMproved
-set ttyfast             " Terminal acceleration
+set nocompatible          " Be iMproved
+set ttyfast               " Terminal acceleration
 
-syntax on               " Syntax highlighting
-filetype plugin on      " Enable filetype plugins
+syntax on                 " Syntax highlighting
+filetype plugin on        " Enable filetype plugins
 filetype indent on
 
-set t_Co=256            " More colors
-set background=dark     " Color scheme
+set t_Co=256              " More colors
+set background=dark       " Color scheme
 colorscheme gruvbox
 
-set autoread            " Automatically reload files
-set wildmenu            " Better command completion
+set autoread              " Automatically reload files
+set wildmenu              " Better command completion
 
-set laststatus=2        " Always show statusbar
-set number              " Show line numbers
-set cursorline          " Highlight the current line
-set showmatch           " Highlight matching bracket pairs
+set laststatus=2          " Always show statusbar
+set number                " Show line numbers
+set cursorline            " Highlight the current line
+set showmatch             " Highlight matching bracket pairs
 
-set ignorecase          " Ignore case when searching
-set smartcase           " Case-sensitive if caps in query
-set hlsearch            " Highlight search results
-set incsearch           " Like searching in a browser
+set ignorecase            " Ignore case when searching
+set smartcase             " Case-sensitive if caps in query
+set hlsearch              " Highlight search results
+set incsearch             " Like searching in a browser
 
-set tabstop=4           " 4 whitespaces for tab presentation
-set shiftwidth=4        " Shift lines by 4 spaces
-set smarttab            " Set tabs for a shiftab logic
-set expandtab           " Expand tabs into spaces
-set autoindent          " Auto indent when moving to next line
-set nojoinspaces        " Auto format puts one space between sentences
+set tabstop=4             " 4 whitespaces for tab presentation
+set shiftwidth=4          " Shift lines by 4 spaces
+set smarttab              " Set tabs for a shiftab logic
+set expandtab             " Expand tabs into spaces
+set autoindent            " Auto indent when moving to next line
+set nojoinspaces          " Auto format puts one space between sentences
 
-set mouse=a             " Enable mouse support
-set clipboard=unnamed   " Use system clipboard
+set mouse=a               " Enable mouse support
+set clipboard=unnamedplus " Use system clipboard
 
-set nobackup            " Disable backups
+set nobackup              " Disable backups
 set nowritebackup
 set noswapfile
 
-set splitbelow          " More natural split opening
+set splitbelow            " More natural split opening
 set splitright
 
 " Comma as leader
