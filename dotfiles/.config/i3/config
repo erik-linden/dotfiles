@@ -177,17 +177,15 @@ exec --no-startup-id feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg
 # dropbox
 exec --no-startup-id dropbox start
 
-# remap the section key (left of '1') to '~'
-exec_always --no-startup-id xmodmap -e 'keycode 49 = asciitilde'
+# turn numlock on
+exec --no-startup-id numlockx on
 
 # make caps-lock a ctrl key
-# some say to use setxkbmap, but that breaks the tilde remap
-exec_always --no-startup-id xmodmap -e 'keycode 66 = Control_L'
-exec_always --no-startup-id xmodmap -e 'clear Lock'
-exec_always --no-startup-id xmodmap -e 'add Control = Control_L'
+exec --no-startup-id setxkbmap -option 'ctrl:nocaps'
 
-# turn numlock on
-exec_always --no-startup-id numlockx on
+# remap the section key (left of '1') to '~'
+# must be after 'setxkbmap' call?
+exec --no-startup-id xmodmap -e 'keycode 49 = asciitilde'
 
 # volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
