@@ -116,12 +116,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# setup cuda paths
+# cuda paths
 export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-# conda python, append instead of prepend to keep system interpreter
-export PATH="$PATH:/home/tobii.intra/elin/miniconda3/bin"
+# conda python will be first in PATH
+export PATH="/home/tobii.intra/elin/miniconda3/bin:$PATH"
 
 # enable powerline in bash
 if [ -f `which powerline-daemon` ]; then
