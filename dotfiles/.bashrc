@@ -130,3 +130,5 @@ if [ -f `which powerline-daemon` ]; then
   POWERLINE_BASH_SELECT=1
   . /usr/share/powerline/bindings/bash/powerline.sh
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

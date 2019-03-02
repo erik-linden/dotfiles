@@ -17,3 +17,6 @@ set -x PATH /home/tobii.intra/elin/miniconda3/bin $PATH
 # cuda paths
 set -x PATH /usr/local/cuda-9.1/bin $PATH
 set -x LD_LIBRARY_PATH /usr/local/cuda-9.1/lib64 $LD_LIBRARY_PATH
+
+# remap the section key (left of '1') to '~'
+xmodmap -e 'keycode 49 = asciitilde'

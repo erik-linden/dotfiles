@@ -14,3 +14,5 @@ function fish_escape
         commandline -f backward-char force-repaint
     end
 end
+
+fzf_key_bindings

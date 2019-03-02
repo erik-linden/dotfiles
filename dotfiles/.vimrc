@@ -1,3 +1,14 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'vim-syntastic/syntastic'
+Plug 'nvie/vim-flake8'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'flazz/vim-colorschemes'
+
+call plug#end()
+
 set nocompatible          " Be iMproved
 set ttyfast               " Terminal acceleration
 
@@ -16,6 +27,7 @@ set laststatus=2          " Always show statusbar
 set number                " Show line numbers
 set cursorline            " Highlight the current line
 set showmatch             " Highlight matching bracket pairs
+set scrolloff=1           " Always show at least one line above/below the cursor
 
 set ignorecase            " Ignore case when searching
 set smartcase             " Case-sensitive if caps in query
@@ -67,6 +79,17 @@ nnoremap <C-H> <C-W><C-H>
 
 " Remove trailing whitespaces on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Settings for syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_python_flake8_args="--max-line-length=119"
 
 " Setup Powerline
 python3 from powerline.vim import setup as powerline_setup

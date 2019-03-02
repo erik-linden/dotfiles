@@ -183,10 +183,6 @@ exec --no-startup-id numlockx on
 # make caps-lock a ctrl key
 exec --no-startup-id setxkbmap -option 'ctrl:nocaps'
 
-# remap the section key (left of '1') to '~'
-# must be after 'setxkbmap' call?
-exec --no-startup-id xmodmap -e 'keycode 49 = asciitilde'
-
 # volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
