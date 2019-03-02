@@ -12,8 +12,23 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt-get update
 sudo apt-get install google-chrome-stable
 
+## fish
+sudo apt-add-repository ppa:fish-shell/release-2
+sudo apt-get update
+sudo apt-get install fish
+
+We can't set the default shell with `chsh`, since we are using LDAP.
+But the dotfiles should enable fish in Terminator and tmux.
+
+## vim
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt-get update
+sudo apt-get install vim
+
+This gives us vim >= 8.0.
+
 ## bunch of programs
-sudo apt-get install terminator silversearcher-ag vim vim-gtk texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc dconf-tools unclutter i3 numlockx feh xfce4-power-manager arandr
+sudo apt-get install terminator silversearcher-ag texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc dconf-tools unclutter i3 numlockx feh xfce4-power-manager arandr
 
 ## conda
 https://conda.io/docs/user-guide/install/linux.html
@@ -23,14 +38,6 @@ conda install scipy matplotlib ipython flake8 autopep8
 
 flake8 is needed by syntastic
 autopep8 is needed by vim-autoformat
-
-## fish
-sudo apt-add-repository ppa:fish-shell/release-2
-sudo apt-get update
-sudo apt-get install fish
-
-We can't set the default shell with `chsh`, since we are using LDAP.
-But the dotfiles should enable fish in Terminator and tmux.
 
 ## vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
