@@ -5,6 +5,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'nvie/vim-flake8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'Chiel92/vim-autoformat'
+
 Plug 'flazz/vim-colorschemes'
 
 call plug#end()
@@ -79,6 +81,12 @@ nnoremap <C-H> <C-W><C-H>
 
 " Remove trailing whitespaces on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Autoformat file
+noremap <F3> :Autoformat<CR>
+
+let g:formatdef_autopep8 = "'autopep8 - --max-line-length 119 --range '.a:firstline.' '.a:lastline"
+let g:formatters_python = ['autopep8']
 
 " Settings for syntastic
 set statusline+=%#warningmsg#

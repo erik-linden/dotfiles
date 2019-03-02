@@ -19,9 +19,10 @@ sudo apt-get install terminator silversearcher-ag vim vim-gtk texlive-full texma
 https://conda.io/docs/user-guide/install/linux.html
 
 ## pyton packages
-conda install scipy matplotlib ipython flake8
+conda install scipy matplotlib ipython flake8 autopep8
 
-flake8 is needed by syntastic (vim plugin)
+flake8 is needed by syntastic
+autopep8 is needed by vim-autoformat
 
 ## fish
 sudo apt-add-repository ppa:fish-shell/release-2
