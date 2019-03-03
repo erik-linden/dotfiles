@@ -2,10 +2,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'w0rp/ale'
-Plug 'nvie/vim-flake8'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
@@ -88,21 +86,41 @@ map <C-p> :Files<CR>
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
-" YouCompleteMe
+" Jump to definition and documentation
+map <F3> :YcmCompleter GoTo<CR>
+map <F4> :YcmCompleter GetDoc<CR>
+
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Hack to make YCM use any conda environment
+if $CONDA_PREFIX != ""
+    let g:ycm_python_interpreter_path = $CONDA_PREFIX . '/bin/python'
+else
+    let g:ycm_python_interpreter_path = ''
+endif
+let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
 
 " Remove trailing whitespaces on save
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fix_on_save = 1
 
 " Python syntax checking
-let g:ale_linters = {'python': ['flake8']}
 let g:ale_python_flake8_options = '--max-line-length=119'
+let g:ale_python_pylint_options = '
+            \ --max-line-length=119
+            \ -d missing-docstring
+            \ -d too-many-instance-attributes
+            \ -d too-many-locals
+            \ -d too-many-statements
+            \ -d ungrouped-imports'
 
-" Python autopep8
-noremap <F3> :Autoformat<CR>
-let g:formatdef_autopep8 = "'autopep8 - --max-line-length 119 --range '.a:firstline.' '.a:lastline"
-let g:formatters_python = ['autopep8']
+" Python auto-formatting
+map <leader>f :ALEFix autopep8<CR>
+map <leader>o :ALEFix isort<CR>
+
+let g:ale_python_autopep8_options = '--max-line-length=119'
+let g:ale_python_isort_options =  '-w=119'
 
 " Setup Powerline
 python3 from powerline.vim import setup as powerline_setup
