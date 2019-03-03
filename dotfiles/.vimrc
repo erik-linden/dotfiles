@@ -127,6 +127,9 @@ let g:ale_python_autopep8_options = '--max-line-length=119'
 let g:ale_python_isort_options =  '-w=119'
 
 " Setup Powerline
+" vim always uses the system interpreter, so we fiddle with the path
+python3 import sys, os
+python3 sys.path.insert(0, os.path.expanduser('~/miniconda3/lib/python3.6/site-packages/'))
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup

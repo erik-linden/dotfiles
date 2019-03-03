@@ -1,10 +1,18 @@
-## cuda
-https://developer.nvidia.com/cuda-downloads
-Follow instructions, add all .debs before installing.
+## conda
+https://conda.io/docs/user-guide/install/linux.html
 
-## install cudnn
-https://developer.nvidia.com/rdp/cudnn-download
-https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-tar
+## pyton packages
+conda install scipy matplotlib ipython flake8 pylint autopep8
+conda install -c conda-forge powerline-status pygit2
+
+Useful tools + vim ALE/YCM + powerline
+
+## powerline fonts
+wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+mv PowerlineSymbols.otf ~/.local/share/fonts/
+fc-cache -vf ~/.local/share/fonts/
+mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 
 ## chrome
 https://www.google.com/chrome/
@@ -28,16 +36,9 @@ sudo apt-get install vim
 This gives us vim >= 8.0.
 
 ## bunch of programs
-sudo apt-get install terminator silversearcher-ag texlive-full texmaker tmux htop meld ninja-build ffmpeg vlc dconf-tools unclutter i3 numlockx feh xfce4-power-manager arandr
-
-## conda
-https://conda.io/docs/user-guide/install/linux.html
-
-## pyton packages
-conda install scipy matplotlib ipython flake8 autopep8
-
-flake8 is needed by syntastic
-autopep8 is needed by vim-autoformat
+sudo apt-get install terminator silversearcher-ag texlive-full texmaker \
+    tmux htop meld ninja-build ffmpeg vlc dconf-tools unclutter i3 \
+    numlockx feh xfce4-power-manager arandr
 
 ## vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -45,13 +46,13 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 Run PlugInstall in vim to install plugins listed in .vimrc
 
-## powerline
-sudo apt-get install fonts-powerline
-sudo apt-get install powerline python3-powerline
+## cuda
+https://developer.nvidia.com/cuda-downloads
+Follow instructions, add all .debs before installing.
 
-It may be necessary to modify the argument order in the fish bindings file manually.
-/usr/share/powerline/bindings/fish/powerline-setup.fish
-https://groups.google.com/forum/#!topic/powerline-support/m94nK0Bmg28
+## install cudnn
+https://developer.nvidia.com/rdp/cudnn-download
+https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-tar
 
 ## ssh
 Add keys to ~/.ssh/
