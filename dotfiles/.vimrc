@@ -58,21 +58,22 @@ set splitright
 let mapleader = ","
 
 " Save with <leader>w
-nmap <leader>w :w<CR>
+nnoremap <leader>w :w<CR>
 
 " Additional escape mapping
 inoremap jj <Esc>
 inoremap jk <Esc>
 
-" Map 0 to first non-blank character
-map 0 ^
+" Map 0 to the first non-blank character and + to the last
+nnoremap 0 ^
+nnoremap + $
 
 " Map <Space> to search and Ctrl-<Space> to backwards search
-map <Space> /
-map <C-Space> ?
+nnoremap <Space> /
+nnoremap <C-Space> ?
 
 " Disable highlighting when <leader><CR> is pressed
-map <silent> <leader><CR> :noh<CR>
+nnoremap <silent> <leader><CR> :noh<CR>
 
 " Jump between splits
 nnoremap <C-J> <C-W><C-J>
@@ -81,15 +82,16 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " fzf
-map <C-p> :Files<CR>
+nnoremap <C-p> :Files<CR>
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Jump to definition and documentation
-map <F3> :YcmCompleter GoTo<CR>
-map <F4> :YcmCompleter GetDoc<CR>
+nnoremap <F3> :YcmCompleter GoTo<CR>
+nnoremap <F4> :YcmCompleter GetDoc<CR>
 
+" Otherwise it stays open
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 " Hack to make YCM use any conda environment
@@ -101,10 +103,6 @@ endif
 let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
 
-" Remove trailing whitespaces on save
-let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_fix_on_save = 1
-
 " Python syntax checking
 let g:ale_python_flake8_options = '--max-line-length=119'
 let g:ale_python_pylint_options = '
@@ -115,9 +113,15 @@ let g:ale_python_pylint_options = '
             \ -d too-many-statements
             \ -d ungrouped-imports'
 
+" Decides what `ALEFix` defaults to
+let g:ale_fixers = { 'python': ['autopep8'] }
+
+" Delete whitespace errors on save
+:autocmd BufWritePost * ALEFix remove_trailing_lines trim_whitespace
+
 " Python auto-formatting
-map <leader>f :ALEFix autopep8<CR>
-map <leader>o :ALEFix isort<CR>
+nnoremap <leader>f :ALEFix<CR>
+nnoremap <leader>o :ALEFix isort<CR>
 
 let g:ale_python_autopep8_options = '--max-line-length=119'
 let g:ale_python_isort_options =  '-w=119'
