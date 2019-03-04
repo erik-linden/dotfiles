@@ -107,11 +107,11 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
 let g:ale_python_flake8_options = '--max-line-length=119'
 let g:ale_python_pylint_options = '
             \ --max-line-length=119
+            \ -d ungrouped-imports
             \ -d missing-docstring
             \ -d too-many-instance-attributes
             \ -d too-many-locals
-            \ -d too-many-statements
-            \ -d ungrouped-imports'
+            \ -d too-many-statements'
 
 " Decides what `ALEFix` defaults to
 let g:ale_fixers = { 'python': ['autopep8'] }

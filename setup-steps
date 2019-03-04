@@ -1,7 +1,7 @@
 ## conda
 https://conda.io/docs/user-guide/install/linux.html
 
-## pyton packages
+## python packages
 conda install scipy matplotlib ipython flake8 pylint autopep8
 conda install -c conda-forge powerline-status pygit2
 
@@ -35,16 +35,47 @@ sudo apt-get install vim
 
 This gives us vim >= 8.0.
 
-## bunch of programs
-sudo apt-get install terminator silversearcher-ag texlive-full texmaker \
-    tmux htop meld ninja-build ffmpeg vlc dconf-tools unclutter i3 \
-    numlockx feh xfce4-power-manager arandr
-
-## vim-plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+## vim plugins
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 Run PlugInstall in vim to install plugins listed in .vimrc
+
+## bunch of programs
+sudo apt install \
+    arandr \
+    cheese \
+    cmake \
+    curl \
+    dconf-tools \
+    default-jdk \
+    feh \
+    ffmpeg \
+    git \
+    htop \
+    i3 \
+    i3lock \
+    jabref \
+    keepass2 \
+    libreoffice \
+    meld \
+    mendeleydesktop \
+    ninja-build \
+    numlockx \
+    openssh-server \
+    pinta \
+    screen \
+    silversearcher-ag \
+    smbclient \
+    terminator \
+    texlive-full \
+    texmaker \
+    tmux \
+    tree \
+    unclutter \
+    v4l-utils \
+    vlc \
+    xfce4-power-manager
 
 ## cuda
 https://developer.nvidia.com/cuda-downloads

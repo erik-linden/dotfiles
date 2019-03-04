@@ -9,6 +9,7 @@ toggle-touchpad.sh
 .config/powerline/config.json
 .config/powerline/colorschemes/shell/default.json
 .config/powerline/themes/shell/default.json
+.config/powerline/themes/vim/default.json
 .config/fish/config.fish
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_user_key_bindings.fish
