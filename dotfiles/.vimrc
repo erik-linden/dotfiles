@@ -7,7 +7,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-Plug 'flazz/vim-colorschemes'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -103,12 +103,18 @@ endif
 let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
 
+" Error highlight
+let g:ale_set_highlights = 1
+highlight ALEError cterm=underline
+highlight ALEWarning cterm=underline
+
 " Python syntax checking
 let g:ale_python_flake8_options = '--max-line-length=119'
 let g:ale_python_pylint_options = '
             \ --max-line-length=119
             \ -d ungrouped-imports
             \ -d missing-docstring
+            \ -d too-few-public-methods
             \ -d too-many-instance-attributes
             \ -d too-many-locals
             \ -d too-many-statements'
