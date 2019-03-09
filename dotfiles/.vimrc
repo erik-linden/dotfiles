@@ -21,6 +21,7 @@ filetype indent on
 set t_Co=256              " More colors
 set background=dark       " Color scheme
 colorscheme gruvbox
+hi SpellBad cterm=underline
 
 set autoread              " Automatically reload files
 set wildmenu              " Better command completion
@@ -31,6 +32,7 @@ set number                " Show line numbers
 set cursorline            " Highlight the current line
 set showmatch             " Highlight matching bracket pairs
 set scrolloff=1           " Always show at least one line above/below the cursor
+set spell                 " Spell checking
 
 set ignorecase            " Ignore case when searching
 set smartcase             " Case-sensitive if caps in query
@@ -129,7 +131,7 @@ let g:ale_fixers = { 'python': ['autopep8'] }
 nnoremap <leader>f :ALEFix<CR>
 nnoremap <leader>o :ALEFix isort<CR>
 
-let g:ale_python_autopep8_options = '--max-line-length=119'
+let g:ale_python_autopep8_options = '--max-line-length=119 --ignore E402'
 let g:ale_python_isort_options =  '-w=119'
 
 " Setup Powerline

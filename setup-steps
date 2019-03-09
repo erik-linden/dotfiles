@@ -1,5 +1,7 @@
 ## conda
-https://conda.io/docs/user-guide/install/linux.html
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
 conda install scipy matplotlib ipython flake8 pylint autopep8
@@ -31,7 +33,7 @@ But the dotfiles should enable fish in Terminator and tmux.
 ## vim
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt-get update
-sudo apt-get install vim
+sudo apt-get install vim vim-gtk
 
 This gives us vim >= 8.0.
 
@@ -47,7 +49,6 @@ sudo apt install \
     cheese \
     cmake \
     curl \
-    dconf-tools \
     default-jdk \
     feh \
     ffmpeg \
@@ -65,6 +66,7 @@ sudo apt install \
     openssh-server \
     pinta \
     screen \
+    shutter \
     silversearcher-ag \
     smbclient \
     terminator \
@@ -78,12 +80,16 @@ sudo apt install \
     xfce4-power-manager
 
 ## cuda
-https://developer.nvidia.com/cuda-downloads
-Follow instructions, add all .debs before installing.
+sudo rm /etc/apt/sources.list.d/cuda*
+sudo apt remove nvidia-cuda-toolkit
+sudo apt remove nvidia-*
+sudo apt autoremove
+sudo apt update
 
-## install cudnn
-https://developer.nvidia.com/rdp/cudnn-download
-https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-tar
+sudo apt-key adv --fetch-keys  http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+sudo bash -c 'echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list'
+sudo apt update
+sudo apt install cuda
 
 ## ssh
 Add keys to ~/.ssh/
@@ -102,6 +108,10 @@ https://www.dropbox.com/install
 
 ## mendeley
 https://www.mendeley.com/download-desktop/Linux/
+
+## i3
+Nautilus will try to manage desktop icons, and then crash things. Google for
+gnome settings to disable it.
 
 ## power settings
 Disable screen turning off -> xfce4-power-manager-settings

@@ -116,10 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# cuda paths
-export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
 # conda python will be first in PATH
 export PATH="/home/tobii.intra/elin/miniconda3/bin:$PATH"
 
