@@ -124,7 +124,7 @@ if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
-  . ~/miniconda3/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+  . ~/miniconda3/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
