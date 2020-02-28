@@ -23,9 +23,11 @@
 	changed = green
 	untracked = cyan
 [pager]
-	log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	log = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	show = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	diff = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+[interactive]
+	diffFilter = /usr/share/doc/git/contrib/diff-highlight/diff-highlight
 [push]
 	default = simple
 [pull]

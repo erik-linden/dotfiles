@@ -43,6 +43,14 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 Run PlugInstall in vim to install plugins listed in .vimrc
 
+## git
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt update
+sudo apt install git
+
+cd /usr/share/doc/git/contrib/diff-highlight/
+sudo make
+
 ## bunch of programs
 sudo apt install \
     arandr \
