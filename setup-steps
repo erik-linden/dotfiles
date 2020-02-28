@@ -4,7 +4,7 @@ chmod +x Miniconda3-latest-Linux-x86_64.sh
 ./Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-conda install scipy matplotlib ipython flake8 pylint autopep8
+conda install scipy matplotlib ipython flake8 pylint autopep8 sympy pandas tqdm
 conda install -c conda-forge powerline-status pygit2
 
 Useful tools + vim ALE/YCM + powerline
