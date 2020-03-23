@@ -1,8 +1,8 @@
 # empty greeting
 set fish_greeting
 
-# conda python will be first in PATH
-set -x PATH /home/tobii.intra/elin/miniconda3/bin $PATH
+# conda base is always last in PATH
+set -x PATH $PATH /home/tobii.intra/elin/miniconda3/bin
 
 # enable `conda activate`
 source /home/tobii.intra/elin/miniconda3/etc/fish/conf.d/conda.fish
