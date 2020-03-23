@@ -12,8 +12,10 @@ Useful tools + vim ALE/YCM + powerline
 ## powerline fonts
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+mkdir -p ~/.local/share/fonts/
 mv PowerlineSymbols.otf ~/.local/share/fonts/
 fc-cache -vf ~/.local/share/fonts/
+mkdir -p ~/.config/fontconfig/conf.d/
 mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 
 ## chrome
@@ -24,16 +26,16 @@ sudo apt-get install google-chrome-stable
 
 ## fish
 sudo apt-add-repository ppa:fish-shell/release-2
-sudo apt-get update
-sudo apt-get install fish
+sudo apt update
+sudo apt install fish
 
 We can't set the default shell with `chsh`, since we are using LDAP.
 But the dotfiles should enable fish in Terminator and tmux.
 
 ## vim
 sudo add-apt-repository ppa:jonathonf/vim
-sudo apt-get update
-sudo apt-get install vim vim-gtk
+sudo apt update
+sudo apt install vim vim-gtk
 
 This gives us vim >= 8.0.
 
@@ -60,7 +62,6 @@ sudo apt install \
     default-jdk \
     feh \
     ffmpeg \
-    git \
     htop \
     i3 \
     i3lock \
@@ -69,7 +70,6 @@ sudo apt install \
     keepass2 \
     libreoffice \
     meld \
-    mendeleydesktop \
     ninja-build \
     numlockx \
     openssh-server \
