@@ -1,11 +1,10 @@
 # empty greeting
 set fish_greeting
 
-# conda base is always last in PATH
-set -x PATH $PATH /home/tobii.intra/elin/miniconda3/bin
-
-# enable `conda activate`
-source /home/tobii.intra/elin/miniconda3/etc/fish/conf.d/conda.fish
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /home/tobii.intra/elin/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
 
 # powerline, must be after conda
 set fish_function_path $fish_function_path ~/miniconda3/lib/python3.7/site-packages/powerline/bindings/fish
