@@ -1,12 +1,9 @@
 # empty greeting
 set fish_greeting
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-eval /home/tobii.intra/elin/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
-
-# powerline, must be after conda
+# powerline
+set POWERLINE_CONFIG_COMMAND ~/miniconda3/bin/powerline-config
+set POWERLINE_COMMAND ~/miniconda3/bin/powerline
 set fish_function_path $fish_function_path ~/miniconda3/lib/python3.7/site-packages/powerline/bindings/fish
 powerline-setup
 
@@ -15,3 +12,8 @@ set -x NO_AT_BRIDGE 1
 
 # remap the section key (left of '1') to '~'
 xmodmap -e 'keycode 49 = asciitilde'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /home/tobii.intra/elin/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
