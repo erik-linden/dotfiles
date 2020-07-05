@@ -29,7 +29,8 @@
 			},
             {
                 "function": "powerline.segments.common.env.virtualenv",
-                "priority": 50
+                "priority": 50,
+                "before": "ⓔ  "
             },
             {
                 "function": "powerline.segments.common.vcs.branch",
