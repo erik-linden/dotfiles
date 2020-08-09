@@ -16,4 +16,5 @@ eval /home/tobii.intra/elin/miniconda3/bin/conda "shell.fish" "hook" $argv | sou
 set POWERLINE_CONFIG_COMMAND ~/miniconda3/bin/powerline-config
 set POWERLINE_COMMAND ~/miniconda3/bin/powerline
 set fish_function_path $fish_function_path ~/miniconda3/lib/python3.7/site-packages/powerline/bindings/fish
+powerline-daemon -q
 powerline-setup
