@@ -11,10 +11,11 @@
 [plugins]
 [profiles]
   [[default]]
-    background_image = None
+    cursor_color = "#aaaaaa"
     custom_command = TERM=xterm-256color fish
-    scroll_on_output = False
+    font = DejaVu Sans Mono 10
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
     use_custom_command = True
+    use_system_font = False

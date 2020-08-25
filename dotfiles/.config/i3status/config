@@ -2,13 +2,14 @@ general {
     output_format = "i3bar"
     colors = true
     interval = 1
+    markup = "pango"
 }
 
 order += "disk /"
 order += "volume master"
 order += "path_exists VPN"
 order += "wireless _first_"
-order += "ethernet eth0"
+order += "ethernet _first_"
 order += "battery all"
 order += "cpu_temperature 0"
 order += "load"
@@ -22,13 +23,13 @@ volume master {
 }
 
 wireless _first_ {
-    format_up = " %essid - %quality"
-    format_down = " down"
+    format_up = " %ip (%essid at%quality - %bitrate / %frequency)"
+    format_down = ""
 }
 
-ethernet eth0 {
-    format_up = "🖧 connected"
-    format_down = "🖧 down"
+ethernet _first_ {
+    format_up = "<span fallback='true'>🖧</span> %ip (%speed)"
+    format_down = ""
 }
 
 battery all {
@@ -48,6 +49,7 @@ battery all {
 path_exists VPN {
     # path exists when a VPN tunnel launched by nmcli/nm-applet is active
     path = "/proc/sys/net/ipv4/conf/ppp0"
+    format = "VPN"
 }
 
 tztime local {
