@@ -4,13 +4,13 @@ chmod +x Miniconda3-latest-Linux-x86_64.sh
 ./Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-conda install scipy matplotlib ipython flake8 pylint autopep8 sympy pandas tqdm
+conda install scipy matplotlib ipython flake8 pylint autopep8 black sympy pandas tqdm
 conda install -c conda-forge powerline-status pygit2
 
 Useful tools + vim ALE/YCM + powerline
 
 ## chrome
-Download from site
+Download from chrome site.
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt-get update
 sudo apt-get install google-chrome-stable
@@ -23,12 +23,10 @@ sudo apt install fish
 We can't set the default shell with `chsh`, since we are using LDAP.
 But the dotfiles should enable fish in Terminator and tmux.
 
-## vim
+## vim, vim-gtk needed for X11 clipboard
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt update
-sudo apt install vim
-
-This gives us vim >= 8.0.
+sudo apt install vim vim-gtk
 
 ## vim plugins
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -47,6 +45,7 @@ sudo make
 ## bunch of programs
 sudo apt install \
     arandr \
+    blueman \
     cheese \
     cifs-utils \
     cmake \
@@ -54,6 +53,7 @@ sudo apt install \
     default-jdk \
     feh \
     ffmpeg \
+    gimp \
     htop \
     i3 \
     i3lock \
@@ -61,6 +61,7 @@ sudo apt install \
     inkscape \
     jabref \
     keepass2 \
+    krita \
     libreoffice \
     meld \
     ninja-build \
@@ -112,10 +113,10 @@ gnome settings to disable it.
 
 ## power settings
 Disable screen turning off -> xfce4-power-manager-settings
-"Handle screen brightness keys"
+Enable "Handle screen brightness keys"
 
 ## p4merge
-Download from site
+Download from perforce site.
 gunzip p4v.tgz
 sudo mkdir /opt/p4merge
 sudo mv p4v-2020.2.1999419/* /opt/p4merge/
@@ -126,3 +127,7 @@ wget --no-check-certificate https://artifactory.tobii.intra/artifactory/tt-toolc
 sudo cp Tobii-CA-ROOT-SHA256-current.cer /usr/local/share/ca-certificates/
 sudo dpkg-reconfigure ca-certificates
 chrome->settings->manage_certificates->authorities->import
+
+## algobox
+It can be necessary to explicitly set terminator to used python2.
+sudo vim /usr/share/terminator/terminator

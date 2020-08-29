@@ -1,7 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'w0rp/ale'
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
@@ -45,6 +45,7 @@ set smarttab              " Set tabs for a shiftab logic
 set expandtab             " Expand tabs into spaces
 set autoindent            " Auto indent when moving to next line
 set nojoinspaces          " Auto format puts one space between sentences
+set textwidth=100         " Compromise between 80/120
 
 set mouse=a               " Enable mouse support
 set clipboard=unnamedplus " Use system clipboard
@@ -99,13 +100,15 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " Hack to make YCM use any conda environment
 if $CONDA_PREFIX != ""
     let g:ycm_python_interpreter_path = $CONDA_PREFIX . '/bin/python'
-    let g:ale_python_flake8_executable = $CONDA_PREFIX . '/bin/flake8'
     let g:ale_python_pylint_executable = $CONDA_PREFIX . '/bin/pylint'
 else
-    let g:ycm_python_interpreter_path = ''
+    let g:ycm_python_interpreter_path = '/home/tobii.intra/elin/miniconda3/bin/python'
 endif
 let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
+let g:ale_python_autopep8_executable = '/home/tobii.intra/elin/miniconda3/bin/autopep8'
+let g:ale_python_black_executable = '/home/tobii.intra/elin/miniconda3/bin/black'
+let g:ale_python_flake8_executable ='/home/tobii.intra/elin/miniconda3/bin/flake8'
 
 " Error highlight
 let g:ale_set_highlights = 1
@@ -113,10 +116,14 @@ highlight ALEError cterm=underline
 highlight ALEWarning cterm=underline
 
 " Python syntax checking
-let g:ale_python_flake8_options = '--max-line-length=119'
+let g:ale_python_autopep8_options = '--max-line-length=120'
+let g:ale_python_black_options = '--line-length=120'
+let g:ale_python_flake8_options = '--max-line-length=120, --extend-ignore=E203,W503'
 let g:ale_python_pylint_options = '
-            \ --max-line-length=119
-            \ -d ungrouped-imports
+            \ --init-hook="import sys; sys.path.insert(0,\"' . getcwd()  . '\")"
+            \ --max-line-length=120
+            \ -d bad-continuation
+            \ -d bad-whitespace
             \ -d missing-docstring
             \ -d too-few-public-methods
             \ -d too-many-instance-attributes
@@ -124,17 +131,16 @@ let g:ale_python_pylint_options = '
             \ -d too-many-statements'
 
 " Decides what `ALEFix` defaults to
-let g:ale_fixers = { 'python': ['autopep8'] }
+let g:ale_fixers = {
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'python': ['black']
+            \ }
 
 " Delete whitespace errors on save
 :autocmd BufWritePost * ALEFix remove_trailing_lines trim_whitespace
 
 " Python auto-formatting
 nnoremap <leader>f :ALEFix<CR>
-nnoremap <leader>o :ALEFix isort<CR>
-
-let g:ale_python_autopep8_options = '--max-line-length=119 --ignore E402'
-let g:ale_python_isort_options =  '-w=119'
 
 " Setup Powerline
 " vim always uses the system interpreter, so we fiddle with the path

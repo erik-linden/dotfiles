@@ -31,7 +31,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn 'DejaVu Sans Mono 11'
+bindsym $mod+d exec dmenu_run -fn "DejaVu Sans Mono 11"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -152,6 +152,9 @@ bar {
     tray_output primary
 }
 
+# dual screens
+exec --no-startup-id xrandr --output eDP-1-1 --auto --pos 0x512 --output HDMI-1-1 --primary --auto --pos 1920x0
+
 # need this to auto-connect to wifi
 exec --no-startup-id nm-applet
 
@@ -172,7 +175,7 @@ exec --no-startup-id dropbox start
 exec --no-startup-id numlockx on
 
 # make caps-lock a ctrl key
-exec --no-startup-id setxkbmap -option 'ctrl:nocaps'
+exec --no-startup-id setxkbmap -option "ctrl:nocaps"
 
 # volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master 5%+
