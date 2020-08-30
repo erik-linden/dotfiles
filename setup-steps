@@ -122,6 +122,10 @@ sudo mkdir /opt/p4merge
 sudo mv p4v-2020.2.1999419/* /opt/p4merge/
 sudo ln -s /opt/p4merge/bin/p4merge /usr/local/bin/p4merge
 
+## unclutter
+Set `nograb` if scrolling doesn't work.
+sudo vim /etc/default/unclutter
+
 ## tobii certificate
 wget --no-check-certificate https://artifactory.tobii.intra/artifactory/tt-toolchains/certs/Tobii-CA-ROOT-SHA256-current.cer
 sudo cp Tobii-CA-ROOT-SHA256-current.cer /usr/local/share/ca-certificates/
