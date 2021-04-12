@@ -45,7 +45,7 @@ set smarttab              " Set tabs for a shiftab logic
 set expandtab             " Expand tabs into spaces
 set autoindent            " Auto indent when moving to next line
 set nojoinspaces          " Auto format puts one space between sentences
-set textwidth=100         " Compromise between 80/120
+set textwidth=120         " Also enables auto wrap
 
 set mouse=a               " Enable mouse support
 set clipboard=unnamedplus " Use system clipboard
@@ -56,6 +56,10 @@ set noswapfile
 
 set splitbelow            " More natural split opening
 set splitright
+
+" Fix something: https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
+let &t_TI = ""
+let &t_TE = ""
 
 " Comma as leader
 let mapleader = ","
