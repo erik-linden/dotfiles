@@ -29,7 +29,7 @@
 			},
             {
                 "function": "powerline.segments.common.env.virtualenv",
-                "priority": 50,
+                "priority": 20,
                 "before": "ⓔ  "
             },
             {
