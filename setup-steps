@@ -4,8 +4,7 @@ chmod +x Miniconda3-latest-Linux-x86_64.sh
 ./Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-conda install scipy matplotlib imageio ipython flake8 pylint autopep8 black sympy pandas tqdm
-conda install -c conda-forge powerline-status pygit2
+conda install mamba scipy matplotlib imageio ipython flake8 pylint autopep8 black sympy pandas tqdm powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
 
 Useful tools + vim ALE/YCM + powerline
 
@@ -46,7 +45,6 @@ sudo make
 sudo apt install \
     arandr \
     blueman \
-    cheese \
     cifs-utils \
     cmake \
     curl \
@@ -58,7 +56,6 @@ sudo apt install \
     i3 \
     i3lock \
     inkscape \
-    jabref \
     keepass2 \
     krita \
     libreoffice \
@@ -74,8 +71,6 @@ sudo apt install \
     silversearcher-ag \
     smbclient \
     terminator \
-    texlive-full \
-    texmaker \
     tmux \
     tree \
     unclutter \
@@ -102,9 +97,6 @@ paste https://gist.github.com/bittner/c7d1d49fe0c9af907f24
 ## spotify
 Use Debian package
 https://www.spotify.com/se/download/linux/
-
-## dropbox
-https://www.dropbox.com/install
 
 ## i3
 Nautilus will try to manage desktop icons, and then crash things. Google for
