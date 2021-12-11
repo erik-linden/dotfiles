@@ -4,7 +4,7 @@ chmod +x Miniconda3-latest-Linux-x86_64.sh
 ./Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-conda install mamba scipy matplotlib imageio ipython flake8 pylint autopep8 black sympy pandas tqdm powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
+conda install mamba scipy matplotlib imageio ipython flake8 pylint autopep8 black sympy pandas tqdm rich powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
 
 Useful tools + vim ALE/YCM + powerline
 
@@ -25,7 +25,7 @@ But the dotfiles should enable fish in Terminator and tmux.
 ## vim, vim-gtk needed for X11 clipboard
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt update
-sudo apt install vim vim-gtk
+sudo apt install vim vim-gtk3
 
 ## vim plugins
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -40,6 +40,11 @@ sudo apt install git
 
 cd /usr/share/doc/git/contrib/diff-highlight/
 sudo make
+
+## shutter
+sudo add-apt-repository ppa:shutter
+sudo apt update
+sudo apt install shutter
 
 ## bunch of programs
 sudo apt install \
@@ -67,7 +72,6 @@ sudo apt install \
     pinta \
     fonts-powerline \
     screen \
-    shutter \
     silversearcher-ag \
     smbclient \
     terminator \
@@ -116,6 +120,13 @@ sudo ln -s /opt/p4merge/bin/p4merge /usr/local/bin/p4merge
 ## unclutter
 Set `nograb` if scrolling doesn't work.
 sudo vim /etc/default/unclutter
+
+## tobii pip
+pip config set global.index-url https://artifactory.tobii.intra/artifactory/api/pypi/pypi-all/simple
+pip config set global.trusted-host artifactory.tobii.intra
+
+## tobii azure cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ## tobii certificate
 wget --no-check-certificate https://artifactory.tobii.intra/artifactory/tt-toolchains/certs/Tobii-CA-ROOT-SHA256-current.cer
