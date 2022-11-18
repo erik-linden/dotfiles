@@ -168,9 +168,6 @@ exec --no-startup-id xfce4-power-manager
 # wallpaper
 exec --no-startup-id feh --bg-fill ~/Pictures/nasa-53884-unsplash.jpg
 
-# dropbox
-exec --no-startup-id dropbox start
-
 # turn numlock on
 exec --no-startup-id numlockx on
 
