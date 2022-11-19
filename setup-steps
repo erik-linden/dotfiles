@@ -41,11 +41,6 @@ sudo apt install git
 cd /usr/share/doc/git/contrib/diff-highlight/
 sudo make
 
-## shutter
-sudo add-apt-repository ppa:shutter
-sudo apt update
-sudo apt install shutter
-
 ## bunch of programs
 sudo apt install \
     arandr \
@@ -72,6 +67,7 @@ sudo apt install \
     pinta \
     fonts-powerline \
     screen \
+    shutter \
     silversearcher-ag \
     smbclient \
     terminator \
