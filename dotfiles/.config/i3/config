@@ -152,11 +152,8 @@ bar {
     tray_output primary
 }
 
-# dual screens
-exec --no-startup-id xrandr --output eDP-1-1 --auto --pos 0x512 --output HDMI-1-1 --primary --auto --pos 1920x0
-
 # need this to auto-connect to wifi
-exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet --indicator
 
 # bluetooth
 exec --no-startup-id blueman-applet
