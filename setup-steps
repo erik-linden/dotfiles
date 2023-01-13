@@ -11,9 +11,10 @@ rm cuda-keyring-1.0-1_all.deb
 ## conda
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
+rm Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-conda install mamba scipy matplotlib imageio ipython flake8 pylint autopep8 black sympy pandas tqdm rich powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
+conda install scipy matplotlib pandas sympy imageio ipython rich flake8 pylint autopep8 black powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
 
 Useful tools + vim ALE/YCM + powerline
 
@@ -22,7 +23,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt update
 sudo apt install google-chrome-stable
-rm google-chrome-stable_current_amd64
+rm google-chrome-stable_current_amd64.deb
 
 ## fish
 sudo apt-add-repository ppa:fish-shell/release-3
@@ -104,6 +105,13 @@ sudo snap install spotify
 
 ## uninstall dunsts, notifier installed by i3
 sudo apt purge dunst
+
+## dotfiles
+mkdir projects
+cd projects
+git clone https://github.com/erik-linden/dotfiles.git
+cd dotfiles
+./copy_to_home.py
 
 ## ssh
 Add keys to ~/.ssh/

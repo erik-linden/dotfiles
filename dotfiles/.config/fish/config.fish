@@ -5,7 +5,9 @@ set fish_greeting
 set -x NO_AT_BRIDGE 1
 
 # remap the section key (left of '1') to '~'
-xmodmap -e 'keycode 49 = asciitilde'
+if test $DISPLAY
+    xmodmap -e 'keycode 49 = asciitilde'
+end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
