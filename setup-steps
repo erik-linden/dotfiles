@@ -1,7 +1,16 @@
+## nvidia
+Follow https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+sudo apt remove --purge nvidia*
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-<distro>-keyring.gpg
+sudo dpkg -i cuda-keyring_1.0-1_all.deb
+sudo apt-key del 7fa2af80
+sudo apt update
+sudo apt install cuda
+rm cuda-keyring-1.0-1_all.deb
+
 ## conda
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod +x Miniconda3-latest-Linux-x86_64.sh
-./Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
 conda install mamba scipy matplotlib imageio ipython flake8 pylint autopep8 black sympy pandas tqdm rich powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
@@ -9,10 +18,11 @@ conda install mamba scipy matplotlib imageio ipython flake8 pylint autopep8 blac
 Useful tools + vim ALE/YCM + powerline
 
 ## chrome
-Download from chrome site.
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt-get update
-sudo apt-get install google-chrome-stable
+sudo apt update
+sudo apt install google-chrome-stable
+rm google-chrome-stable_current_amd64
 
 ## fish
 sudo apt-add-repository ppa:fish-shell/release-3
@@ -38,8 +48,17 @@ sudo add-apt-repository ppa:git-core/ppa
 sudo apt update
 sudo apt install git
 
+## git diff highlighting
 cd /usr/share/doc/git/contrib/diff-highlight/
 sudo make
+cd ~
+
+## bazel
+curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+sudo apt update
+sudo apt install bazel
 
 ## bunch of programs
 sudo apt install \
@@ -79,6 +98,10 @@ sudo apt install \
     xfce4-notifyd \
     xfce4-power-manager
 
+# some programs are only in snap
+sudo snap install pycharm-professional --classic
+sudo snap install spotify
+
 ## uninstall dunsts, notifier installed by i3
 sudo apt purge dunst
 
@@ -87,16 +110,11 @@ Add keys to ~/.ssh/
 If server, add public key to ~/.ssh/authorized_keys
 
 ## pycharm
-https://www.jetbrains.com/pycharm/download
 https://confluence.tobii.intra/display/PTOOL/PyCharm
 
 ## more inotify watchers for PyCharms
 sudo vim /etc/sysctl.d/60-jetbrains.conf
 paste https://gist.github.com/bittner/c7d1d49fe0c9af907f24
-
-## spotify
-Use Debian package
-https://www.spotify.com/se/download/linux/
 
 ## i3
 Nautilus will try to manage desktop icons, and then crash things. Google for
@@ -125,9 +143,9 @@ pip config set global.trusted-host artifactory.tobii.intra
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ## tobii certificate
-wget --no-check-certificate https://artifactory.tobii.intra/artifactory/tt-toolchains/certs/Tobii-CA-ROOT-SHA256-current.cer
-sudo cp Tobii-CA-ROOT-SHA256-current.cer /usr/local/share/ca-certificates/
-sudo dpkg-reconfigure ca-certificates
+wget --no-check-certificate https://artifactory.tobii.intra/artifactory/tt-toolchains/certs/Tobii-CA-ROOT-SHA256-current.crt
+sudo cp Tobii-CA-ROOT-SHA256-current.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
 chrome->settings->manage_certificates->authorities->import
 
 ## algobox

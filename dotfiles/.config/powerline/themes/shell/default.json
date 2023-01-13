@@ -1,5 +1,4 @@
 {
-    "default_module": "powerline.segments.common",
     "cursor_columns": 80,
     "cursor_space": 0,
     "segments": {
