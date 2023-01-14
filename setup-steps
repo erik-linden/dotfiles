@@ -114,8 +114,8 @@ cd dotfiles
 ./copy_to_home.py
 
 ## ssh
-Add keys to ~/.ssh/
-If server, add public key to ~/.ssh/authorized_keys
+sync -avh elin@sews20235:/home/elin/.ssh/id_rsa* ~/.ssh/
+If server: cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 ## pycharm
 https://confluence.tobii.intra/display/PTOOL/PyCharm
@@ -132,12 +132,18 @@ gnome settings to disable it.
 Disable screen turning off -> xfce4-power-manager-settings
 Enable "Handle screen brightness keys"
 
+## fiji
+wget https://downloads.imagej.net/fiji/latest/fiji-linux64.zip
+unzip fiji-linux64.zip
+rm fiji-linux64.zip
+
 ## p4merge
-Download from perforce site.
-gunzip p4v.tgz
+wget https://www.perforce.com/downloads/perforce/r22.3/bin.linux26x86_64/p4v.tgz
+tar -zxvf p4v.tgz
 sudo mkdir /opt/p4merge
 sudo mv p4v-2020.2.1999419/* /opt/p4merge/
 sudo ln -s /opt/p4merge/bin/p4merge /usr/local/bin/p4merge
+rm -r p4v*
 
 ## unclutter
 Set `nograb` if scrolling doesn't work.
