@@ -115,9 +115,9 @@ let g:ale_python_black_executable = '/home/tobii.intra/elin/miniconda3/bin/black
 let g:ale_python_flake8_executable ='/home/tobii.intra/elin/miniconda3/bin/flake8'
 
 " Error highlight
-let g:ale_set_highlights = 1
-highlight ALEError cterm=underline
-highlight ALEWarning cterm=underline
+let g:ale_virtualtext_cursor = 'disabled'
+highlight ALEError cterm = underline
+highlight ALEWarning cterm = underline
 
 " Python syntax checking
 let g:ale_python_autopep8_options = '--max-line-length=120'
@@ -126,8 +126,6 @@ let g:ale_python_flake8_options = '--max-line-length=120, --extend-ignore=E203,W
 let g:ale_python_pylint_options = '
             \ --init-hook="import sys; sys.path.insert(0,\"' . getcwd()  . '\")"
             \ --max-line-length=120
-            \ -d bad-continuation
-            \ -d bad-whitespace
             \ -d missing-docstring
             \ -d too-few-public-methods
             \ -d too-many-instance-attributes
