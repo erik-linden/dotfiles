@@ -1,7 +1,7 @@
 ## nvidia
 Follow https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
 sudo apt remove --purge nvidia*
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-<distro>-keyring.gpg
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
 sudo apt-key del 7fa2af80
 sudo apt update
@@ -93,7 +93,7 @@ sudo apt install \
     terminator \
     tmux \
     tree \
-    unclutter \
+    unclutter-xfixes \
     v4l-utils \
     vlc \
     xfce4-notifyd \
@@ -145,9 +145,9 @@ sudo mv p4v-2020.2.1999419/* /opt/p4merge/
 sudo ln -s /opt/p4merge/bin/p4merge /usr/local/bin/p4merge
 rm -r p4v*
 
-## unclutter
-Set `nograb` if scrolling doesn't work.
+# unclutter
 sudo vim /etc/default/unclutter
+EXTRA_OPTS="-idle 1 -root --ignore-scrolling"
 
 ## tobii pip
 pip config set global.index-url https://artifactory.tobii.intra/artifactory/api/pypi/pypi-all/simple
