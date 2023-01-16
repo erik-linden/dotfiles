@@ -27,13 +27,13 @@ wireless _first_ {
 }
 
 ethernet _first_ {
-    format_up = "<span fallback='true'>🖧</span> %ip (%speed)"
+    format_up = "🖧 %ip (%speed)"
     format_down = ""
 }
 
 battery all {
     format = "%status %percentage %remaining (%consumption)"
-    format_down = "No battery"
+    format_down = ""
     status_chr = "🗲 CHR"
     status_bat = "🔋 BAT"
     status_full = "🔌 FULL"
@@ -49,6 +49,7 @@ path_exists VPN {
     # path exists when a VPN tunnel launched by nmcli/nm-applet is active
     path = "/proc/sys/net/ipv4/conf/ppp0"
     format = "VPN"
+    format_down = ""
 }
 
 tztime local {

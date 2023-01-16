@@ -1,6 +1,9 @@
 # empty greeting
 set fish_greeting
 
+# default editor
+set -gx EDITOR vim
+
 # https://unix.stackexchange.com/questions/230238/starting-x-applications-from-the-terminal-and-the-warnings-that-follow
 set -x NO_AT_BRIDGE 1
 
