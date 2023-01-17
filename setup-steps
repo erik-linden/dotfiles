@@ -1,3 +1,9 @@
+## fstab
+mkdir ~/storage
+find block ID of partition (not drive)
+modify /etc/fstab to add new drive
+mount ~/storage
+
 ## nvidia
 Follow https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
 sudo apt remove --purge nvidia*
@@ -14,7 +20,7 @@ bash Miniconda3-latest-Linux-x86_64.sh
 rm Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-    conda install \
+conda install \
     scipy \
     matplotlib \
     pandas \
