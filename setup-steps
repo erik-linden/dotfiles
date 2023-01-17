@@ -14,7 +14,24 @@ bash Miniconda3-latest-Linux-x86_64.sh
 rm Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
-conda install scipy matplotlib pandas sympy imageio ipython rich flake8 pylint autopep8 black powerline-status pygit2 -c pytorch -c nvidia -c conda-forge -c default
+    conda install \
+    scipy \
+    matplotlib \
+    pandas \
+    sympy \
+    imageio \
+    ipython \
+    rich \
+    flake8 \
+    pylint \
+    autopep8 \
+    black \
+    powerline-status \
+    pygit2 \
+    -c pytorch \
+    -c nvidia \
+    -c conda-forge \
+    -c default
 
 Useful tools + vim ALE/YCM + powerline
 
@@ -114,8 +131,11 @@ cd dotfiles
 ./copy_to_home.py
 
 ## ssh
-sync -avh elin@sews20235:/home/elin/.ssh/id_rsa* ~/.ssh/
+sync -avh elin@sews20238:/home/elin/.ssh/id_rsa* ~/.ssh/
 If server: cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+## fish history
+rsync -avh elin@sews20238:/home/elin/.local/share/fish/fish_history ~/.local/share/fish/fish_history
 
 ## pycharm
 https://confluence.tobii.intra/display/PTOOL/PyCharm
