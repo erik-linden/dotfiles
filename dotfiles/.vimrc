@@ -106,13 +106,13 @@ if $CONDA_PREFIX != ""
     let g:ycm_python_interpreter_path = $CONDA_PREFIX . '/bin/python'
     let g:ale_python_pylint_executable = $CONDA_PREFIX . '/bin/pylint'
 else
-    let g:ycm_python_interpreter_path = '/home/tobii.intra/elin/miniconda3/bin/python'
+    let g:ycm_python_interpreter_path = '/home/elin/miniconda3/bin/python'
 endif
 let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
-let g:ale_python_autopep8_executable = '/home/tobii.intra/elin/miniconda3/bin/autopep8'
-let g:ale_python_black_executable = '/home/tobii.intra/elin/miniconda3/bin/black'
-let g:ale_python_flake8_executable ='/home/tobii.intra/elin/miniconda3/bin/flake8'
+let g:ale_python_autopep8_executable = '/home/elin/miniconda3/bin/autopep8'
+let g:ale_python_black_executable = '/home/elin/miniconda3/bin/black'
+let g:ale_python_flake8_executable ='/home/elin/miniconda3/bin/flake8'
 
 " Error highlight
 let g:ale_virtualtext_cursor = 'disabled'
