@@ -152,6 +152,9 @@ bar {
     tray_output primary
 }
 
+# GNOME theme sync, https://www.reddit.com/r/i3wm/comments/kiy0v0/i3_and_system_default_lightdark_theme_settings/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+exec --no-startup-id /usr/libexec/gsd-xsettings
+
 # need this to auto-connect to wifi
 exec --no-startup-id nm-applet --indicator
 

@@ -95,6 +95,7 @@ sudo apt install \
     feh \
     ffmpeg \
     gimp \
+    gnome-tweaks \
     htop \
     i3 \
     i3lock \

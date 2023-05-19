@@ -49,7 +49,6 @@ path_exists VPN {
     # path exists when a VPN tunnel launched by nmcli/nm-applet is active
     path = "/proc/sys/net/ipv4/conf/ppp0"
     format = "VPN"
-    format_down = ""
 }
 
 tztime local {
