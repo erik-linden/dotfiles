@@ -15,14 +15,14 @@ order += "load"
 order += "tztime local"
 
 volume master {
-    format = " %volume"
-    format_muted = " (%volume)"
+    format = "🕪 %volume"
+    format_muted = "🕨 (%volume)"
     device = "sysdefault"
     mixer = "Master"
 }
 
 wireless _first_ {
-    format_up = " %ip (%essid at%quality - %bitrate / %frequency)"
+    format_up = "⍑ %ip (%essid at%quality - %bitrate / %frequency)"
     format_down = ""
 }
 
@@ -56,9 +56,9 @@ tztime local {
 }
 
 load {
-    format = " %1min"
+    format = "⏭ %1min"
 }
 
 disk "/" {
-    format = " %avail"
+    format = "⛃ %avail"
 }
