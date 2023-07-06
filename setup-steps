@@ -5,7 +5,7 @@ modify /etc/fstab to add new drive
 mount ~/storage
 
 ## nvidia
-Follow https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+# https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
 sudo apt remove --purge nvidia*
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
@@ -56,6 +56,15 @@ sudo apt install fish
 We can't set the default shell with `chsh`, since we are using LDAP.
 But the dotfiles should enable fish in Terminator and tmux.
 
+## i3
+# https://i3wm.org/docs/repositories.html
+/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
+sudo apt install ./keyring.deb
+echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
+rm keyring.deb
+sudo apt update
+sudo apt install i3 i3lock
+
 ## vim, vim-gtk needed for X11 clipboard
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt update
@@ -88,6 +97,7 @@ sudo apt install bazel
 sudo apt install \
     arandr \
     blueman \
+    btop \
     cifs-utils \
     cmake \
     curl \
@@ -97,8 +107,6 @@ sudo apt install \
     gimp \
     gnome-tweaks \
     htop \
-    i3 \
-    i3lock \
     inkscape \
     keepass2 \
     krita \
