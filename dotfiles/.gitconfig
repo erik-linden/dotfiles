@@ -30,6 +30,7 @@
 	diffFilter = /usr/share/doc/git/contrib/diff-highlight/diff-highlight
 [push]
 	default = simple
+	autoSetupRemote = true
 [pull]
 	ff = only
 [merge]
