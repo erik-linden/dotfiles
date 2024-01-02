@@ -146,7 +146,7 @@ cd dotfiles
 ./copy_to_home.py
 
 ## ssh
-sync -avh elin@sews20238:/home/elin/.ssh/id_rsa* ~/.ssh/
+rsync -avh elin@sews20238:/home/elin/.ssh/id_rsa* ~/.ssh/
 If server: cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 ## fish history
