@@ -7,12 +7,11 @@ mount ~/storage
 ## nvidia
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
 sudo apt remove --purge nvidia*
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
-sudo dpkg -i cuda-keyring_1.0-1_all.deb
-sudo apt-key del 7fa2af80
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt update
 sudo apt install cuda
-rm cuda-keyring-1.0-1_all.deb
+rm cuda-keyring-1.1-1_all.deb
 
 ## conda
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
