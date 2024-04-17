@@ -36,7 +36,7 @@ conda install \
     -c pytorch \
     -c nvidia \
     -c conda-forge \
-    -c default
+    -c defaults
 
 Useful tools + vim ALE/YCM + powerline
 
