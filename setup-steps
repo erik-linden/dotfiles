@@ -27,7 +27,6 @@ conda install \
     ipython \
     matplotlib \
     pandas \
-    poetry \
     powerline-status \
     pygit2 \
     pylint \
