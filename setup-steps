@@ -20,19 +20,20 @@ rm Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
 conda install \
-    scipy \
-    matplotlib \
-    pandas \
-    sympy \
-    imageio \
-    ipython \
-    rich \
-    flake8 \
-    pylint \
     autopep8 \
     black \
+    flake8 \
+    imageio \
+    ipython \
+    matplotlib \
+    pandas \
+    poetry \
     powerline-status \
     pygit2 \
+    pylint \
+    rich \
+    scipy \
+    sympy \
     -c pytorch \
     -c nvidia \
     -c conda-forge \
