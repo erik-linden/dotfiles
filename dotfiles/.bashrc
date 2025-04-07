@@ -116,8 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/elin/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -133,10 +131,8 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# enable powerline in bash
-if [ -f `which powerline-daemon` ]; then
-  powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-  . ~/miniconda3/lib/python3.10/site-packages/powerline/bindings/bash/powerline.sh
-fi
+# Set up fzf key bindings
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Set up starship prompt
+eval "$(starship init bash)"

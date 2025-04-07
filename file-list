@@ -1,4 +1,5 @@
 .bashrc
+.condarc
 .config/black
 .config/fish/config.fish
 .config/fish/functions/fish_mode_prompt.fish
@@ -7,10 +8,6 @@
 .config/htop/htoprc
 .config/i3/config
 .config/i3status/config
-.config/powerline/colorschemes/shell/default.json
-.config/powerline/config.json
-.config/powerline/themes/shell/default.json
-.config/powerline/themes/vim/default.json
 .config/terminator/config
 .gitconfig
 .inputrc

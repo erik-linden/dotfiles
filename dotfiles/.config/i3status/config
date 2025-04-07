@@ -1,3 +1,11 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
 general {
     output_format = "i3bar"
     colors = true
@@ -7,23 +15,30 @@ general {
 
 order += "disk /"
 order += "volume master"
-order += "path_exists VPN"
+order += "run_watch VPN"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery all"
 order += "load"
+order += "memory"
 order += "tztime local"
+
+disk "/" {
+    format = "⛃ %avail"
+}
 
 volume master {
     format = "🕪 %volume"
-    format_muted = "🕨 (%volume)"
+    format_muted = "🕨 %volume"
     device = "sysdefault"
     mixer = "Master"
 }
 
 wireless _first_ {
-    format_up = "⍑ %ip (%essid at%quality - %bitrate / %frequency)"
+    format_up = "⍑ %ip %essid %frequency %quality %bitrate"
     format_down = ""
+    format_quality = "%3d%s"
+    format_bitrate = "%3.0f %cb/s"
 }
 
 ethernet _first_ {
@@ -32,7 +47,7 @@ ethernet _first_ {
 }
 
 battery all {
-    format = "%status %percentage %remaining (%consumption)"
+    format = "%status %percentage %remaining"
     format_down = ""
     status_chr = "🗲 CHR"
     status_bat = "🔋 BAT"
@@ -45,20 +60,22 @@ battery all {
     low_threshold = 30
 }
 
-path_exists VPN {
+run_watch VPN {
     # path exists when a VPN tunnel launched by nmcli/nm-applet is active
-    path = "/proc/sys/net/ipv4/conf/ppp0"
+    pidfile = "/var/run/forticlient/sslvpn.pid"
     format = "VPN"
-}
-
-tztime local {
-    format = "%Y-%m-%d %H:%M:%S"
 }
 
 load {
     format = "⏭ %1min"
 }
 
-disk "/" {
-    format = "⛃ %avail"
+memory {
+    format = "%used / %available"
+    threshold_degraded = "1G"
+    format_degraded = "MEMORY<%available"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
 }

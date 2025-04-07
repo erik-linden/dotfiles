@@ -4,8 +4,6 @@ function fish_user_key_bindings
     # Use jj and jk as escape keys
     bind -M insert jj fish_escape
     bind -M insert jk fish_escape
-
-    fzf_key_bindings
 end
 
 function fish_escape
