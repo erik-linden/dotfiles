@@ -9,7 +9,7 @@
 general {
     output_format = "i3bar"
     colors = true
-    interval = 1
+    interval = 2
     markup = "pango"
 }
 
@@ -35,7 +35,7 @@ volume master {
 }
 
 wireless _first_ {
-    format_up = "⍑ %ip %essid %frequency %quality %bitrate"
+    format_up = "  %ip %essid %frequency %quality %bitrate"
     format_down = ""
     format_quality = "%3d%s"
     format_bitrate = "%3.0f %cb/s"
@@ -49,9 +49,9 @@ ethernet _first_ {
 battery all {
     format = "%status %percentage %remaining"
     format_down = ""
-    status_chr = "🗲 CHR"
-    status_bat = "🔋 BAT"
-    status_full = "🔌 FULL"
+    status_chr = "󱊥"
+    status_bat = "󱊢"
+    status_full = ""
     path = "/sys/class/power_supply/BAT%d/uevent"
     last_full_capacity = true
     integer_battery_capacity = true
@@ -61,13 +61,12 @@ battery all {
 }
 
 run_watch VPN {
-    # path exists when a VPN tunnel launched by nmcli/nm-applet is active
     pidfile = "/var/run/forticlient/sslvpn.pid"
     format = "VPN"
 }
 
 load {
-    format = "⏭ %1min"
+    format = "󰓅 %1min"
 }
 
 memory {

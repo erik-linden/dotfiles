@@ -2,6 +2,8 @@
 [keybindings]
 [profiles]
   [[default]]
+    cursor_color = "#aaaaaa"
+    font = JetBrainsMono Nerd Font 11
     show_titlebar = False
     scrollbar_position = hidden
     scrollback_infinite = True
