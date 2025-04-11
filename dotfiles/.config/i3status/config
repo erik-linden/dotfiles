@@ -8,8 +8,6 @@
 
 general {
     output_format = "i3bar"
-    colors = true
-    interval = 2
     markup = "pango"
 }
 
@@ -24,14 +22,13 @@ order += "memory"
 order += "tztime local"
 
 disk "/" {
-    format = "⛃ %avail"
+    format = " %avail"
 }
 
 volume master {
-    format = "🕪 %volume"
-    format_muted = "🕨 %volume"
-    device = "sysdefault"
-    mixer = "Master"
+    format = "  %volume"
+    format_muted = "  %volume"
+    device = "pulse"
 }
 
 wireless _first_ {
@@ -42,7 +39,7 @@ wireless _first_ {
 }
 
 ethernet _first_ {
-    format_up = "🖧 %ip (%speed)"
+    format_up = "  %ip %speed"
     format_down = ""
 }
 
@@ -71,9 +68,8 @@ load {
 }
 
 memory {
-    format = "%used / %available"
+    format = "%available"
     threshold_degraded = "1G"
-    format_degraded = "MEMORY<%available"
 }
 
 tztime local {

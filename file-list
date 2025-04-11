@@ -5,7 +5,6 @@
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_user_key_bindings.fish
 .config/fish/functions/up-or-search.fish
-.config/htop/htoprc
 .config/i3/config
 .config/i3status/config
 .config/terminator/config
