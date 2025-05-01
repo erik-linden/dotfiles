@@ -32,10 +32,10 @@ volume master {
 }
 
 wireless _first_ {
-    format_up = "  %ip %essid %frequency %quality %bitrate"
+    format_up = "  %quality %essid %frequency %ip %bitrate"
     format_down = ""
-    format_quality = "%3d%s"
-    format_bitrate = "%3.0f %cb/s"
+    format_quality = "%2d%s"
+    format_bitrate = "%3.0f %cbit/s"
 }
 
 ethernet _first_ {
@@ -50,9 +50,9 @@ battery all {
     status_bat = "󱊢"
     status_full = ""
     status_idle = "󰒲"
+    format_percentage = "%3.f%s"
     path = "/sys/class/power_supply/BAT%d/uevent"
     last_full_capacity = true
-    integer_battery_capacity = true
     hide_seconds = true
     threshold_type = percentage
     low_threshold = 30
@@ -73,5 +73,5 @@ memory {
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+    format = "%Y-%m-%d %H:%M:%S"
 }

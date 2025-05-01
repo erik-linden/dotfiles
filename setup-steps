@@ -14,31 +14,26 @@ sudo apt install cuda
 rm cuda-keyring-1.1-1_all.deb
 
 ## conda
+# TODO: Change to miniforge
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 rm Miniconda3-latest-Linux-x86_64.sh
 
 ## python packages
 conda install \
-    autopep8 \
-    black \
-    flake8 \
     imageio \
     ipython \
     matplotlib \
     pandas \
-    powerline-status \
     pygit2 \
-    pylint \
     rich \
+    ruff \
     scipy \
     sympy \
-    -c pytorch \
-    -c nvidia \
     -c conda-forge \
-    -c defaults
+    -c nodefaults
 
-Useful tools + vim ALE/YCM + powerline
+Useful tools + vim ALE/YCM
 
 ## chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -116,7 +111,7 @@ sudo apt install \
     openssh-server \
     pavucontrol \
     pinta \
-    fonts-powerline \
+    rofi \
     screen \
     shutter \
     silversearcher-ag \
@@ -130,12 +125,13 @@ sudo apt install \
     xfce4-notifyd \
     xfce4-power-manager
 
-# some programs are only in snap
-sudo snap install pycharm-professional --classic
-sudo snap install spotify
+# install pycharm
 
-## uninstall dunsts, notifier installed by i3
-sudo apt purge dunst
+# install spotify
+
+# install JetBrains Mono from Nerd Fonts
+
+# install Starship prompt
 
 ## dotfiles
 mkdir projects
@@ -150,9 +146,6 @@ If server: cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 ## fish history
 rsync -avh elin@sews20238:/home/elin/.local/share/fish/fish_history ~/.local/share/fish/fish_history
-
-## pycharm
-https://confluence.tobii.intra/display/PTOOL/PyCharm
 
 ## more inotify watchers for PyCharms
 sudo vim /etc/sysctl.d/60-jetbrains.conf

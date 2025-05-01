@@ -6,7 +6,12 @@
 .config/fish/functions/fish_user_key_bindings.fish
 .config/fish/functions/up-or-search.fish
 .config/i3/config
+.config/i3/scripts/display-daemon.sh
+.config/i3/scripts/keyboard-daemon.sh
+.config/i3/scripts/toggle-touchpad.sh
 .config/i3status/config
+.config/rofi/config.rasi
+.config/ruff/pyproject.toml
 .config/terminator/config
 .gitconfig
 .inputrc
