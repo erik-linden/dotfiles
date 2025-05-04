@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
-# Ensure only one instance of the script is running
-if pidof -o %PPID -x "$(basename "$0")" >/dev/null; then
-    echo "Script is already running. Exiting."
-    exit 1
-fi
+while true; do
+    # Give the x-server time to start
+    sleep 3
 
-# Start monitoring for new input devices
-udevadm monitor --subsystem-match=input --property | awk '
-    BEGIN { RS = ""; FS = "\n" }
-    /ACTION=add/ && /ID_INPUT_KEYBOARD=1/ {
-        system("setxkbmap -option ctrl:nocaps")
-    }
-'
+    # Check it caps lock (0x42) is already set to control
+    if [ -z "$(xmodmap | grep "Control_L (0x42)")" ]; then
+
+        # Set caps lock to control
+        setxkbmap -option ctrl:nocaps
+
+        # Set the § key to be a tilde
+        xmodmap -e "keycode 49 = asciitilde"
+    fi
+done
