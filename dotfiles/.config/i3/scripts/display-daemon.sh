@@ -1,5 +1,34 @@
 #!/usr/bin/env bash
 
+# Define the lock file
+LOCKFILE="/tmp/display-daemon.lock"
+
+# Ensure only one instance of the script is running
+if [ -f "$LOCKFILE" ]; then
+    # Check if the process in the lock file is still running
+    if kill -0 "$(cat "$LOCKFILE")" 2>/dev/null; then
+        echo "Script is already running. Exiting."
+        exit 1
+    else
+        # Remove stale lock file
+        echo "Removing stale lock file."
+        rm -f "$LOCKFILE"
+    fi
+fi
+
+# Write the current process ID to the lock file
+echo $$ > "$LOCKFILE"
+
+# Function to handle termination signals
+cleanup() {
+    echo "Display daemon shutting down..."
+    rm -f "$LOCKFILE"  # Remove the lock file on exit
+    exit 0
+}
+
+# Trap SIGINT (Ctrl+C) and SIGTERM (kill command) signals
+trap cleanup SIGINT SIGTERM
+
 # Check if we are a laptop with a lid
 if [ -f /proc/acpi/button/lid/LID0/state ]; then
     hasLid=true
@@ -60,8 +89,9 @@ while true; do
     # Count active outputs
     activeCount=$(grep "enabled" <<< "$connectedOutputs" | wc -l)
 
-    # If there are no active outputs, activate all connected outputs
-    if [ "$activeCount" -eq 0 ]; then
+    # If there are no active outputs, or if we are turning off
+    # the internal output, activate all connected outputs
+    if [ "$activeCount" -eq 0 ] || [ -n "$internalOutput" ]; then
         previous=""
         while read -r output; do
             xCommand+=$(awk '{print "--output " $2 " --mode " $1 " "}' <<< "$output")
@@ -75,16 +105,13 @@ while true; do
     fi
 
     # Turn off the internal output if needed
-    if [ "$internalOutput" ]; then
-        if [ -z "$xCommand" ] && [ "$internalOutput" == *"primary"* ]; then
-            activeOutput=$(grep "enabled" <<< "$connectedOutputs" | head -1)
-            xCommand+=$(awk '{print "--output " $2 " --primary "}' <<< "$activeOutput")
-        fi
+    if [ -n "$internalOutput" ]; then
         xCommand+=$(awk '{print "--output " $2 " --off "}' <<< "$internalOutput)")
     fi
 
     # Run the command if it is not empty
     if [ -n "$xCommand" ]; then
+        echo "Running xrandr command: xrandr $xCommand"
         xrandr $xCommand
     fi
 done
