@@ -68,18 +68,27 @@ while true; do
         }
     }' <<< $xStatus | sort -r)
 
-    # If internalOutput is set after this, it should be turned off
-    internalOutput=""
+    # Outputs that are disconnected but still enabled,
+    # these should be turned off
+    disconnectedOutputs=$(awk '
+    / disconnected .*[0-9]+x[0-9]+/ {
+        print $1
+    }' <<< $xStatus)
+
+    # Laptop lid handling
     if $hasLid; then
-        lidState=$(awk '{print $2}' /proc/acpi/button/lid/LID0/state)
-        internalOutput=$(grep -E '(eDP|eDP-[0-9]+|LVDS|LVDS-[0-9]+)' <<< "$connectedOutputs")
-        # If the lid is closed and there are external outputs,
-        # don't count the internal output as connected (it should be off)
-        if [ "$lidState" == "closed" ] && [ "$internalOutput" != "$connectedOutputs" ]; then
-            connectedOutputs=$(grep -v "$internalOutput" <<< "$connectedOutputs")
-            internalOutput=$(grep "enabled" <<< "$internalOutput")
-        else
-            internalOutput=""
+        # Check if the lid is closed
+        if [ $(awk '{print $2}' /proc/acpi/button/lid/LID0/state) == "closed" ]; then
+            # Look for the common names for internal outputs
+            internalOutput=$(grep -E '(eDP|eDP-[0-9]+|LVDS|LVDS-[0-9]+)' <<< "$connectedOutputs")
+            # Check if there are more outputs than the internal output
+            if [ "$internalOutput" != "$connectedOutputs" ]; then
+                # Remove the internal output from the connected outputs
+                connectedOutputs=$(grep -v "$internalOutput" <<< "$connectedOutputs")
+                # Add the internal output to the list of outputs to turn off
+                internalOutput=$(grep "enabled" <<< "$internalOutput" | awk '{print $2}' )
+                disconnectedOutputs=$(awk 'NF' <<< "${disconnectedOutputs}"$'\n'"${internalOutput}")
+            fi
         fi
     fi
 
@@ -89,9 +98,9 @@ while true; do
     # Count active outputs
     activeCount=$(grep "enabled" <<< "$connectedOutputs" | wc -l)
 
-    # If there are no active outputs, or if we are turning off
-    # the internal output, activate all connected outputs
-    if [ "$activeCount" -eq 0 ] || [ -n "$internalOutput" ]; then
+    # If there are no active outputs, or if we are turning
+    # some outputs off, activate all connected outputs
+    if [ "$activeCount" -eq 0 ] || [ -n "$disconnectedOutputs" ]; then
         previous=""
         while read -r output; do
             xCommand+=$(awk '{print "--output " $2 " --mode " $1 " "}' <<< "$output")
@@ -104,9 +113,9 @@ while true; do
         done  <<< "$connectedOutputs"
     fi
 
-    # Turn off the internal output if needed
-    if [ -n "$internalOutput" ]; then
-        xCommand+=$(awk '{print "--output " $2 " --off "}' <<< "$internalOutput)")
+    # Turn off disconnected outputs
+    if [ -n "$disconnectedOutputs" ]; then
+        xCommand+=$(awk '{print "--output " $1 " --off "}' <<< "$disconnectedOutputs")
     fi
 
     # Run the command if it is not empty

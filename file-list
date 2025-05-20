@@ -1,6 +1,7 @@
 .bashrc
 .condarc
 .config/black
+.config/dunst/dunstrc
 .config/fish/config.fish
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_user_key_bindings.fish
@@ -18,4 +19,3 @@
 .tmux.conf
 .vim/ycm_global_extra_conf.py
 .vimrc
-toggle-touchpad.sh
