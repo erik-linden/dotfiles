@@ -1,13 +1,13 @@
 call plug#begin('~/.vim/plugged')
 
-" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'sainnhe/gruvbox-material'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-surround'
-Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 
 call plug#end()
 
@@ -18,9 +18,13 @@ syntax on                 " Syntax highlighting
 filetype plugin on        " Enable filetype plugins
 filetype indent on
 
-set t_Co=256              " More colors
-set background=dark       " Color scheme
-colorscheme gruvbox
+if has('termguicolors')   " Color scheme
+  set termguicolors
+endif
+set background=dark
+let g:gruvbox_material_background='hard'
+let g:gruvbox_material_better_performance=1
+colorscheme gruvbox-material
 hi SpellBad cterm=underline
 
 set autoread              " Automatically reload files

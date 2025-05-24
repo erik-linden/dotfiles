@@ -3,6 +3,7 @@
 .config/black
 .config/dunst/dunstrc
 .config/fish/config.fish
+.config/fish/fish_variables
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_user_key_bindings.fish
 .config/fish/functions/up-or-search.fish

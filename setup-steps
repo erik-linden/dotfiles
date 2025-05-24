@@ -111,6 +111,7 @@ sudo apt install \
     openssh-server \
     pavucontrol \
     pinta \
+    ranger \
     rofi \
     screen \
     shutter \
@@ -175,6 +176,9 @@ rm -r p4v*
 # unclutter
 sudo vim /etc/default/unclutter
 EXTRA_OPTS="-idle 1 -root --ignore-scrolling"
+
+## rust
+Download and run rustup
 
 ## tobii pip
 pip config set global.index-url https://artifactory.tobii.intra/artifactory/api/pypi/pypi-all/simple

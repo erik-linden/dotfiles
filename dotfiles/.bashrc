@@ -136,3 +136,6 @@ unset __conda_setup
 
 # Set up starship prompt
 eval "$(starship init bash)"
+
+# Installed by rustup
+. "$HOME/.cargo/env"
