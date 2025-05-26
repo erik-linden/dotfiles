@@ -10,6 +10,7 @@
     show_titlebar = False
     scrollbar_position = hidden
     scrollback_infinite = True
+    disable_mousewheel_zoom = True
     palette = "#32302f:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98:#32302f:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98"
     use_custom_command = True
     custom_command = fish

@@ -1,13 +1,14 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
+Plug 'ap/vim-css-color'
 Plug 'dense-analysis/ale'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
-" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 
 call plug#end()
 
@@ -61,10 +62,6 @@ set noswapfile
 set splitbelow            " More natural split opening
 set splitright
 
-" Fix something: https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
-let &t_TI = ""
-let &t_TE = ""
-
 " Comma as leader
 let mapleader = ","
 
@@ -92,11 +89,16 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Airline
+let g:airline_powerline_fonts = 1
+
 " fzf
 nnoremap <C-p> :Files<CR>
 
 " NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
+
+" YCM/ALE
 
 " Jump to definition and documentation
 nnoremap <F3> :YcmCompleter GoTo<CR>
@@ -108,42 +110,26 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " Hack to make YCM use any conda environment
 if $CONDA_PREFIX != ""
     let g:ycm_python_interpreter_path = $CONDA_PREFIX . '/bin/python'
-    let g:ale_python_pylint_executable = $CONDA_PREFIX . '/bin/pylint'
 else
     let g:ycm_python_interpreter_path = '/home/elin/miniconda3/bin/python'
 endif
 let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
-let g:ale_python_autopep8_executable = '/home/elin/miniconda3/bin/autopep8'
-let g:ale_python_black_executable = '/home/elin/miniconda3/bin/black'
-let g:ale_python_flake8_executable ='/home/elin/miniconda3/bin/flake8'
+let g:ale_python_ruff_executable ='/home/elin/miniconda3/bin/ruff'
 
 " Error highlight
 let g:ale_virtualtext_cursor = 'disabled'
 highlight ALEError cterm = underline
 highlight ALEWarning cterm = underline
 
-" Python syntax checking
-let g:ale_python_autopep8_options = '--max-line-length=120'
-let g:ale_python_black_options = '--line-length=120'
-let g:ale_python_flake8_options = '--max-line-length=120, --extend-ignore=E203,W503'
-let g:ale_python_pylint_options = '
-            \ --init-hook="import sys; sys.path.insert(0,\"' . getcwd()  . '\")"
-            \ --max-line-length=120
-            \ -d missing-docstring
-            \ -d too-few-public-methods
-            \ -d too-many-instance-attributes
-            \ -d too-many-locals
-            \ -d too-many-statements'
-
 " Decides what `ALEFix` defaults to
 let g:ale_fixers = {
             \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'python': ['black']
+            \ 'python': ['ruff', 'ruff_format']
             \ }
 
 " Delete whitespace errors on save
-:autocmd BufWritePost * ALEFix remove_trailing_lines trim_whitespace
+:autocmd BufWritePre * ALEFix remove_trailing_lines trim_whitespace
 
 " Python auto-formatting
 nnoremap <leader>f :ALEFix<CR>

@@ -1,3 +1,4 @@
+.Xresources
 .bashrc
 .condarc
 .config/black
@@ -14,6 +15,7 @@
 .config/i3status/config
 .config/rofi/config.rasi
 .config/ruff/pyproject.toml
+.config/starship.toml
 .config/terminator/config
 .gitconfig
 .inputrc

@@ -59,17 +59,6 @@ rm keyring.deb
 sudo apt update
 sudo apt install i3 i3lock
 
-## vim, vim-gtk needed for X11 clipboard
-sudo add-apt-repository ppa:jonathonf/vim
-sudo apt update
-sudo apt install vim vim-gtk3
-
-## vim plugins
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-Run PlugInstall in vim to install plugins listed in .vimrc
-
 ## git
 sudo add-apt-repository ppa:git-core/ppa
 sudo apt update
@@ -93,11 +82,13 @@ sudo apt install \
     blueman \
     btop \
     cifs-utils \
+    clang \
     cmake \
     curl \
     default-jdk \
     feh \
     ffmpeg \
+    font-manager \
     gimp \
     gnome-tweaks \
     htop \
@@ -105,6 +96,8 @@ sudo apt install \
     keepass2 \
     krita \
     libreoffice \
+    libtool-bin \
+    make \
     meld \
     ninja-build \
     numlockx \
@@ -126,13 +119,31 @@ sudo apt install \
     xfce4-notifyd \
     xfce4-power-manager
 
-# install pycharm
+## build and install vim from source
+git clone https://github.com/vim/vim.git
+cd vim/src
+sudo apt install libxt-dev  # Clipboard support
+sudo apt install libpython3-dev
+./configure --with-features=huge --enable-python3interp --enable-fail-if-missing --with-python3-command=/usr/bin/python3
+make
+sudo make install
 
-# install spotify
+## vim plugins
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# install JetBrains Mono from Nerd Fonts
+Run PlugInstall in vim to install plugins listed in .vimrc
 
-# install Starship prompt
+## install pycharm
+# Use the JetBrains toolbox
+
+## install JetBrains Mono from Nerd Fonts
+# Download from nerdfonts.com
+# Use FontManager, left top "Manage", add font
+# Use gnome-tweaks and set the monospaced font
+#  JetBrainsMono Nerd Font Regular 11
+
+## install Starship prompt
 
 ## dotfiles
 mkdir projects

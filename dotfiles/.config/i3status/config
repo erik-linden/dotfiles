@@ -9,6 +9,9 @@
 general {
     output_format = "i3bar"
     markup = "pango"
+    color_good = "#a9b665"
+    color_degraded = "#d8a657"
+    color_bad = "#ea6962"
 }
 
 order += "disk /"
