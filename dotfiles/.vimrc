@@ -122,6 +122,9 @@ let g:ale_virtualtext_cursor = 'disabled'
 highlight ALEError cterm = underline
 highlight ALEWarning cterm = underline
 
+" Which linters to run
+let g:ale_linters = {'python': ['ruff']}
+
 " Decides what `ALEFix` defaults to
 let g:ale_fixers = {
             \ '*': ['remove_trailing_lines', 'trim_whitespace'],

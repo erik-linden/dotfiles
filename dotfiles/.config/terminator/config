@@ -1,10 +1,12 @@
 [global_config]
   dbus = False
+  extra_styling = False
+  inactive_color_offset = 1.0
 [keybindings]
 [profiles]
   [[default]]
     background_color = "#1d2021"
-    cursor_color = "#aaaaaa"
+    cursor_color = "#d4be98"
     font = JetBrainsMono Nerd Font 11
     foreground_color = "#d4be98"
     show_titlebar = False

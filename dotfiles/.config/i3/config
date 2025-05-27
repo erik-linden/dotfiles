@@ -24,9 +24,10 @@ font pango:JetBrainsMono Nerd Font 11
 # Gruvbox Material Dark Hard
 # class                 border  backgr. text    indic.  child_border
 client.focused          #473c29 #473c29 #d4be98 #d8a657 #473c29
-client.focused_inactive #282828 #282828 #d4be98 #504945 #282828
+client.focused_inactive #282828 #282828 #d4be98 #d8a657 #282828
 client.unfocused        #141617 #141617 #d4be98 #282828 #141617
 client.urgent           #ea6962 #ea6962 #1d2021 #282828 #ea6962
+default_border pixel 5
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
