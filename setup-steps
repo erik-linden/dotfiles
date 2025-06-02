@@ -141,7 +141,8 @@ Run PlugInstall in vim to install plugins listed in .vimrc
 # Download from nerdfonts.com
 # Use FontManager, left top "Manage", add font
 # Use gnome-tweaks and set the monospaced font
-#  JetBrainsMono Nerd Font Regular 11
+#  JetBrainsMono Nerd Font Regular 10
+#  Enable subpixel (RBG) antialiasing
 
 ## install Starship prompt
 

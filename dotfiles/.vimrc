@@ -19,14 +19,11 @@ syntax on                 " Syntax highlighting
 filetype plugin on        " Enable filetype plugins
 filetype indent on
 
-if has('termguicolors')   " Color scheme
-  set termguicolors
-endif
+set termguicolors         " Color scheme
 set background=dark
 let g:gruvbox_material_background='hard'
 let g:gruvbox_material_better_performance=1
 colorscheme gruvbox-material
-hi SpellBad cterm=underline
 
 set autoread              " Automatically reload files
 set wildmenu              " Better command completion
@@ -38,6 +35,7 @@ set cursorline            " Highlight the current line
 set showmatch             " Highlight matching bracket pairs
 set scrolloff=1           " Always show at least one line above/below the cursor
 set spell                 " Spell checking
+hi SpellBad cterm=underline " Underline misspelled words
 
 set ignorecase            " Ignore case when searching
 set smartcase             " Case-sensitive if caps in query
@@ -127,9 +125,9 @@ let g:ale_linters = {'python': ['ruff']}
 
 " Decides what `ALEFix` defaults to
 let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'python': ['ruff', 'ruff_format']
-            \ }
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+        \ 'python': ['ruff', 'ruff_format']
+        \ }
 
 " Delete whitespace errors on save
 :autocmd BufWritePre * ALEFix remove_trailing_lines trim_whitespace

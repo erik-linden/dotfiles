@@ -2,18 +2,19 @@
   dbus = False
   extra_styling = False
   inactive_color_offset = 1.0
+  line_height = 1.2
 [keybindings]
 [profiles]
   [[default]]
     background_color = "#1d2021"
     cursor_color = "#d4be98"
-    font = JetBrainsMono Nerd Font 11
+    font = JetBrainsMono Nerd Font 10
     foreground_color = "#d4be98"
     show_titlebar = False
     scrollbar_position = hidden
     scrollback_infinite = True
     disable_mousewheel_zoom = True
-    palette = "#32302f:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98:#32302f:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98"
+    palette = "#928374:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98:#928374:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98"
     use_custom_command = True
     custom_command = fish
 [layouts]
