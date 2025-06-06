@@ -4,78 +4,6 @@ find block ID of partition (not drive)
 modify /etc/fstab to add new drive
 mount ~/storage
 
-## nvidia
-# https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
-sudo apt remove --purge nvidia*
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
-sudo dpkg -i cuda-keyring_1.1-1_all.deb
-sudo apt update
-sudo apt install cuda
-rm cuda-keyring-1.1-1_all.deb
-
-## conda
-# TODO: Change to miniforge
-wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
-rm Miniconda3-latest-Linux-x86_64.sh
-
-## python packages
-conda install \
-    imageio \
-    ipython \
-    matplotlib \
-    pandas \
-    pygit2 \
-    rich \
-    ruff \
-    scipy \
-    sympy \
-    -c conda-forge \
-    -c nodefaults
-
-Useful tools + vim ALE/YCM
-
-## chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt update
-sudo apt install google-chrome-stable
-rm google-chrome-stable_current_amd64.deb
-
-## fish
-sudo apt-add-repository ppa:fish-shell/release-3
-sudo apt update
-sudo apt install fish
-
-We can't set the default shell with `chsh`, since we are using LDAP.
-But the dotfiles should enable fish in Terminator and tmux.
-
-## i3
-# https://i3wm.org/docs/repositories.html
-/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
-sudo apt install ./keyring.deb
-echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
-rm keyring.deb
-sudo apt update
-sudo apt install i3 i3lock
-
-## git
-sudo add-apt-repository ppa:git-core/ppa
-sudo apt update
-sudo apt install git
-
-## git diff highlighting
-cd /usr/share/doc/git/contrib/diff-highlight/
-sudo make
-cd ~
-
-## bazel
-curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
-sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
-sudo apt update
-sudo apt install bazel
-
 ## bunch of programs
 sudo apt install \
     arandr \
@@ -119,6 +47,35 @@ sudo apt install \
     xfce4-notifyd \
     xfce4-power-manager
 
+## chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt update
+sudo apt install google-chrome-stable
+rm google-chrome-stable_current_amd64.deb
+
+## conda
+# TODO: Change to miniforge
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+rm Miniconda3-latest-Linux-x86_64.sh
+
+## python packages
+conda install \
+    imageio \
+    ipython \
+    matplotlib \
+    pandas \
+    pygit2 \
+    rich \
+    ruff \
+    scipy \
+    sympy \
+    -c conda-forge \
+    -c nodefaults
+
+Useful tools + vim ALE/YCM
+
 ## build and install vim from source
 git clone https://github.com/vim/vim.git
 cd vim/src
@@ -134,8 +91,22 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 Run PlugInstall in vim to install plugins listed in .vimrc
 
-## install pycharm
-# Use the JetBrains toolbox
+## fish
+sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install fish
+
+We can't set the default shell with `chsh`, since we are using LDAP.
+But the dotfiles should enable fish in Terminator and tmux.
+
+## i3
+# https://i3wm.org/docs/repositories.html
+/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb keyring.deb SHA256:a511ac5f10cd811f8a4ca44d665f2fa1add7a9f09bef238cdfad8461f5239cc4
+sudo apt install ./keyring.deb
+echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
+rm keyring.deb
+sudo apt update
+sudo apt install i3 i3lock
 
 ## install JetBrains Mono from Nerd Fonts
 # Download from nerdfonts.com
@@ -152,6 +123,44 @@ cd projects
 git clone https://github.com/erik-linden/dotfiles.git
 cd dotfiles
 ./copy_to_home.py
+
+## git
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt update
+sudo apt install git
+
+## git diff highlighting
+cd /usr/share/doc/git/contrib/diff-highlight/
+sudo make
+cd ~
+
+## nvidia
+# https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+sudo apt remove --purge nvidia*
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt update
+sudo apt install cuda
+rm cuda-keyring-1.1-1_all.deb
+
+## bazel
+curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+sudo apt update
+sudo apt install bazel
+
+## docker
+# follow https://docs.docker.com/engine/install/ubuntu/
+# and https://docs.docker.com/engine/install/linux-postinstall/
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
+
+## pycharm
+# Use the JetBrains toolbox
 
 ## ssh
 rsync -avh elin@sews20238:/home/elin/.ssh/id_rsa* ~/.ssh/
