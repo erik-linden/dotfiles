@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pathlib
 import subprocess
 import re
@@ -90,12 +92,16 @@ def cycle_displays(displays: Displays) -> None:
     n_connected = len(connected)
     n_active = sum(display.active_mode is not None for display in connected)
     if n_connected == 0:
-        print("No connected displays.")
+        print("No display connected.")
+        _notify_send("No display connected")
         return
     if n_connected == n_active == 1:
         print("One display connected and active.")
+        _notify_send("One display connected and active")
         return
     if n_active == 0:
+        print("No display active, activating 0.")
+        _notify_send("No display active, activating primary")
         _activate_one(displays, 0)
     elif n_active == 1:
         active_index = [display.active_mode is not None for display in connected].index(True)
@@ -107,8 +113,10 @@ def cycle_displays(displays: Displays) -> None:
     else:  # Multiple active.
         unique_offsets = set(_get_offset(display) for display in connected)
         if unique_offsets == {(0, 0)}:  # Switch to extend.
+            print("Displays are mirrored.")
             _activate_both(displays, mirror=False)
         else:  # Switch back to single active.
+            print("Displays are extended.")
             _activate_one(displays, 0)
 
 
@@ -120,6 +128,7 @@ def _get_offset(display: DisplayInfo) -> tuple[int, int]:
 
 def _activate_one(displays: Displays, active: int):
     print(f"Activating display {active}.")
+    _notify_send({0: "Primary", 1: "Secondary"}.get(active, f"Display {active + 1}"))
     connected = displays.connected
     disconnected = displays.disconnected
     active = connected[active]
@@ -139,7 +148,8 @@ def _activate_one(displays: Displays, active: int):
 
 def _activate_both(displays: Displays, mirror: bool):
     connected = displays.connected
-    print("Activate both, mirror =", mirror)
+    print("Activate both in " + ("mirror" if mirror else "extend") + " mode")
+    _notify_send("Mirror" if mirror else "Extend")
     if mirror:
         combinations = list(itertools.product(*(display.resolutions for display in connected)))
         combination = sorted(combinations, key=_get_mirror_sort_key)[0]
@@ -174,5 +184,20 @@ def _disable_all(names: list[str]) -> None:
     return " ".join(f"--output {name} --off" for name in names)
 
 
-p = parse_xrandr_output(get_xrandr_output())
-cycle_displays(p)
+def _notify_send(message: str) -> None:
+    subprocess.call(
+        [
+            "dunstify",
+            "--appname",
+            "Displays",
+            "--hints",
+            "string:x-dunst-stack-tag:displays",
+            "--icon",
+            "video-display",
+            message,
+        ]
+    )
+
+
+if __name__ == "__main__":
+    cycle_displays(parse_xrandr_output(get_xrandr_output()))
