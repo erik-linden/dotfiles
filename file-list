@@ -15,6 +15,7 @@
 .config/i3/scripts/toggle-touchpad.sh
 .config/i3status/config
 .config/rofi/config.rasi
+.config/rofi/themes/gruvbox-material-dark.rasi
 .config/ruff/pyproject.toml
 .config/starship.toml
 .config/terminator/config

@@ -32,6 +32,7 @@ sudo apt install \
     openssh-server \
     pavucontrol \
     pinta \
+    qdirstat \
     ranger \
     rofi \
     screen \
@@ -66,10 +67,11 @@ conda install \
     ipython \
     matplotlib \
     pandas \
-    pygit2 \
+    poetry \
     rich \
     ruff \
     scipy \
+    scikit-learn \
     sympy \
     -c conda-forge \
     -c nodefaults

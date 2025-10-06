@@ -1,5 +1,9 @@
-@theme "gruvbox-material-dark"
 
+configuration {
+    show-icons: true;
+    display-drun: "Run";
+}
+@theme "gruvbox-material-dark"
 window {
   width: 900;
 }
