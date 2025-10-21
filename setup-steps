@@ -40,6 +40,7 @@ sudo apt install \
     silversearcher-ag \
     smbclient \
     terminator \
+    texlive-full \
     tmux \
     tree \
     unclutter-xfixes \
