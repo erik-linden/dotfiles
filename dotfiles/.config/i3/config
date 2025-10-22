@@ -231,7 +231,7 @@ bindsym $mod+Control+Shift+l mode "$system"
 bindsym Mod4+p exec ~/.config/i3/scripts/cycle-displays.py
 
 # screen config GUI
-bindsym Mod4+Shift+p exec arandr
+bindsym $mod+Shift+p exec arandr
 
 # browser with internal password storage
 bindsym $mod+Shift+w exec google-chrome-stable --password-store=basic
