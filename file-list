@@ -3,6 +3,7 @@
 .condarc
 .config/black
 .config/dunst/dunstrc
+.config/fish/conf.d/rustup.fish
 .config/fish/config.fish
 .config/fish/fish_variables
 .config/fish/functions/fish_mode_prompt.fish
