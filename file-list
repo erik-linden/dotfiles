@@ -2,6 +2,7 @@
 .bashrc
 .condarc
 .config/black
+.config/btop/btop.conf
 .config/dunst/dunstrc
 .config/fish/conf.d/rustup.fish
 .config/fish/config.fish
