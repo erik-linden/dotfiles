@@ -15,6 +15,7 @@ sudo apt install \
     cmake \
     curl \
     default-jdk \
+    dunst \
     feh \
     ffmpeg \
     font-manager \
