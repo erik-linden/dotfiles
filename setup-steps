@@ -81,6 +81,9 @@ conda install \
 
 Useful tools + vim ALE/YCM
 
+## pixi
+curl -fsSL https://pixi.sh/install.sh | sh
+
 ## build and install vim from source
 git clone https://github.com/vim/vim.git
 cd vim/src

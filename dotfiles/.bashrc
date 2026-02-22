@@ -139,3 +139,5 @@ eval "$(starship init bash)"
 
 # Installed by rustup
 . "$HOME/.cargo/env"
+
+export PATH="/home/elin/.pixi/bin:$PATH"

@@ -16,8 +16,16 @@ set -x NO_AT_BRIDGE 1
 eval /home/elin/miniconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
+# Add to path
+fish_add_path ~/.npm-global/bin
+fish_add_path ~/.vim/plugged/fzf/bin
+fish_add_path ~/.pixi/bin
+
 # Set up fzf key bindings
 fzf --fish | source
 
 # Set up starship prompt
 starship init fish | source
+
+# Set up pixi completions
+pixi completion --shell fish | source
