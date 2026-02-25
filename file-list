@@ -23,6 +23,7 @@
 .config/terminator/config
 .gitconfig
 .inputrc
+.profile
 .tmux.conf
 .vim/ycm_global_extra_conf.py
 .vimrc
