@@ -105,14 +105,6 @@ nnoremap <F4> :YcmCompleter GetDoc<CR>
 " Otherwise it stays open
 let g:ycm_autoclose_preview_window_after_completion = 1
 
-" Hack to make YCM use any conda environment
-if $CONDA_PREFIX != ""
-    let g:ycm_python_interpreter_path = $CONDA_PREFIX . '/bin/python'
-else
-    let g:ycm_python_interpreter_path = '/home/elin/miniconda3/bin/python'
-endif
-let g:ycm_extra_conf_vim_data = ['g:ycm_python_interpreter_path']
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_global_extra_conf.py'
 let g:ale_python_ruff_executable ='/home/elin/miniconda3/bin/ruff'
 
 " Error highlight

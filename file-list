@@ -1,6 +1,5 @@
 .Xresources
 .bashrc
-.condarc
 .config/black
 .config/btop/btop.conf
 .config/dunst/dunstrc
@@ -25,5 +24,4 @@
 .inputrc
 .profile
 .tmux.conf
-.vim/ycm_global_extra_conf.py
 .vimrc
