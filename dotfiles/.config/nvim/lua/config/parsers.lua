@@ -4,4 +4,6 @@ return {
     "gitcommit", "gitignore", "html", "ini", "json", "lua", "make", "markdown",
     "markdown_inline", "python", "query", "regex", "rust", "starlark",
     "toml", "vim", "vimdoc", "xml", "yaml",
+    -- Needed by xml. Listed so the offline bundle includes its source too.
+    "dtd",
 }

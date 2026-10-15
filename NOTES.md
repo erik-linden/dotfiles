@@ -28,6 +28,22 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 12: first test on a real Ubuntu 24.04 (VM)
+
+* The bundle fetches and installs cleanly and 28 parsers build. The
+  `install_info.path` assumption from round 11 holds. `dtd` (needed by
+  `xml`) was downloaded at install time since it wasn't in parsers.lua;
+  now it's listed, and a full install downloads nothing.
+* **The gitcommit parser froze a VM**: gcc with `-Wall` (which
+  `tree-sitter build` always adds) needs ~4.7 GB of RAM for its
+  `parser.c`; `-Wno-uninitialized` brings that down to ~0.5 GB.
+  install-bundle.sh sets `CFLAGS=-Wno-uninitialized` for the build; whole
+  build now peaks at ~0.8 GB and takes ~10 s. A later `:TSUpdate` inside
+  nvim doesn't get the flag, so run install-bundle.sh again instead on a
+  small machine.
+* `lazy-lock.json` is committed (created by the first fetch), so later
+  bundles get the same plugin versions.
+
 ### 2026-10 round 11: treesitter parsers built on the target
 
 * The target can be any Linux, so parsers (compiled C) must be built there,
@@ -221,7 +237,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 - [ ] `notify-send test` looks Gruvbox; `Super+n` closes it
 - [ ] tmux: colors, `Ctrl+a |`, `Ctrl+a R`
 - [ ] fish: colors, `Ctrl+r` fzf history, `vim` expands to `nvim`
-- [ ] install-bundle.sh reports ~27 parsers built; `:checkhealth nvim-treesitter` lists them; nvim doesn't try to download anything
+- [x] install-bundle.sh reports 28 parsers built; `:checkhealth nvim-treesitter` lists them; nvim doesn't try to download anything (VM, round 12)
 - [ ] nvim: `:checkhealth`, open a Python file → diagnostics, `K`, `,f`, completion
 - [ ] `pip install foo` outside a venv is refused
 - [ ] `git config --file ~/.gitconfig.local user.email ...` then a test commit works

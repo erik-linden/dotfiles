@@ -110,10 +110,14 @@ if have parser-sources.tar.gz; then
     elif [ ! -f "$HOME/.config/nvim/init.lua" ]; then
         echo "    No nvim config yet, parsers not built. Run copy_to_home.py, then this again."
     else
+        # -Wno-uninitialized: with -Wall (added by tree-sitter build), gcc
+        # needs ~4.7 GB of RAM for the gitcommit parser alone, enough to
+        # freeze a small VM. Without that warning it needs ~0.5 GB.
         echo "    Building parsers (takes a minute)..."
-        nvim --headless \
+        CFLAGS="${CFLAGS:-} -Wno-uninitialized" nvim --headless \
             "+lua require('nvim-treesitter').install(require('config.parsers')):wait(600000)" +qa \
             || echo "    Some parsers failed to build; see :checkhealth nvim-treesitter"
+        echo
         echo "    $(ls "$HOME/.local/share/nvim/site/parser/"*.so 2>/dev/null | wc -l) parsers installed"
     fi
 fi
