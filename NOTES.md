@@ -43,6 +43,16 @@ Decisions, open questions and ideas for this setup. Newest first.
   small machine.
 * `lazy-lock.json` is committed (created by the first fetch), so later
   bundles get the same plugin versions.
+* With the apt versions, every config loads without errors: `i3 -C`,
+  `rofi -dump-config`/`-dump-theme`, `picom --diagnostics`, polybar
+  `--dump` (all modules named in launch.sh exist), `fish -n` + interactive
+  start (fzf, `jk` bindings), tmux `source-file`, kitty 0.32 and 0.49.
+  shellcheck has only style notes, mostly in the laptop scripts.
+  Not tested (needs a real i3 login): autostart.sh, lock.sh, dunst,
+  key bindings, the look.
+* Don't check versions with `rofi --version` (unknown flag, opens rofi)
+  or `i3lock --version` (could lock the screen): use
+  `dpkg-query -W <package>`.
 
 ### 2026-10 round 11: treesitter parsers built on the target
 
