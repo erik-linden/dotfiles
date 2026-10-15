@@ -51,6 +51,10 @@ hide_edge_borders smart
 
 # --- Window rules --------------------------------------------------------
 # Find a window's class with: xprop | grep WM_CLASS (then click the window)
+# Borders on every window. Apps that ask for "no decorations" (Electron apps
+# like Chrome, VS Code, Claude) otherwise get no border at all, so you can't
+# see the splits or which window has focus. Rules below can still remove it.
+for_window [all] border normal 5
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_type="dialog"] floating enable

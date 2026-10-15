@@ -50,6 +50,15 @@ Decisions, open questions and ideas for this setup. Newest first.
   shellcheck has only style notes, mostly in the laptop scripts.
   Not tested (needs a real i3 login): autostart.sh, lock.sh, dunst,
   key bindings, the look.
+* **No window borders** in the first i3 login: i3 drops the border of
+  windows that ask for no decorations (Motif hints). kitty did that because
+  of `hide_window_decorations yes` (removed; on X11 that's all it does),
+  Electron apps (Claude, Chrome, VS Code) do it themselves. Fixed with
+  `for_window [all] border normal 5` in the i3 config.
+* **US keyboard in i3** although GNOME used Swedish: GNOME has its own
+  layout setting, i3 gets the system X default. Not fixed in the dotfiles
+  (a machine setting, and over ThinLinc the client may decide);
+  `localectl set-x11-keymap se` is in docs/SETUP.md.
 * Don't check versions with `rofi --version` (unknown flag, opens rofi)
   or `i3lock --version` (could lock the screen): use
   `dpkg-query -W <package>`.

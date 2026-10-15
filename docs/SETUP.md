@@ -316,6 +316,18 @@ gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
 Restart the apps afterwards. (A full Gruvbox GTK theme exists too, but it
 is a manual download; not worth it for now.)
 
+**Keyboard layout.** GNOME keeps its own layout setting, but i3 gets the
+system's X default (`us` if Ubuntu was installed with an English keyboard).
+Set the system default to Swedish once; this also covers the login screen.
+`keyboard-daemon.sh` adds caps lock as Ctrl and § as ~ on top of it:
+
+```bash
+sudo localectl set-x11-keymap se pc105
+```
+
+Check with `setxkbmap -query` after logging in again. Over a remote
+desktop, the client's layout may decide instead.
+
 **Font size.** All of i3, polybar, rofi, dunst and kitty scale with
 `Xft.dpi` in `~/.Xresources` (96 = 100%). The sizes in the individual
 configs only set them relative to each other: i3 and the bar 9, terminal
