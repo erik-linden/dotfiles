@@ -58,7 +58,8 @@ Decisions, open questions and ideas for this setup. Newest first.
 * **US keyboard in i3** although GNOME used Swedish: GNOME has its own
   layout setting, i3 gets the system X default. Not fixed in the dotfiles
   (a machine setting, and over ThinLinc the client may decide);
-  `localectl set-x11-keymap se` is in docs/SETUP.md.
+  setting `XKBLAYOUT="se"` in `/etc/default/keyboard` is in docs/SETUP.md
+  (`localectl set-x11-keymap` is not supported on Debian/Ubuntu).
 * Don't check versions with `rofi --version` (unknown flag, opens rofi)
   or `i3lock --version` (could lock the screen): use
   `dpkg-query -W <package>`.

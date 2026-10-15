@@ -322,10 +322,11 @@ Set the system default to Swedish once; this also covers the login screen.
 `keyboard-daemon.sh` adds caps lock as Ctrl and § as ~ on top of it:
 
 ```bash
-sudo localectl set-x11-keymap se pc105
+# (localectl can't do this on Ubuntu/Debian; the setting lives in this file)
+sudo sed -i 's/^XKBLAYOUT=.*/XKBLAYOUT="se"/' /etc/default/keyboard
 ```
 
-Check with `setxkbmap -query` after logging in again. Over a remote
+Takes effect after a reboot. Check with `setxkbmap -query`. Over a remote
 desktop, the client's layout may decide instead.
 
 **Font size.** All of i3, polybar, rofi, dunst and kitty scale with
