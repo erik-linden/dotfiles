@@ -180,7 +180,7 @@ def _activate_at_highest_resolution_command(display: DisplayInfo) -> str:
     return f"--output {display.name} --mode {resolution}"
 
 
-def _disable_all(names: list[str]) -> None:
+def _disable_all(names: list[str]) -> str:
     return " ".join(f"--output {name} --off" for name in names)
 
 

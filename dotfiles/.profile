@@ -28,6 +28,10 @@ fi
 
 
 # Added by Toolbox App
-export PATH="$PATH:/home/elin/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
-. "$HOME/.cargo/env"
+# Installed by rustup
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Default terminal for i3-sensible-terminal and others
+export TERMINAL=kitty

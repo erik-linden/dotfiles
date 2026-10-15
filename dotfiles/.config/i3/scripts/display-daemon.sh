@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define the lock file
-LOCKFILE="/tmp/display-daemon.lock"
+LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/display-daemon.lock"
 
 # Ensure only one instance of the script is running
 if [ -f "$LOCKFILE" ]; then

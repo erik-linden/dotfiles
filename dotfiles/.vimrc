@@ -1,3 +1,6 @@
+" Legacy: replaced by Neovim (~/.config/nvim). Kept as a fallback for machines
+" without a recent Neovim.
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'
@@ -48,7 +51,6 @@ set smarttab              " Set tabs for a shiftab logic
 set expandtab             " Expand tabs into spaces
 set autoindent            " Auto indent when moving to next line
 set nojoinspaces          " Auto format puts one space between sentences
-set textwidth=120         " Also enables auto wrap
 
 set mouse=a               " Enable mouse support
 set clipboard=unnamedplus " Use system clipboard
@@ -67,7 +69,6 @@ let mapleader = ","
 nnoremap <leader>w :w<CR>
 
 " Additional escape mapping
-inoremap jj <Esc>
 inoremap jk <Esc>
 
 " Map 0 to the first non-blank character and + to the last
@@ -105,7 +106,8 @@ nnoremap <F4> :YcmCompleter GetDoc<CR>
 " Otherwise it stays open
 let g:ycm_autoclose_preview_window_after_completion = 1
 
-let g:ale_python_ruff_executable ='/home/elin/miniconda3/bin/ruff'
+" Use ruff from $PATH (uv tool install ruff)
+let g:ale_python_ruff_executable = 'ruff'
 
 " Error highlight
 let g:ale_virtualtext_cursor = 'disabled'

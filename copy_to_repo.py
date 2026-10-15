@@ -1,35 +1,35 @@
 #!/usr/bin/env python3
+"""Copy the dotfiles listed in `file-list` from the home directory into this repo.
 
-from __future__ import print_function
+Use this after changing configs on the machine, then review with `git diff`.
+Directory entries ("nvim/") copy every file in that directory in the home
+directory, so new files there get picked up too.
+
+Usage:
+    ./copy_to_repo.py
+    ./copy_to_repo.py nvim kitty   only paths containing "nvim" or "kitty"
+"""
 
 import os
 import shutil
+import sys
 
-_HOME = os.path.abspath(os.path.expanduser("~"))
-_REPO = os.path.abspath(os.path.split(__file__)[0])
+from copy_to_home import _DOTFILES, _HOME, expand_file_list
 
 
 def main():
-    with open(os.path.join(_REPO, "file-list")) as f:
-        paths = [l.strip() for l in f.readlines()]
-
-    for path in paths:
+    filters = sys.argv[1:]
+    for path in expand_file_list(_HOME):
+        if filters and not any(f in path for f in filters):
+            continue
+        src = os.path.join(_HOME, path)
+        dst = os.path.join(_DOTFILES, path)
         try:
-            _copy(path)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy(src, dst)
             print("{} copied".format(path))
-        except IOError:
-            print("{} FAILED TO COPY".format(path))
-
-
-def _copy(path):
-    src = os.path.join(_HOME, path)
-    dst = os.path.join(_REPO, "dotfiles", path)
-
-    dirs = os.path.split(dst)[0]
-    if not os.path.exists(dirs):
-        os.makedirs(dirs)
-
-    shutil.copy(src, dst)
+        except OSError as e:
+            print("{} FAILED TO COPY: {}".format(path, e))
 
 
 if __name__ == "__main__":

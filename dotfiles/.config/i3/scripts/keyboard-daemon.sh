@@ -1,40 +1,33 @@
 #!/usr/bin/env bash
-
-# Define the lock file
-LOCKFILE="/tmp/keyboard-daemon.lock"
+# Keep caps lock as ctrl and § as ~. The settings get lost when a keyboard is
+# plugged in (or a remote desktop session reconnects), so re-apply them.
 
 # Ensure only one instance of the script is running
+LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/keyboard-daemon.lock"
 if [ -f "$LOCKFILE" ]; then
-    # Check if the process in the lock file is still running
     if kill -0 "$(cat "$LOCKFILE")" 2>/dev/null; then
         echo "Script is already running. Exiting."
         exit 1
     else
-        # Remove stale lock file
         echo "Removing stale lock file."
         rm -f "$LOCKFILE"
     fi
 fi
-
-# Write the current process ID to the lock file
 echo $$ > "$LOCKFILE"
 
-# Function to handle termination signals
 cleanup() {
-    echo "Display daemon shutting down..."
-    rm -f "$LOCKFILE"  # Remove the lock file on exit
+    echo "Keyboard daemon shutting down..."
+    rm -f "$LOCKFILE"
     exit 0
 }
-
-# Trap SIGINT (Ctrl+C) and SIGTERM (kill command) signals
 trap cleanup SIGINT SIGTERM
 
 while true; do
     # Give the x-server time to start
     sleep 3
 
-    # Check it caps lock (0x42) is already set to control
-    if [ -z "$(xmodmap | grep "Control_L (0x42)")" ]; then
+    # Check if caps lock (0x42) is already set to control
+    if ! xmodmap | grep -q "Control_L (0x42)"; then
         echo "Setting caps lock to control and § key to tilde."
 
         # Set caps lock to control

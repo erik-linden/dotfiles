@@ -14,7 +14,7 @@
     scrollbar_position = hidden
     scrollback_infinite = True
     disable_mousewheel_zoom = True
-    palette = "#928374:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98:#928374:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98"
+    palette = "#3c3836:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#d4be98:#928374:#ea6962:#a9b665:#d8a657:#7daea3:#d3869b:#89b482:#ddc7a1"
     use_custom_command = True
     custom_command = fish
 [layouts]

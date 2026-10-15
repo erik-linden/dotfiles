@@ -1,48 +1,78 @@
 [user]
 	name = Erik Lindén
-	email = erik.linden@tobii.com
+	# The email is set per machine in ~/.gitconfig.local (not in this repo,
+	# see [include] at the bottom). Set it with:
+	#   git config --file ~/.gitconfig.local user.email <your email>
+	# Refuse to commit until it is set, instead of guessing one:
+	useConfigOnly = true
 [core]
-	editor = vim
-[color]
-	branch = auto
-	diff = auto
-	status = auto
-	showbranch = auto
-	ui = true
+	editor = nvim
+	# Show diffs with delta (apt: git-delta). To go back to plain git, remove
+	# this line and the diffFilter line under [interactive].
+	pager = delta
+[init]
+	defaultBranch = main
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
-[color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
-[pager]
-	log = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	show = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	diff = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 [interactive]
-	diffFilter = /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+	# Used by `git add -p`
+	diffFilter = delta --color-only
+[delta]
+	# https://dandavison.github.io/delta/  Colors from docs/palette.md.
+	# In the pager: n/N jump between files.
+	# Side by side once: git -c delta.side-by-side=true diff
+	dark = true
+	navigate = true
+	line-numbers = true
+	syntax-theme = gruvbox-dark
+	minus-style = syntax "#3c1f1e"
+	minus-emph-style = syntax "#6b2e2b"
+	plus-style = syntax "#32361a"
+	plus-emph-style = syntax "#4d5524"
+	line-numbers-minus-style = "#ea6962"
+	line-numbers-plus-style = "#a9b665"
+	line-numbers-zero-style = "#7c6f64"
+	line-numbers-left-style = "#504945"
+	line-numbers-right-style = "#504945"
+	file-style = "#d8a657" bold
+	file-decoration-style = "#504945" ul
+	hunk-header-style = file line-number syntax
+	hunk-header-decoration-style = "#504945" box
+	commit-decoration-style = "#d8a657" box
+[diff]
+	# Better diffs when code is moved around
+	algorithm = histogram
+	colorMoved = default
+[branch]
+	# `git branch` lists the most recently used first
+	sort = -committerdate
+[fetch]
+	prune = true
 [push]
-	default = simple
 	autoSetupRemote = true
 [pull]
 	ff = only
+[rebase]
+	autoStash = true
+[rerere]
+	# Remember how conflicts were resolved and reuse it
+	enabled = true
 [merge]
-	keepBackup = false
 	tool = p4merge
-[mergtool]
+	# Also show the common ancestor in conflict markers
+	conflictStyle = zdiff3
+[mergetool]
 	prompt = false
-[mergtool "p4merge"]
-	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-	keepTemporaries = false
-	trustExitCode = false
 	keepBackup = false
+[mergetool "p4merge"]
+	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+	trustExitCode = false
 [difftool]
 	prompt = false
 [alias]
@@ -50,6 +80,8 @@
 	ll = log --graph --decorate --abbrev-commit --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
 	lp = log --decorate --abbrev-commit --patch
 	dt = difftool --tool=meld --dir-diff
+	# Resolve conflicts in nvim instead of p4merge
+	mt = mergetool --tool=nvimdiff
 	unstage = reset HEAD --
 	st = status -sb
 	df = diff
@@ -62,3 +94,7 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+# Machine specific settings (user.email etc.), last so they win. A missing
+# file is silently ignored.
+[include]
+	path = ~/.gitconfig.local

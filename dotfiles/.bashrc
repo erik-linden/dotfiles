@@ -116,13 +116,27 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Set up fzf key bindings
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export PATH="$HOME/.pixi/bin:$PATH"
+
+# Set up fzf key bindings (ctrl-t, ctrl-r, alt-c)
+command -v fzf >/dev/null && eval "$(fzf --bash 2>/dev/null)"
 
 # Set up starship prompt
-eval "$(starship init bash)"
+command -v starship >/dev/null && eval "$(starship init bash)"
+
+# zoxide: `z proj` jumps to a frequently used directory, `zi` picks with fzf
+command -v zoxide >/dev/null && eval "$(zoxide init bash)"
+
+# less: keep colors in piped text, quit if it fits on one screen
+export LESS=-FR
+
+# bat: syntax highlighting for files, --help output (`h <command>`), man pages
+if command -v bat >/dev/null; then
+    export BAT_THEME=gruvbox-dark
+    export MANPAGER="sh -c 'col -bx | bat --language=man --plain'"
+    export MANROFFOPT=-c
+    h() { "$@" --help 2>&1 | bat --plain --language=help; }
+fi
 
 # Installed by rustup
-. "$HOME/.cargo/env"
-
-export PATH="/home/elin/.pixi/bin:$PATH"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

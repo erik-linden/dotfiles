@@ -1,27 +1,43 @@
-.Xresources
+# Files copied by copy_to_home.py / copy_to_repo.py, relative to $HOME.
+# A trailing "/" means the whole directory.
+
+# Shells
 .bashrc
-.config/black
-.config/btop/btop.conf
-.config/dunst/dunstrc
-.config/fish/conf.d/rustup.fish
-.config/fish/config.fish
-.config/fish/fish_variables
-.config/fish/functions/fish_mode_prompt.fish
-.config/fish/functions/fish_user_key_bindings.fish
-.config/fish/functions/up-or-search.fish
-.config/i3/config
-.config/i3/scripts/cycle-displays.py
-.config/i3/scripts/display-daemon.sh
-.config/i3/scripts/keyboard-daemon.sh
-.config/i3/scripts/toggle-touchpad.sh
-.config/i3status/config
-.config/rofi/config.rasi
-.config/rofi/themes/gruvbox-material-dark.rasi
-.config/ruff/pyproject.toml
-.config/starship.toml
-.config/terminator/config
-.gitconfig
 .inputrc
 .profile
+.config/fish/conf.d/gruvbox-material.fish
+.config/fish/conf.d/rustup.fish
+.config/fish/config.fish
+.config/fish/functions/fish_mode_prompt.fish
+.config/fish/functions/fish_user_key_bindings.fish
+.config/fish/functions/h.fish
+.config/fish/functions/rcd.fish
+.config/fish/functions/up-or-search.fish
+.config/starship.toml
+
+# Desktop
+.Xresources
+.config/i3/config
+.config/i3/scripts/
+.config/polybar/
+.config/picom/picom.conf
+.config/rofi/
+.config/dunst/dunstrc
+
+# Terminal and tools
+.config/kitty/kitty.conf
 .tmux.conf
+.config/btop/btop.conf
+.config/ranger/rc.conf
+.gitconfig
+
+# Editors
+.config/nvim/
 .vimrc
+
+# Python
+.config/pip/pip.conf
+
+# Legacy, kept as fallback until the replacements are proven
+.config/i3status/config
+.config/terminator/config

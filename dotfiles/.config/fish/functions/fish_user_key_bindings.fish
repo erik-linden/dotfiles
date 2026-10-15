@@ -1,9 +1,14 @@
 function fish_user_key_bindings
-    # Like vi, but keep things like ctrl-f
-    fish_hybrid_key_bindings
-    # Use jj and jk as escape keys
-    bind -M insert jj fish_escape
+    # Use jk as escape (same in nvim)
     bind -M insert jk fish_escape
+
+    # fzf: ctrl-t files, ctrl-r history, alt-c cd (needs fzf 0.48+)
+    if type -q fzf
+        fzf --fish | source
+        # ctrl-p also finds files, like in nvim
+        bind \cp fzf-file-widget
+        bind -M insert \cp fzf-file-widget
+    end
 end
 
 function fish_escape
@@ -14,5 +19,3 @@ function fish_escape
         commandline -f backward-char force-repaint
     end
 end
-
-fzf --fish | source

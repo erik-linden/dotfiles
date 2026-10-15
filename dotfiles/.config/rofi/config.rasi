@@ -1,9 +1,52 @@
+/* rofi configuration (written for rofi 1.7, Ubuntu 24.04 apt)
+ * Reference: man rofi, man rofi-theme
+ * Dump all options with their current values: rofi -dump-config
+ *
+ * Modes (i3 bindings in parentheses, see docs/keybindings.md):
+ *   combi       applications + open windows ($mod+d)
+ *   drun        applications ($super+space)
+ *   window      open windows ($super+Tab)
+ *   filebrowser files ($super+e)
+ *   ssh         hosts from ~/.ssh/config and known_hosts ($super+s)
+ *   run         any command on $PATH ($super+r)
+ *   keys        rofi's own key bindings ($super+k)
+ *   power       lock/logout/suspend/reboot/shutdown ($super+x, or $mod+Ctrl+Shift+l for the i3 system mode)
+ * Switch between modes inside rofi with Ctrl+Tab / Shift+Ctrl+Tab.
+ */
 
 configuration {
+    modi: "combi,drun,window,filebrowser,ssh,run,keys,power:~/.config/rofi/scripts/power.sh";
+    combi-modi: "drun,window";
+
     show-icons: true;
+    terminal: "kitty";
+
+    display-combi: "Run";
     display-drun: "Run";
+    display-window: "Windows";
+    display-filebrowser: "Files";
+    display-ssh: "SSH";
+    display-run: "Command";
+    display-keys: "Keys";
+    display-power: "Power";
+
+    drun-display-format: "{name}";
+    window-format: "{w}  {c}  {t}";
+
+    /* Fuzzy matching, best matches first */
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+    case-sensitive: false;
+
+    /* Remember frequently used entries */
+    disable-history: false;
+
+    /* Vim-like navigation. Ctrl+j/k are taken by defaults, so free them first. */
+    kb-accept-entry: "Return,KP_Enter,Control+m";
+    kb-remove-to-eol: "";
+    kb-row-down: "Down,Control+n,Control+j";
+    kb-row-up: "Up,Control+p,Control+k";
 }
+
 @theme "gruvbox-material-dark"
-window {
-  width: 900;
-}
