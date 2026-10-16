@@ -40,11 +40,18 @@ Source: [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material),
 
 ## Terminal ANSI table
 
-Gruvbox Material's own terminal colors (in the Neovim plugin) use the same
-value for normal and bright, with black = bg5 `#504945` and white = fg0
-`#d4be98`. Here black, bright black and bright white are changed: black is
-darker (`#3c3836`) so it works as a background, bright black is grey1
-(`#928374`) so dim text stays readable, and bright white is fg1.
+The 16 colors kitty gives to programs in the terminal (set in kitty.conf).
+Each is one of the palette colors above. Red, green, yellow, blue, purple
+and aqua are the same in their normal and bright versions. Black and white
+are a choice made here:
+
+* black: bg3 `#3c3836`, dark, so it works as a background
+* bright black: grey1 `#928374`, for dim text (comments, hints)
+* white: fg0 `#d4be98`, the normal text color
+* bright white: fg1 `#ddc7a1`, slightly brighter text
+
+(The theme's Neovim plugin instead uses bg5 `#504945` for both blacks and
+fg0 for both whites.)
 
 ```
 color0  #3c3836   color8  #928374

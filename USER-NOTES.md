@@ -267,6 +267,17 @@ Review that the color codes are correct, based on the theme
 > and bright white (`#ddc7a1`) are our own choices; palette.md now says so,
 > and why. Also updated "where colors live" for the color changes below.
 
+I dont really undestand what you are trying to say here or with the new
+paragraph in palette.md
+
+> **Claude:** Sorry, that was muddled. In plain words: all hex values in
+> palette.md are right. The only thing I corrected was a sentence about the
+> 16 terminal colors in kitty.conf. It said they come straight from the
+> theme; three of them don't. Black, bright black and bright white were
+> picked for this setup (dark background black, readable grey for dim
+> text, slightly brighter white). There's nothing to do. I rewrote the
+> palette.md paragraph as a short list of what each of those colors is for.
+
 .bashrc
 
 How is this file now different from the ubuntu standard?
@@ -320,6 +331,18 @@ easier to change color theme, and let fish decide what colors should be used for
 > it: delta's red/green background tints, and tmux's status bar. On the VM,
 > delete the old copy: `rm ~/.config/fish/conf.d/gruvbox-material.fish`
 > (copy_to_home.py never deletes).
+
+Is this a reasonable arangement, compared to the prvious solution?
+
+> **Claude:** Yes, and it's actually how your master branch worked: fish's
+> default named colors, with the hex values only in kitty.conf. The
+> refresh had added a file of hex values, and that's gone again. Pros:
+> one place for the palette (kitty.conf), fish picks sensible roles
+> (commands blue, errors red...), and it works the same in any terminal.
+> Con: you can't make fish use a color that isn't one of the 16; if you
+> ever want that, set just that one variable in config.fish. Note fish
+> saves its defaults per machine (in `fish_variables`), so changing them
+> with `fish_config` sticks on that machine only.
 
 rustup.fish
 
@@ -425,6 +448,18 @@ I will start by testing kittys default handlig of links
 > by its installer, the bundle or apt, never from inside kitty, and that's
 > true everywhere. The comment now says that instead of "no internet".
 
+I wont run the installer regularly (when installed on a internet machine,
+manually instead of with apt). Couldnt that be a problem?
+
+> **Claude:** Yes, good point. I checked kitty's code: the update check only
+> runs in kitty's own builds (installer, bundle), never in apt's, and a
+> failed check (no internet) is silently ignored. So I removed the line and
+> kitty uses its default: once a day it checks, and shows a notification
+> once per new version. Hand-installed kitty on an online machine now
+> tells you when to rerun the installer. Nothing changes for apt or
+> offline machines. (The other hand-installed tools don't notify; uv,
+> pixi and rustup update themselves on command, see SETUP.md section 5.)
+
 lazy.lua
 
 Check that this works both with an offline install and an online install
@@ -485,11 +520,22 @@ display-combi and display-drun _looks_ very similar, do I need both?
 > be told apart, or drop the `drun` tab and `Super+Space`. I haven't
 > changed it; which do you prefer?
 
+Drop drun
+
+> **Claude:** Done: no `drun` tab, no `Super+Space`. `Alt+d` still lists the
+> apps (combi uses drun inside it). I also hid combi's "drun"/"window"
+> prefix on each line; windows still stand out as "workspace class title".
+> Checked with a screenshot on the VM.
+
 Not sure I will use the keybindings tab
 
 > **Claude:** Left it for now. It's rofi's own key list (`Super+k`), which
 > is handy while learning the `Ctrl+h/l/j/k` keys. Easy to drop later from
 > `modi` and the i3 config.
+
+No, drop it now
+
+> **Claude:** Done: no `keys` tab, no `Super+k`.
 
 What to you think of switching tabs with ctrl+h/l, since it already has vim-like navigation?
 
@@ -533,6 +579,15 @@ Same here, do we need explicit colors or should we inherit them from the termina
 > `ansi` theme for code. Its red/green background tints for removed/added
 > lines stay hex, because they're blends the 16 terminal colors can't make.
 
+Now that we no longer install diff-heighlight (compared to master), will
+I lose character level diff highlighting on git log -p?
+
+> **Claude:** No. delta does the same: changed words in a changed line get a
+> stronger background (`minus-emph-style`/`plus-emph-style` in .gitconfig).
+> delta is the pager for everything (`core.pager`), so it applies to
+> `git log -p`, `git show` and `git diff`. Tested on the VM: changing
+> "brown" to "red" in a line highlights just those words.
+
 I think I prefere the 3-way grapical merge in p4merge over trying nvim
 
 > **Claude:** Removed the `git mt` (nvimdiff) alias. p4merge stays the merge
@@ -572,6 +627,5 @@ Remove
 
 ---
 
-> **Claude:** Not changed yet, needing your call: the rofi `drun` question
-> above. Larger follow-ups (NOTES.md "Ideas"): offline Rust in the bundle,
-> then i3wsr, Fiji and p4merge in the bundle.
+> **Claude:** Nothing open from this review. The bundle follow-up (offline
+> Rust, i3wsr, Fiji, p4merge) is done in commit 917a973.

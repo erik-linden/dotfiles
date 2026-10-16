@@ -117,6 +117,15 @@ Decisions, open questions and ideas for this setup. Newest first.
 * i3: matplotlib windows float (class `matplotlib`, both Qt and Tk).
 * rofi: `Ctrl+h`/`Ctrl+l` switch tabs, next to `Ctrl+j`/`Ctrl+k` for the list.
 * unclutter (hide the cursor while typing) on all machines.
+* rofi: the `drun` and `keys` tabs and their `Super+Space`/`Super+k`
+  bindings are gone; `Alt+d` (combi) lists apps and windows, without the
+  mode prefix.
+* kitty's update check is back to its default (round 3 had turned it
+  off): only kitty's own builds check, so a hand-installed kitty on an
+  online machine says when it's outdated; apt's build never checks and
+  offline checks fail silently.
+* delta replaces diff-highlight for word-level highlighting too (it marks
+  changed words in `git diff`, `log -p` and `show`).
 * Docker setup fixed: it lacked the step that adds Docker's apt repository.
 
 ### 2026-10 round 12: first test on a real Ubuntu 24.04 (VM)
@@ -348,7 +357,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 - [ ] Caps lock acts as Ctrl over the remote desktop
 - [ ] tmux: `Ctrl+a Space` menu
 - [ ] `z <part of a dir name>` after cd'ing around a bit
-- [ ] `Alt+d`, `Super+Space`, `Super+x` (power menu), `Super+e` (files) in rofi
+- [ ] `Alt+d`, `Super+x` (power menu), `Super+e` (files) in rofi
 - [ ] `Super+Escape` / system mode `l` locks; unlock works
 - [ ] `notify-send test` looks Gruvbox; `Super+n` closes it
 - [ ] tmux: colors, `Ctrl+a |`, `Ctrl+a R`

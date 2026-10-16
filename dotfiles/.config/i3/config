@@ -98,12 +98,10 @@ bindsym $mod+q kill
 
 # rofi: applications and open windows (bindcode 40 = d on any layout)
 bindcode $mod+40 exec --no-startup-id rofi -show combi
-bindsym $super+space exec --no-startup-id rofi -show drun
 bindsym $super+Tab exec --no-startup-id rofi -show window
 bindsym $super+e exec --no-startup-id rofi -show filebrowser
 bindsym $super+s exec --no-startup-id rofi -show ssh
 bindsym $super+r exec --no-startup-id rofi -show run
-bindsym $super+k exec --no-startup-id rofi -show keys
 bindsym $super+x exec --no-startup-id rofi -show power
 bindsym $mod+x exec --no-startup-id rofi -show power
 
