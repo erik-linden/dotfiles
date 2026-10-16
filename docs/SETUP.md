@@ -354,31 +354,31 @@ screen turning off and enable "Handle screen brightness keys".
 `lock.sh` works with plain `i3lock`, which gives a pixelated screenshot.
 With [i3lock-color](https://github.com/Raymo111/i3lock-color) you get a
 blurred screen, a clock and a colored ring. It has to be built from source.
-`--mark-auto` marks the build dependencies as automatically installed, so a
-later `sudo apt autoremove` cleans them up (packages you already had are
-left as they were):
+The packages are the list from its GitHub page, installed normally (not
+marked automatic): the `-dev` packages pull in the libraries i3lock-color
+needs at runtime, so keeping them installed keeps those libraries too.
 
 ```bash
-sudo apt install --mark-auto autoconf gcc make pkg-config libpam0g-dev \
-    libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev \
-    libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev \
-    libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxkbcommon-dev \
-    libxkbcommon-x11-dev libjpeg-dev libgif-dev
+sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev \
+    libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev \
+    libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev \
+    libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev \
+    libjpeg-dev libgif-dev
 git clone https://github.com/Raymo111/i3lock-color.git
 cd i3lock-color
 sudo apt remove i3lock
 ./install-i3lock-color.sh
 ```
 
-i3lock-color is not an apt package, so apt doesn't know it needs the
-runtime libraries. They are normally kept anyway, since i3, polybar etc.
-use them too, but after an `autoremove` check that it still starts:
+These show up in `apt-mark showmanual`; they are all for i3lock-color
+(and the build tools). Don't remove them while it is installed. Check that
+it still finds its libraries with:
 
 ```bash
 ldd "$(command -v i3lock)" | grep "not found"   # should print nothing
 ```
 
-To rebuild later (e.g. a new version), run the `apt install` line again.
+To rebuild later (e.g. a new version), pull and run the install script again.
 
 ## 9. Neovim
 

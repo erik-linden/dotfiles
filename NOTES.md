@@ -60,6 +60,11 @@ Decisions, open questions and ideas for this setup. Newest first.
   (a machine setting, and over ThinLinc the client may decide);
   setting `XKBLAYOUT="se"` in `/etc/default/keyboard` is in docs/SETUP.md
   (`localectl set-x11-keymap` is not supported on Debian/Ubuntu).
+* i3lock-color build packages: installed normally, exactly the list from
+  its GitHub page, instead of `--mark-auto`. They clutter
+  `apt-mark showmanual`, but an `autoremove` can't take away the runtime
+  libraries the built binary needs. (Alternative considered: an `equivs`
+  placeholder package depending on the libraries; more steps than it's worth.)
 * Don't check versions with `rofi --version` (unknown flag, opens rofi)
   or `i3lock --version` (could lock the screen): use
   `dpkg-query -W <package>`.
