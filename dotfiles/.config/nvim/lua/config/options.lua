@@ -31,7 +31,16 @@ opt.spelloptions = "camel"  -- Check each part of camelCase words
 -- Words added with zg go into the dotfiles (copy_to_repo.py picks them up)
 local spelldir = vim.fn.stdpath("config") .. "/spell"
 vim.fn.mkdir(spelldir, "p")
-opt.spellfile = spelldir .. "/en.utf-8.add"
+local spellfile = spelldir .. "/en.utf-8.add"
+-- nvim only reads the compiled en.utf-8.add.spl next to it, which isn't in
+-- the dotfiles (binary). Build it when it's missing or older than the word
+-- list (before setting 'spellfile', so this session already uses it).
+local add = vim.uv.fs_stat(spellfile)
+local spl = vim.uv.fs_stat(spellfile .. ".spl")
+if add and (not spl or spl.mtime.sec < add.mtime.sec) then
+    vim.cmd("silent! mkspell! " .. vim.fn.fnameescape(spellfile))
+end
+opt.spellfile = spellfile
 
 opt.ignorecase = true       -- Ignore case when searching
 opt.smartcase = true        -- Case-sensitive if caps in query

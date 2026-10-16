@@ -7,16 +7,18 @@
 	useConfigOnly = true
 [core]
 	editor = nvim
-	# Show diffs with delta (apt: git-delta). To go back to plain git, remove
-	# this line and the diffFilter line under [interactive].
-	pager = delta
+	# Show diffs with delta (apt: git-delta), or plain less if it isn't
+	# installed. To go back to plain git, remove this line and the
+	# diffFilter line under [interactive].
+	pager = "if command -v delta >/dev/null; then delta; else less; fi"
 [pager]
 	# The graph aliases (git lg / git ll, also with -p): delta can't read
 	# diffs drawn inside a --graph (every line starts with "| "), so these
 	# use git's own diff-highlight instead, which can. It marks the changed
-	# words in reverse video. (The script comes with Ubuntu's git package.)
-	lg = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	ll = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	# words in reverse video. (The script comes with Ubuntu's git package;
+	# without it, e.g. on installs without docs, plain less.)
+	lg = "f=/usr/share/doc/git/contrib/diff-highlight/diff-highlight; if [ -r $f ]; then perl $f | less; else less; fi"
+	ll = "f=/usr/share/doc/git/contrib/diff-highlight/diff-highlight; if [ -r $f ]; then perl $f | less; else less; fi"
 [init]
 	defaultBranch = main
 # Named colors come from the terminal's palette
@@ -30,7 +32,7 @@
 	untracked = cyan
 [interactive]
 	# Used by `git add -p`
-	diffFilter = delta --color-only
+	diffFilter = "if command -v delta >/dev/null; then delta --color-only; else cat; fi"
 [delta]
 	# https://dandavison.github.io/delta/
 	# In the pager: n/N jump between files.

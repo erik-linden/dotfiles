@@ -40,7 +40,10 @@ run gnome-keyring-daemon --start --components=secrets
 # XDG autostart .desktop files, https://wiki.archlinux.org/index.php/XDG_Autostart
 run dex --autostart --environment i3
 
-# Lock the screen before suspend and when the screensaver kicks in
+# No idle locking (on purpose, see NOTES.md): turn off X's screensaver,
+# which would otherwise start after 10 idle minutes and make xss-lock lock.
+xset s off
+# Lock the screen before suspend
 run xss-lock --transfer-sleep-lock -- "$scripts/lock.sh"
 
 # Clipboard history (open with Alt+y)

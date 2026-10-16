@@ -137,7 +137,14 @@ if command -v bat >/dev/null; then
     h() { "$@" --help 2>&1 | bat --plain --language=help; }
 fi
 
-# fzf key bindings (ctrl-t files, ctrl-r history, alt-c cd)
+# fzf key bindings (ctrl-t files, ctrl-r history, alt-c cd), the same
+# settings as in fish: the terminal's 16 colors, and ripgrep to list files
+# (respects .gitignore)
+export FZF_DEFAULT_OPTS=--color=16
+if command -v rg >/dev/null; then
+    export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
+    export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+fi
 command -v fzf >/dev/null && eval "$(fzf --bash 2>/dev/null)"
 
 # zoxide: `z proj` jumps to a frequently used directory, `zi` picks with fzf

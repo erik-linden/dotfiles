@@ -42,6 +42,15 @@ end
 # Things that only matter when you type: abbreviations, the prompt,
 # completions and hooks that run on every prompt or cd.
 if status is-interactive
+    # kitty's shell integration (jump between prompts, open the last
+    # command's output...). kitty starts fish through a wrapper (kitty.conf),
+    # so it can't load this by itself; this is kitty's documented manual way.
+    if set -q KITTY_INSTALLATION_DIR; and not set -q KITTY_SHELL_INTEGRATION
+        set --global KITTY_SHELL_INTEGRATION enabled
+        source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
+        set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
+    end
+
     # Muscle memory: typing `vim` expands to `nvim` (press space to see it)
     if type -q nvim
         abbr -a vim nvim
@@ -57,9 +66,18 @@ if status is-interactive
     # `zi` picks one with fzf. Plain `cd` still works and feeds it.
     type -q zoxide; and zoxide init fish | source
 
-    # pixi and uv completions
-    type -q pixi; and pixi completion --shell fish | source
-    type -q uv; and uv generate-shell-completion fish | source
+    # pixi and uv completions: written to fish's completions folder, where
+    # fish loads them the first time they're needed. Written again when the
+    # program is newer than the file (after an update), not at every start.
+    set -l completions ~/.local/share/fish/vendor_completions.d
+    if type -q pixi; and not test (path mtime $completions/pixi.fish 2>/dev/null; or echo 0) -ge (path mtime (command -s pixi))
+        mkdir -p $completions
+        pixi completion --shell fish >$completions/pixi.fish
+    end
+    if type -q uv; and not test (path mtime $completions/uv.fish 2>/dev/null; or echo 0) -ge (path mtime (command -s uv))
+        mkdir -p $completions
+        uv generate-shell-completion fish >$completions/uv.fish
+    end
 
     # Prompt
     type -q starship; and starship init fish | source

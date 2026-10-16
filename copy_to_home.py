@@ -32,7 +32,9 @@ REPO = os.path.abspath(os.path.dirname(__file__))
 DOTFILES = os.path.join(REPO, "dotfiles")
 
 _PAD = 3
-_SKIP = ("__pycache__", ".pyc")
+# Not copied: Python caches, and nvim's compiled spell files (binary; nvim
+# rebuilds them from the .add word lists, see nvim/lua/config/options.lua)
+_SKIP = ("__pycache__", ".pyc", ".spl")
 
 
 # --- Output ----------------------------------------------------------------
@@ -151,8 +153,16 @@ def _copy(path, args, state, stats):
         return
 
     # --- Existing file ---
-    src_lines = _read_lines(src)
-    dst_lines = _read_lines(dst)
+    try:
+        src_lines = _read_lines(src)
+        dst_lines = _read_lines(dst)
+    except UnicodeDecodeError:
+        print("{} {} (not a text file, copy it by hand if needed)".format(red("! skipped"), path))
+        stats.skipped.append(path)
+        return
+
+    if not args.dry_run:
+        _make_executable_like(src, dst)
 
     if src_lines == dst_lines:
         stats.unchanged += 1
@@ -191,6 +201,15 @@ def _print_summary(stats, dry_run):
 
 
 # --- Files -----------------------------------------------------------------
+
+
+def _make_executable_like(src, dst):
+    """Make dst executable if src is (e.g. a script that got the executable
+    bit in the repo after it was first copied)."""
+    if os.access(src, os.X_OK) and not os.access(dst, os.X_OK):
+        mode = os.stat(dst).st_mode
+        os.chmod(dst, mode | (mode & 0o444) >> 2)  # x wherever there is r
+        print(dim("  made executable: " + os.path.relpath(dst, HOME)))
 
 
 def _read_lines(path):

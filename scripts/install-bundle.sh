@@ -83,12 +83,13 @@ if have pixi.tar.gz; then
 fi
 
 if have fiji-linux64.zip; then
-    # Fiji updates itself inside its folder (plugins too), so keep the old one
+    # Fiji updates itself inside its folder (plugins too), so keep the old
+    # one, as Fiji.bak (replacing the backup from the time before)
     fiji="$HOME/.local/opt/Fiji"
     if [ -d "$fiji" ]; then
-        backup="$fiji.bak.$(date +%Y%m%d-%H%M%S)"
-        echo "    Moving the old $fiji to $backup"
-        mv "$fiji" "$backup"
+        echo "    Moving the old $fiji to $fiji.bak"
+        rm -rf "$fiji.bak"
+        mv "$fiji" "$fiji.bak"
     fi
     if command -v unzip >/dev/null; then
         # (creates the folder Fiji/)
@@ -115,11 +116,12 @@ if have JetBrainsMono.tar.xz; then
 fi
 
 if have nvim-data.tar.gz; then
+    # Keep the old one as nvim.bak (replacing the backup from the time before)
     data="$HOME/.local/share/nvim"
     if [ -d "$data" ]; then
-        backup="$data.bak.$(date +%Y%m%d-%H%M%S)"
-        echo "    Moving the old $data to $backup"
-        mv "$data" "$backup"
+        echo "    Moving the old $data to $data.bak"
+        rm -rf "$data.bak"
+        mv "$data" "$data.bak"
     fi
     tar xzf nvim-data.tar.gz -C "$HOME/.local/share"
 fi

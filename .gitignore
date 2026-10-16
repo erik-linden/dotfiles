@@ -1,3 +1,6 @@
 # Python bytecode (from running copy_to_home.py / copy_to_repo.py)
 __pycache__/
 *.pyc
+
+# nvim's compiled spell files (binary, rebuilt from the .add word lists)
+*.spl

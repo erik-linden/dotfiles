@@ -3,7 +3,8 @@
 # folder. Run this on a Linux x86_64 machine with internet, move the folder to
 # the offline machine, and run install-bundle.sh there.
 #
-# For an online install, run both scripts on the same machine.
+# Only for machines without internet: on a machine with internet, use each
+# tool's own installer instead (docs/SETUP.md section 5).
 #
 # Usage: scripts/fetch-offline-bundle.sh [output-dir]   (default ~/dotfiles-bundle)
 #
@@ -35,6 +36,8 @@ fetch() {
     if [ -z "$1" ] || ! curl -fL --retry 3 --progress-bar -o "$2" "$1"; then
         echo "    FAILED: $2"
         failed+=("$2")
+        # Don't leave a half-downloaded file for install-bundle.sh to unpack
+        rm -f "$2"
     fi
 }
 
@@ -101,8 +104,16 @@ if [ -f nvim-linux-x86_64.tar.gz ]; then
     tar xzf nvim-linux-x86_64.tar.gz -C "$work"
     nvim="$work/nvim-linux-x86_64/bin/nvim"
 
-    # (tree-sitter is deliberately not on PATH here, so nvim doesn't try to
-    # build parsers on this machine)
+    # Hide tree-sitter from nvim (drop the folders that have it from PATH):
+    # with it, nvim would build the parsers on this machine and put them in
+    # the bundle, instead of install-bundle.sh building them on the target.
+    saved_path=$PATH
+    nvim_path=""
+    IFS=: read -ra path_dirs <<<"$PATH"
+    for dir in "${path_dirs[@]}"; do
+        [ -x "$dir/tree-sitter" ] || nvim_path="$nvim_path${nvim_path:+:}$dir"
+    done
+    export PATH="$nvim_path"
     export XDG_CONFIG_HOME="$repo/dotfiles/.config"
     export XDG_DATA_HOME="$work/data"
     export XDG_STATE_HOME="$work/state"
@@ -139,6 +150,7 @@ if [ -f nvim-linux-x86_64.tar.gz ]; then
     tar czf parser-sources.tar.gz parser-sources && rm -rf parser-sources
 
     unset XDG_CONFIG_HOME XDG_DATA_HOME XDG_STATE_HOME XDG_CACHE_HOME
+    export PATH="$saved_path"
     rm -rf "$work"
     echo
     echo "    If lazy-lock.json was created/updated in the repo, commit it, so"

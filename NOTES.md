@@ -33,6 +33,40 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 15: fixes from a review of the whole branch
+
+* **Idle locking was on by accident**: X's screensaver starts after 10 idle
+  minutes and xss-lock locked then. autostart.sh now runs `xset s off`;
+  xss-lock still locks before suspend.
+* lock.sh, when started by xss-lock before a suspend, releases xss-lock's
+  sleep lock once the screen is locked (as xss-lock's own example does);
+  before, the suspend waited for logind's timeout. Tested with a stand-in
+  i3lock: released after 0.4 s instead of at unlock.
+* i3wsr: `exec_always` also runs on every reload, which left one more
+  i3wsr each time; the i3 config now stops the old one first.
+* nvim's compiled spell file (`en.utf-8.add.spl`, binary) is no longer
+  copied by copy_to_home.py/copy_to_repo.py (it crashed copy_to_home.py,
+  which reads text) and is in .gitignore. nvim builds it from the `.add`
+  word list when it's missing or older (options.lua). copy_to_home.py
+  skips any other non-text file with a message instead of crashing, and
+  again makes an existing file executable when the repo's copy is.
+* The treesitter memory fix uses `HOST_CFLAGS` instead of `CFLAGS`:
+  tree-sitter's build (Rust's cc crate) reads it, make and configure
+  don't, so builds started from nvim's terminal keep their own flags.
+* fetch-offline-bundle.sh hides tree-sitter from PATH while it runs nvim
+  (otherwise nvim built parsers on the fetch machine and they ended up in
+  the bundle), and deletes half-downloaded files (install-bundle.sh would
+  have tried to unpack them). install-bundle.sh keeps one backup
+  (`Fiji.bak`, `nvim.bak`) instead of a new timestamped one each time.
+* Missing programs: kitty starts fish through a wrapper that falls back to
+  bash (config.fish then loads kitty's shell integration itself); git's
+  pager falls back to less without delta, `git add -p` to plain output, and
+  `git lg`/`ll` to less without diff-highlight; `h` works without bat.
+* bash's fzf now has the same settings as fish's (colors, ripgrep list).
+* tmux uses named colors where the palette color is a terminal color.
+* fish writes the pixi/uv completions to a file once (again after an
+  update) instead of running both programs at every shell start.
+
 ### 2026-10 round 14: more in the offline bundle (Rust, i3wsr, Fiji, p4merge)
 
 * **Rust offline**: rustup can't install toolchains without internet, so
@@ -319,7 +353,7 @@ Decisions, open questions and ideas for this setup. Newest first.
 | Topic | Decision | Why |
 |---|---|---|
 | Terminal | terminator → **kitty** | GPU rendering, ligatures, undercurl, hints kitten, image support |
-| Bar | i3bar + i3status → **polybar** | Shows workspace names, clickable modules, window title in the middle, tray. In apt. Old i3bar block kept, commented out, in the i3 config. |
+| Bar | i3bar + i3status → **polybar** | Shows workspace names, clickable modules, tray. In apt. (The window title in the middle and the old i3bar block were removed in round 13.) |
 | Compositor | **picom**, no effects (see round 10) | Needed so GTK windows with transparent parts aren't drawn with black corners. |
 | Machine profiles | `machine-profile.sh` → laptop/desktop/remote | One config for both machines. Force with `~/.config/machine-profile`. |
 | Lock screen | `lock.sh`: i3lock-color if built, else pixelated screenshot | i3lock-color is not in apt. |
@@ -351,7 +385,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 
 - [ ] `~/.config/i3/scripts/machine-profile.sh` prints `remote` on the ThinLinc machine
 - [ ] Log out/in: no i3 error bar; `~/.cache/i3-autostart.log` looks sane
-- [ ] polybar at the bottom: workspaces, window title, disk/mem/cpu, clock, tray
+- [ ] polybar at the bottom: workspaces, disk/mem/cpu, clock, tray
 - [ ] Click the clock (long date), CPU (opens btop)
 - [ ] i3wsr names workspaces after their windows; `Alt+<number>` still reaches them; after an i3 restart only one i3wsr runs (`pgrep -a i3wsr`)
 - [ ] picom runs (tested before): GTK menus/tooltips have no black corners, and no shadows or fades
