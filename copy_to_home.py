@@ -260,12 +260,27 @@ def _count_blocks(diff):
 
 def _print_block(diff, begin, end, block, blocks):
     print(blue("  ── change {} of {} ".format(block, blocks) + "─" * 50))
-    for line in diff[max(0, begin - _PAD) : begin]:
+    # Context: up to _PAD unchanged lines on each side. It stops at a
+    # neighboring change, since whether its lines end up in the file depends
+    # on the answer to that change.
+    before = _unchanged(reversed(diff[max(0, begin - _PAD) : begin]))[::-1]
+    after = _unchanged(diff[end : end + _PAD])
+    for line in before:
         print(dim("    " + line[2:].rstrip("\n")))
     for line in diff[begin:end]:
         _print_diff_line(line, indent="    ")
-    for line in diff[end : min(len(diff), end + _PAD)]:
+    for line in after:
         print(dim("    " + line[2:].rstrip("\n")))
+
+
+def _unchanged(lines):
+    """The lines before the first changed one."""
+    result = []
+    for line in lines:
+        if line[:2] != "  ":
+            break
+        result.append(line)
+    return result
 
 
 def _print_diff_line(line, indent=""):
