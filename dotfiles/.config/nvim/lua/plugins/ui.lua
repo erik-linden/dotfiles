@@ -1,6 +1,4 @@
 -- Look and feel.
--- Replaces from .vimrc: gruvbox-material (kept), vim-airline -> lualine,
--- nerdtree -> nvim-tree, vim-css-color -> nvim-highlight-colors.
 
 return {
     {

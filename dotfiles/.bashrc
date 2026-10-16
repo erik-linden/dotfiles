@@ -116,27 +116,32 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# --- Additions to Ubuntu's default .bashrc (everything above is unchanged) ---
+# ~/.local/bin is put on PATH by ~/.profile.
+
+# PATH: pixi, and Rust if rustup is installed. Install pixi and uv without
+# letting them edit this file (see docs/SETUP.md); rustup finds the line
+# below and leaves the file alone.
 export PATH="$HOME/.pixi/bin:$PATH"
-
-# Set up fzf key bindings (ctrl-t, ctrl-r, alt-c)
-command -v fzf >/dev/null && eval "$(fzf --bash 2>/dev/null)"
-
-# Set up starship prompt
-command -v starship >/dev/null && eval "$(starship init bash)"
-
-# zoxide: `z proj` jumps to a frequently used directory, `zi` picks with fzf
-command -v zoxide >/dev/null && eval "$(zoxide init bash)"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # less: keep colors in piped text, quit if it fits on one screen
 export LESS=-FR
 
-# bat: syntax highlighting for files, --help output (`h <command>`), man pages
+# bat: syntax highlighting for files, --help output (`h <command>`), man pages.
+# The "ansi" theme uses the terminal's colors.
 if command -v bat >/dev/null; then
-    export BAT_THEME=gruvbox-dark
+    export BAT_THEME=ansi
     export MANPAGER="sh -c 'col -bx | bat --language=man --plain'"
     export MANROFFOPT=-c
     h() { "$@" --help 2>&1 | bat --plain --language=help; }
 fi
 
-# Installed by rustup
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+# fzf key bindings (ctrl-t files, ctrl-r history, alt-c cd)
+command -v fzf >/dev/null && eval "$(fzf --bash 2>/dev/null)"
+
+# zoxide: `z proj` jumps to a frequently used directory, `zi` picks with fzf
+command -v zoxide >/dev/null && eval "$(zoxide init bash)"
+
+# Prompt
+command -v starship >/dev/null && eval "$(starship init bash)"

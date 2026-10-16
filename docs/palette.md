@@ -3,6 +3,10 @@
 Every config in this repo uses these values. If you change one, grep the repo
 for the old hex value and change it everywhere.
 
+Programs in the terminal (fish, starship, fzf, bat, git) use named colors
+(red, blue...), so they get the values from the terminal's palette in
+`kitty.conf`. Only programs that can't do that have hex values.
+
 Source: [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material),
 `background = hard`, `foreground = material`.
 
@@ -13,12 +17,12 @@ Source: [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material),
 | bg_dim             | `#141617` | i3 unfocused windows, polybar background            |
 | bg0                | `#1d2021` | Terminal / editor / rofi / dunst background         |
 | bg1                | `#282828` | Slightly raised surfaces (input bars, tmux status)  |
-| bg3                | `#3c3836` | ANSI black (color0), selections in fzf              |
+| bg3                | `#3c3836` | ANSI black (color0)                                 |
 | bg5                | `#504945` | Borders, separators, inactive frames                |
 | bg_visual_yellow   | `#473c29` | "Focused" accent background (i3, polybar, rofi)     |
 | fg0                | `#d4be98` | Normal text                                         |
 | fg1                | `#ddc7a1` | Emphasized text, ANSI bright white                  |
-| grey0              | `#7c6f64` | Very dim text (fish autosuggestions)                |
+| grey0              | `#7c6f64` | Very dim text (delta line numbers)                  |
 | grey1              | `#928374` | Comments, dim text, ANSI bright black (color8)      |
 | grey2              | `#a89984` | Secondary text                                      |
 
@@ -36,8 +40,11 @@ Source: [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material),
 
 ## Terminal ANSI table
 
-Gruvbox Material uses the same value for normal and bright colors. Only black
-and white differ.
+Gruvbox Material's own terminal colors (in the Neovim plugin) use the same
+value for normal and bright, with black = bg5 `#504945` and white = fg0
+`#d4be98`. Here black, bright black and bright white are changed: black is
+darker (`#3c3836`) so it works as a background, bright black is grey1
+(`#928374`) so dim text stays readable, and bright white is fg1.
 
 ```
 color0  #3c3836   color8  #928374
@@ -64,14 +71,11 @@ color7  #d4be98   color15 #ddc7a1
 | i3        | `.config/i3/config`                               |
 | polybar   | `.config/polybar/config.ini` (`[colors]`)         |
 | kitty     | `.config/kitty/kitty.conf`                        |
-| terminator| `.config/terminator/config` (legacy)              |
 | X apps    | `.Xresources`                                     |
 | rofi      | `.config/rofi/themes/gruvbox-material-dark.rasi`  |
 | dunst     | `.config/dunst/dunstrc`                           |
 | tmux      | `.tmux.conf`                                      |
-| fish      | `.config/fish/conf.d/gruvbox-material.fish`       |
-| fzf       | `.config/fish/config.fish` (`FZF_DEFAULT_OPTS`)   |
-| starship  | `.config/starship.toml` (`[palettes]`)            |
+| git/delta | `.gitconfig` (`[delta]`: diff background tints)   |
 | lockscreen| `.config/i3/scripts/lock.sh`                      |
 | neovim    | plugin `sainnhe/gruvbox-material`                 |
 | btop      | built-in `gruvbox_material_dark` theme            |

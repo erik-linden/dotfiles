@@ -33,6 +33,13 @@ return {
         lazy = false,
         build = ":TSUpdate",
         config = function()
+            -- gcc with -Wall (always added by `tree-sitter build`) needs
+            -- ~4.7 GB of RAM for the gitcommit parser, enough to freeze a
+            -- small machine; without this warning ~0.5 GB. Set for all of
+            -- nvim (programs started from nvim get it too; it only turns off
+            -- one compiler warning).
+            vim.env.CFLAGS = vim.trim((vim.env.CFLAGS or "") .. " -Wno-uninitialized")
+
             if vim.uv.fs_stat(source_dir) then
                 -- Applied now, and again whenever nvim-treesitter reloads
                 -- its parser list

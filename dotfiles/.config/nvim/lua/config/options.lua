@@ -1,6 +1,5 @@
--- Editor settings. Many of the old .vimrc settings are Neovim defaults and
--- were dropped: nocompatible, ttyfast, syntax/filetype on, autoread, wildmenu,
--- laststatus=2, hlsearch, incsearch, smarttab, autoindent, nojoinspaces, mouse=a.
+-- Editor settings. Things that are already Neovim defaults are left out
+-- (e.g. autoread, hlsearch, incsearch, autoindent, mouse=a).
 
 local opt = vim.opt
 

@@ -5,7 +5,6 @@
 .bashrc
 .inputrc
 .profile
-.config/fish/conf.d/gruvbox-material.fish
 .config/fish/conf.d/rustup.fish
 .config/fish/config.fish
 .config/fish/functions/fish_mode_prompt.fish
@@ -33,11 +32,6 @@
 
 # Editors
 .config/nvim/
-.vimrc
 
 # Python
 .config/pip/pip.conf
-
-# Legacy, kept as fallback until the replacements are proven
-.config/i3status/config
-.config/terminator/config

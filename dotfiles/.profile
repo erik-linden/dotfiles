@@ -26,11 +26,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-
-# Added by Toolbox App
-export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
-
-# Installed by rustup
+# Rust, if rustup is installed (rustup recognizes this line and leaves the
+# file alone)
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # Default terminal for i3-sensible-terminal and others

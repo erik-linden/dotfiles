@@ -4,13 +4,18 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Constraints
 
-* Main machine: Ubuntu 24.04, used **over a remote desktop**, one screen, no
-  wifi/bluetooth/battery. Internal apt and pip mirrors (they lag a bit and
-  sometimes lack dependencies). Other files have to be copied in by hand.
-* No laptop any more. The laptop parts (machine profile, display scripts,
-  battery/wifi in the bar) are kept but untested; don't spend effort there.
-* Changes are often written on another machine and tested later, so configs
-  should **degrade gracefully** when a program is missing.
+* All Ubuntu 24.04, and all of them supported:
+  * Mostly: a machine **without internet**, used **over ThinLinc**, one
+    screen, no wifi/bluetooth/battery. Internal apt and pip mirrors (they
+    lag a bit and sometimes lack dependencies). Other files have to be
+    copied in by hand.
+  * Desktops **with internet**.
+  * Laptops (earlier; the laptop parts are kept).
+* So configs must not assume either way: nothing "offline only" in the
+  configs themselves; docs/SETUP.md marks the offline-only steps.
+* Configs should **degrade gracefully** when a program is missing.
+* Development happens on Linux with git (a VM), so changes can be tested
+  before they're committed.
 * The repo is public: no internal URLs, host names or credentials. Use
   `<placeholders>` in the docs.
 * PyCharm uses the **Eclipse keymap** (lots of `Alt+Shift+<letter>`), so i3
@@ -27,6 +32,44 @@ Decisions, open questions and ideas for this setup. Newest first.
   enough; 1/3 of the time is in the browser, 1/3 in PyCharm).
 
 ## Decisions
+
+### 2026-10 round 13: review of the whole refresh (USER-NOTES.md)
+
+* Windows-era workarounds removed: `copy_to_home.py` no longer makes
+  scripts executable (git keeps the bit; a new file is copied with it).
+  `HOME`/`DOTFILES` are public names, since copy_to_repo.py imports them.
+* **"Work machine" is gone from the docs**: steps say "without internet"
+  instead. docs/SETUP.md section 5 has both ways to install the tools apt
+  lacks: each tool's own installer (with internet) or the offline bundle.
+  The bundle is only for machines without internet: its parser sources
+  would keep `:TSUpdate` from downloading newer parsers.
+* Installers must not edit the shell config (the dotfiles already set
+  PATH): `UV_NO_MODIFY_PATH=1`, `PIXI_NO_PATH_UPDATE=1`, rustup
+  `--no-modify-path`. (pixi only looks for its own exact line, with the
+  full path, so it would add a duplicate; uv adds its own env script;
+  rustup does recognize our lines.) Tested: the documented online install
+  leaves `.bashrc`, `.profile` and the fish files unchanged.
+* The `-Wno-uninitialized` fix (round 12) moved into plugins/treesitter.lua,
+  so it also applies to online installs and `:TSUpdate`, not only to
+  install-bundle.sh. Online first start: plugins + 28 parsers, peak +0.6 GB.
+* **Terminal programs use the terminal's colors** (named ANSI colors from
+  kitty.conf) instead of hex values: fish (its defaults; the
+  conf.d/gruvbox-material.fish file is gone), starship (no `[palettes]`),
+  fzf (`--color=16`), bat and delta (`ansi` theme). Exceptions: delta's
+  diff background tints, and tmux's status bar (bg1 isn't an ANSI color).
+  Changing the theme now mostly means changing kitty.conf.
+* Removed: terminator, i3status and the commented-out i3bar block, `.vimrc`
+  (Neovim only), the JetBrains Toolbox (to be decided separately), the
+  rename-workspace script and `Super+w` (workspaces should be named after
+  their content; see Ideas), `Alt+u` (urgent window; collides with
+  PyCharm's Run menu `Alt+U`), polybar's window title (i3's title bars show
+  it) and VPN module, kitty's Ctrl+click for links (trying kitty's default:
+  click opens), the `git mt` nvimdiff alias (p4merge stays), the Azure CLI
+  and fstab sections, and the git PPA (24.04's git 2.43 is new enough).
+* i3: matplotlib windows float (class `matplotlib`, both Qt and Tk).
+* rofi: `Ctrl+h`/`Ctrl+l` switch tabs, next to `Ctrl+j`/`Ctrl+k` for the list.
+* unclutter (hide the cursor while typing) on all machines.
+* Docker setup fixed: it lacked the step that adds Docker's apt repository.
 
 ### 2026-10 round 12: first test on a real Ubuntu 24.04 (VM)
 
@@ -246,7 +289,7 @@ Decisions, open questions and ideas for this setup. Newest first.
 Install first: `polybar picom kitty rofi dunst xss-lock flameshot imagemagick ripgrep` (apt),
 then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 
-- [ ] `~/.config/i3/scripts/machine-profile.sh` prints `remote` on the work machine
+- [ ] `~/.config/i3/scripts/machine-profile.sh` prints `remote` on the ThinLinc machine
 - [ ] Log out/in: no i3 error bar; `~/.cache/i3-autostart.log` looks sane
 - [ ] polybar at the bottom: workspaces, window title, disk/mem/cpu, clock, tray
 - [ ] Click the clock (long date), CPU (opens btop)
@@ -294,6 +337,14 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
   everywhere, including the remote desktop.
 
 ## Ideas, not done yet
+
+* **Workspace names from their content** with
+  [i3wsr](https://github.com/roosta/i3wsr) (Rust, maintained): names like
+  "3: kitty firefox", started with `exec_always` in the i3 config. No
+  prebuilt binaries: `cargo install i3wsr`, so it needs Rust, and an
+  offline way to get it.
+* **More in the offline bundle**: Rust (rustup can't install toolchains
+  offline; Rust's standalone installers can), i3wsr, Fiji, p4merge.
 
 * **vim-tmux-navigator**: `Ctrl+h/j/k/l` moves between nvim splits *and*
   tmux panes. Costs `Ctrl+l` (clear screen) in the shell.

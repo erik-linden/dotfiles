@@ -2,8 +2,8 @@
 -- Plugins are installed to ~/.local/share/nvim/lazy. Exact versions are
 -- pinned in ~/.config/nvim/lazy-lock.json (keep it in the dotfiles repo).
 --
--- Offline machine: copy ~/.local/share/nvim from a machine with internet,
--- see docs/SETUP.md (scripts/fetch-offline-bundle.sh does this for you).
+-- With internet, plugins are installed on the first start. Without internet,
+-- the offline bundle brings them (see docs/SETUP.md).
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
@@ -27,7 +27,7 @@ require("lazy").setup({
     spec = { { import = "plugins" } },
     -- Colorscheme used while installing plugins
     install = { colorscheme = { "gruvbox-material", "habamax" } },
-    -- Don't check for updates in the background (no internet at work)
+    -- Update only when asked (:Lazy update), not in the background
     checker = { enabled = false },
     change_detection = { notify = false },
     rocks = { enabled = false },

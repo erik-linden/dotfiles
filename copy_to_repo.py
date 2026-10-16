@@ -14,16 +14,16 @@ import os
 import shutil
 import sys
 
-from copy_to_home import _DOTFILES, _HOME, expand_file_list
+from copy_to_home import DOTFILES, HOME, expand_file_list
 
 
 def main():
     filters = sys.argv[1:]
-    for path in expand_file_list(_HOME):
+    for path in expand_file_list(HOME):
         if filters and not any(f in path for f in filters):
             continue
-        src = os.path.join(_HOME, path)
-        dst = os.path.join(_DOTFILES, path)
+        src = os.path.join(HOME, path)
+        dst = os.path.join(DOTFILES, path)
         try:
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copy(src, dst)

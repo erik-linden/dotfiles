@@ -11,7 +11,7 @@
  *   run         any command on $PATH ($super+r)
  *   keys        rofi's own key bindings ($super+k)
  *   power       lock/logout/suspend/reboot/shutdown ($super+x, or $mod+Ctrl+Shift+l for the i3 system mode)
- * Switch between modes inside rofi with Ctrl+Tab / Shift+Ctrl+Tab.
+ * Switch between modes inside rofi with Ctrl+h/l (or Ctrl+Tab / Shift+Ctrl+Tab).
  */
 
 configuration {
@@ -42,11 +42,16 @@ configuration {
     /* Remember frequently used entries */
     disable-history: false;
 
-    /* Vim-like navigation. Ctrl+j/k are taken by defaults, so free them first. */
+    /* Vim-like navigation: Ctrl+j/k move up/down, Ctrl+h/l switch tabs (modes).
+     * These keys have other default uses, so free them first. */
     kb-accept-entry: "Return,KP_Enter,Control+m";
     kb-remove-to-eol: "";
     kb-row-down: "Down,Control+n,Control+j";
     kb-row-up: "Up,Control+p,Control+k";
+    kb-remove-char-back: "BackSpace,Shift+BackSpace";
+    kb-mode-complete: "";
+    kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab,Control+h";
+    kb-mode-next: "Shift+Right,Control+Tab,Control+l";
 }
 
 @theme "gruvbox-material-dark"

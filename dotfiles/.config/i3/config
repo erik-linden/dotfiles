@@ -63,6 +63,8 @@ for_window [class="Arandr"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="flameshot"] floating enable, border none
 for_window [class="copyq"] floating enable, move position center
+# matplotlib plot windows (class "matplotlib" with Qt, "Matplotlib" with Tk)
+for_window [class="(?i)^matplotlib$"] floating enable
 # PyCharm dialogs sometimes open without focus
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
 
@@ -159,9 +161,6 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+z focus child
 
-# jump to the window that most recently became urgent
-bindsym $mod+u [urgent=latest] focus
-
 # scratchpad: hide a window, and bring it back (cycles if several)
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
@@ -171,9 +170,6 @@ bindsym $mod+minus scratchpad show
 # move the current workspace to the next output
 # effectively toggles when you only have two outputs
 bindsym $mod+p move workspace to output right
-
-# give the current workspace a name, e.g. "3: docs" (empty name resets it)
-bindsym $super+w exec --no-startup-id $scripts/rename-workspace.sh
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -272,21 +268,3 @@ bindsym $mod+Shift+p exec arandr
 
 # touchpad toggle
 bindsym $mod+Shift+Return exec --no-startup-id $scripts/toggle-touchpad.sh
-
-# --- Bar -----------------------------------------------------------------
-# polybar is started above (exec_always). If polybar is not installed,
-# comment out that line and uncomment this block to get back i3bar + i3status.
-#bar {
-#        status_command i3status
-#        colors {
-#            statusline         #d4be98
-#            background         #141617
-#            separator          #504945
-#            #                  border  backgr. text
-#            focused_workspace  #504945 #473c29 #d4be98
-#            active_workspace   #504945 #282828 #d4be98
-#            inactive_workspace #504945 #141617 #d4be98
-#            urgent_workspace   #504945 #ea6962 #1d2021
-#            binding_mode       #ea6962 #ea6962 #1d2021
-#        }
-#}

@@ -60,7 +60,7 @@ else
 fi
 
 # Compositor, so windows with transparent parts (GTK menus, tooltips) are
-# drawn correctly instead of with black corners. No effects, see picom.conf.
+# drawn correctly instead of with black corners.
 # On a real screen, also draw with the GPU and without tearing. Remote
 # desktops usually have no OpenGL, so they get picom's defaults (CPU, no vsync).
 # These flags override backend/vsync in picom.conf.

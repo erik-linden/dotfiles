@@ -17,8 +17,6 @@ Usage:
 A path ending in "/" means every file in that directory. Lines starting
 with "#" are comments.
 
-Scripts (files starting with "#!") are made executable, since the
-executable bit gets lost when files pass through Windows.
 Files are never deleted; remove retired configs by hand.
 """
 
@@ -26,12 +24,13 @@ import argparse
 import difflib
 import os
 import shutil
-import stat
 import sys
 
-_HOME = os.path.abspath(os.path.expanduser("~"))
-_REPO = os.path.abspath(os.path.dirname(__file__))
-_DOTFILES = os.path.join(_REPO, "dotfiles")
+# Also used by copy_to_repo.py
+HOME = os.path.abspath(os.path.expanduser("~"))
+REPO = os.path.abspath(os.path.dirname(__file__))
+DOTFILES = os.path.join(REPO, "dotfiles")
+
 _PAD = 3
 _SKIP = ("__pycache__", ".pyc")
 
@@ -87,7 +86,7 @@ def main():
     stats = Stats()
     state = {"all_new": args.yes}
     try:
-        for path in expand_file_list(_DOTFILES, stats):
+        for path in expand_file_list(DOTFILES, stats):
             if args.filters and not any(f in path for f in args.filters):
                 continue
             _copy(path, args, state, stats)
@@ -98,7 +97,7 @@ def main():
 
 def read_file_list():
     """Return the entries in file-list, without comments and blank lines."""
-    with open(os.path.join(_REPO, "file-list")) as f:
+    with open(os.path.join(REPO, "file-list")) as f:
         lines = [line.strip() for line in f]
     return [line for line in lines if line and not line.startswith("#")]
 
@@ -124,8 +123,8 @@ def expand_file_list(base, stats=None):
 
 
 def _copy(path, args, state, stats):
-    src = os.path.join(_DOTFILES, path)
-    dst = os.path.join(_HOME, path)
+    src = os.path.join(DOTFILES, path)
+    dst = os.path.join(HOME, path)
 
     if not os.path.exists(src):
         stats.missing.append(path)
@@ -147,8 +146,7 @@ def _copy(path, args, state, stats):
             if answer == "a":
                 state["all_new"] = True
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copy(src, dst)
-        _make_scripts_executable(dst)
+        shutil.copy(src, dst)  # Also copies the executable bit
         stats.created.append(path)
         return
 
@@ -157,8 +155,6 @@ def _copy(path, args, state, stats):
     dst_lines = _read_lines(dst)
 
     if src_lines == dst_lines:
-        if not args.dry_run:
-            _make_scripts_executable(dst)
         stats.unchanged += 1
         return
 
@@ -175,7 +171,6 @@ def _copy(path, args, state, stats):
     else:
         _write_lines(dst, patched_lines)
         stats.updated.append(path)
-    _make_scripts_executable(dst)
 
 
 def _print_summary(stats, dry_run):
@@ -196,15 +191,6 @@ def _print_summary(stats, dry_run):
 
 
 # --- Files -----------------------------------------------------------------
-
-
-def _make_scripts_executable(path):
-    with open(path, "rb") as f:
-        is_script = f.read(2) == b"#!"
-    mode = os.stat(path).st_mode
-    if is_script and not mode & stat.S_IXUSR:
-        os.chmod(path, mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-        print(dim("  made executable"))
 
 
 def _read_lines(path):

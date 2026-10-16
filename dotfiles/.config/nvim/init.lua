@@ -2,7 +2,7 @@
 -- which is too old, see docs/SETUP.md for how to install a newer one).
 --
 -- Layout:
---   lua/config/options.lua   editor settings (ported from ~/.vimrc)
+--   lua/config/options.lua   editor settings
 --   lua/config/keymaps.lua   key mappings not tied to a plugin
 --   lua/config/autocmds.lua  automatic actions (trim whitespace on save etc.)
 --   lua/config/lazy.lua      plugin manager bootstrap

@@ -38,11 +38,9 @@ The i3 config is the only place to discover these.
 | `Alt+p` / `Alt+Shift+p` | Move workspace to the other monitor / arandr |
 | `Alt+Ctrl+Shift+l` | System menu: lock, logout, suspend, reboot, shutdown |
 | `Alt+Ctrl+Shift+c` / `r` / `e` | Reload config / restart i3 / exit |
-| `Alt+u` | **Jump to the window that wants attention** (urgent, red in the bar) |
 | `Alt+Shift+-` / `Alt+-` | **Scratchpad**: hide a window / bring it back (e.g. a notes terminal) |
 | `Alt+Shift+w` | Chrome |
 | `Alt+Shift+Return` | Toggle touchpad |
-| `Super+w` | **Name the workspace** ("3: docs", shown in the bar; empty name resets) |
 | `Alt+x` or `Super+x` | **Power menu**: lock, logout, suspend, reboot, shutdown |
 | `Alt+y` | **Clipboard history** (CopyQ): pick an earlier copy, `Enter` puts it back on the clipboard |
 | `Super+Escape` | Lock |
@@ -52,6 +50,15 @@ The i3 config is the only place to discover these.
 | `Super+p` | Cycle displays: single → next → mirror → extend (laptop) |
 
 The bar: click the clock for the long date, the CPU/memory for btop, right-click the volume for the mixer.
+
+## rofi
+
+The modes (apps, windows, files, ssh, power...) are tabs along the bottom.
+
+| Keys | Action |
+|---|---|
+| `Ctrl+h` / `Ctrl+l` | Previous / next tab (also `Ctrl+Tab` / `Ctrl+Shift+Tab`) |
+| `Ctrl+j` / `Ctrl+k` | Down / up in the list (also the arrow keys) |
 
 ## tmux (prefix `Ctrl+a`)
 
@@ -128,7 +135,7 @@ Press `,` and wait: a popup lists all leader mappings (`,s` search, `,g` git).
 | `Ctrl+Shift+h` | **Whole scrollback in a pager** (search with `/`) |
 | `Ctrl+Shift+p`, then `f` | **Pick a path on screen** and insert it (`w` word, `l` line) |
 | `Ctrl+Shift+e` | Pick a URL on screen and open it |
-| `Ctrl+click` | Open link |
+| Click | Open a link (click and drag selects) |
 
 ## ranger
 

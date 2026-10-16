@@ -14,13 +14,13 @@ while pgrep -u "$UID" -x polybar >/dev/null; do sleep 0.1; done
 profile=$("$HOME/.config/i3/scripts/machine-profile.sh")
 
 case "$profile" in
-    laptop)  modules="filesystem memory cpu pulseaudio wlan eth vpn battery date" ;;
-    desktop) modules="filesystem memory cpu pulseaudio eth vpn date" ;;
+    laptop)  modules="filesystem memory cpu pulseaudio wlan eth battery date" ;;
+    desktop) modules="filesystem memory cpu pulseaudio eth date" ;;
     *)       modules="filesystem memory cpu date" ;;
 esac
 
 if ! command -v polybar >/dev/null; then
-    i3-nagbar -t warning -m "polybar is not installed, see the bar section in ~/.config/i3/config" &
+    i3-nagbar -t warning -m "polybar is not installed: sudo apt install polybar" &
     exit 1
 fi
 

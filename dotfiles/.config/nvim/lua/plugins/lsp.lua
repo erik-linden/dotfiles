@@ -1,6 +1,4 @@
 -- Language servers, formatting and completion.
--- Replaces from .vimrc: YouCompleteMe -> built-in LSP + blink.cmp,
--- ALE -> built-in LSP diagnostics + conform.nvim.
 --
 -- The servers are separate programs, install them with uv (see docs/SETUP.md):
 --   uv tool install ruff           linting, formatting, import sorting

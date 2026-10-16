@@ -4,34 +4,13 @@
 # Give slow commands (e.g. git in huge repos) a bit more time
 command_timeout = 1000
 
-# Map the standard color names used by all modules to Gruvbox Material
-# (see docs/palette.md)
-palette = "gruvbox_material"
-
-[palettes.gruvbox_material]
-black = "#3c3836"
-red = "#ea6962"
-green = "#a9b665"
-yellow = "#d8a657"
-blue = "#7daea3"
-purple = "#d3869b"
-cyan = "#89b482"
-white = "#d4be98"
-bright-black = "#928374"
-bright-red = "#ea6962"
-bright-green = "#a9b665"
-bright-yellow = "#d8a657"
-bright-blue = "#7daea3"
-bright-purple = "#d3869b"
-bright-cyan = "#89b482"
-bright-white = "#ddc7a1"
+# Colors: starship uses named colors (green, purple...), which come from the
+# terminal's palette (kitty.conf).
 
 # Show how long the last command took if it took more than 5 s
 [cmd_duration]
 min_time = 5000
 
-[pixi]
-symbol = "󰏗 "
 [aws]
 symbol = "  "
 
@@ -185,6 +164,9 @@ symbol = " "
 
 [pijul_channel]
 symbol = " "
+
+[pixi]
+symbol = "󰏗 "
 
 [python]
 symbol = " "

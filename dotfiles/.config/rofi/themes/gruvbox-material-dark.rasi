@@ -1,4 +1,6 @@
-/* Gruvbox Material Dark Hard for rofi 1.7 (see docs/palette.md) */
+/* Gruvbox Material Dark Hard for rofi 1.7 (see docs/palette.md).
+ * Started from rofi's bundled gruvbox-dark-hard.rasi (by bardisty,
+ * https://github.com/bardisty/gruvbox-rofi), recolored and simplified. */
 
 * {
     bg-dim:   #141617;

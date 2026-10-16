@@ -1,4 +1,4 @@
--- Git signs in the sign column. Replaces vim-gitgutter from .vimrc.
+-- Git signs in the sign column.
 
 return {
     {

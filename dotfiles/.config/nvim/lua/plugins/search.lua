@@ -1,4 +1,4 @@
--- Fuzzy finding. Replaces fzf + fzf.vim from .vimrc.
+-- Fuzzy finding.
 -- Uses the fzf binary on $PATH (needs fzf 0.36+, see docs/SETUP.md) and
 -- ripgrep for searching file contents.
 -- Inside the picker: <C-j>/<C-k> or arrows to move, <Tab> to multi-select,
