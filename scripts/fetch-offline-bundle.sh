@@ -7,10 +7,15 @@
 #
 # Usage: scripts/fetch-offline-bundle.sh [output-dir]   (default ~/dotfiles-bundle)
 #
-# Needs: curl, tar, git. (No compiler: the treesitter parsers are only
-# downloaded here and built by install-bundle.sh on the target machine.)
+# Needs: curl, tar, git. (No compiler: the treesitter parsers and i3wsr are
+# only downloaded here, as source code, and built by install-bundle.sh on the
+# target machine.)
 
 set -uo pipefail
+
+# p4merge (part of P4V): the newest release (rYY.N) is listed on
+# https://www.perforce.com/downloads/helix-visual-client-p4v
+p4v_version=r26.3
 
 out=${1:-$HOME/dotfiles-bundle}
 repo=$(cd "$(dirname "$0")/.." && pwd)
@@ -42,6 +47,47 @@ fetch "$gh/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x6
 fetch "$gh/astral-sh/uv/releases/latest/download/uv-x86_64-unknown-linux-gnu.tar.gz" uv.tar.gz
 fetch "$gh/prefix-dev/pixi/releases/latest/download/pixi-x86_64-unknown-linux-musl.tar.gz" pixi.tar.gz
 fetch "$gh/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz" JetBrainsMono.tar.xz
+fetch https://downloads.imagej.net/fiji/latest/fiji-latest-linux64-jdk.zip fiji-linux64.zip
+fetch "https://www.perforce.com/downloads/perforce/$p4v_version/bin.linux26x86_64/p4v.tgz" p4v.tgz
+
+# --- Rust ---------------------------------------------------------------------
+# rustup can't download toolchains without internet, so the bundle has
+# rustup itself (rustup-init) and Rust's standalone installer for the newest
+# stable version. install-bundle.sh installs the toolchain and tells rustup
+# to use it.
+rust_version=$(curl -fsSL https://static.rust-lang.org/dist/channel-rust-stable.toml \
+    | grep -A1 '^\[pkg\.rust\]$' | sed -n 's/^version = "\([0-9.]*\) .*/\1/p')
+echo "    Rust ${rust_version:-(version not found)}"
+fetch "${rust_version:+https://static.rust-lang.org/dist/rust-$rust_version-x86_64-unknown-linux-gnu.tar.xz}" rust.tar.xz
+fetch https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init rustup-init
+
+# --- i3wsr (names workspaces after their windows) -----------------------------
+# Only released as source code (`cargo install i3wsr`). Download the newest
+# release and the source code of everything it uses (`cargo vendor`), so
+# install-bundle.sh can build it without internet, with the bundled Rust.
+# This uses the cargo from rust.tar.xz above; nothing is compiled here.
+if [ -f rust.tar.xz ]; then
+    echo "==> i3wsr-src.tar.gz"
+    work=$(mktemp -d)
+    tag=$(curl -fsSL https://api.github.com/repos/roosta/i3wsr/releases/latest \
+        | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4)
+    tar xJf rust.tar.xz -C "$work" --wildcards '*/cargo/bin/cargo'
+    cargo=$(echo "$work"/rust-*/cargo/bin/cargo)
+    if [ -n "$tag" ] \
+        && git clone --quiet --depth 1 --branch "$tag" "$gh/roosta/i3wsr.git" "$work/i3wsr" \
+        && mkdir -p "$work/i3wsr/.cargo" \
+        && (cd "$work/i3wsr" && CARGO_HOME="$work/cargo-home" \
+            "$cargo" vendor --locked vendor >.cargo/config.toml); then
+        # (.cargo/config.toml now tells cargo to use the vendor folder)
+        rm -rf "$work/i3wsr/.git"
+        tar czf i3wsr-src.tar.gz -C "$work" i3wsr
+        echo "    i3wsr $tag"
+    else
+        echo "    FAILED: i3wsr-src.tar.gz"
+        failed+=(i3wsr-src.tar.gz)
+    fi
+    rm -rf "$work"
+fi
 
 # --- Neovim plugins and treesitter parser sources ----------------------------
 # Runs the downloaded nvim with the repo's config and a separate data dir, so

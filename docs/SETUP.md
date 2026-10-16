@@ -9,7 +9,8 @@ internet** (for example one that only reaches internal package mirrors) say so.
 1. **apt**, if the Ubuntu version is new enough. Without internet, through
    the apt mirror.
 2. **Tools that apt doesn't have, or has too old** (Neovim, a newer kitty,
-   fzf, starship, tree-sitter, uv, pixi, Rust, the font), section 5. With
+   fzf, starship, tree-sitter, uv, pixi, Rust, the font; also i3wsr, Fiji
+   and p4merge), section 5. With
    internet, each tool's own installer. Without internet, the **offline
    bundle**: one script downloads everything on a machine with internet,
    another installs it on the machine without.
@@ -184,7 +185,9 @@ files on the machine, run `./copy_to_repo.py` and check `git diff`.
 
 Neovim 0.11+ (apt: 0.9), a newer kitty, fzf 0.48+ (apt: 0.44; fish needs
 0.48), starship, tree-sitter (builds Neovim's parsers), uv, pixi, Rust and
-the JetBrains Mono Nerd Font. All go into your home folder, no sudo. The
+the JetBrains Mono Nerd Font. All go into your home folder, no sudo. (i3wsr
+is in section 6, Fiji and p4merge in section 10; without internet, the
+bundle below has them too.) The
 dotfiles already put them on `PATH`, so the installers are told not to edit
 `.bashrc`, `.profile` or the fish config.
 
@@ -248,11 +251,14 @@ On a Linux x86_64 machine **with internet** (with the dotfiles repo cloned):
 scripts/fetch-offline-bundle.sh ~/dotfiles-bundle
 ```
 
-This downloads Neovim, kitty, fzf, starship, tree-sitter, uv, pixi and the
-font, all Neovim plugins (`nvim-data.tar.gz`), and the source code of the
-treesitter parsers (`parser-sources.tar.gz`). It needs no compiler, and
-works on any Linux. Rust is not in the bundle (yet). Copy `~/dotfiles-bundle`
-to the machine without internet, then:
+This downloads Neovim, kitty, fzf, starship, tree-sitter, uv, pixi, the
+font, Rust (the newest stable), Fiji and p4merge, all Neovim plugins
+(`nvim-data.tar.gz`), and the source code of the treesitter parsers
+(`parser-sources.tar.gz`) and of i3wsr (`i3wsr-src.tar.gz`, section 6).
+It needs no compiler, and works on any Linux. It is about 1.3 GB, half of
+it Fiji; delete the files you don't want from the folder, each part is
+optional. The p4merge version is set at the top of the script. Copy
+`~/dotfiles-bundle` to the machine without internet, then:
 
 ```bash
 ~/dotfiles-bundle/install-bundle.sh
@@ -269,6 +275,19 @@ again with a new bundle.
 Don't use the bundle on a machine with internet: its parser sources would
 keep `:TSUpdate` from downloading newer parsers. (To undo that: delete
 `~/.local/share/nvim/parser-sources`.)
+
+**Rust without internet.** rustup can't download toolchains, so the bundle
+has Rust's standalone installer and rustup itself: the script installs the
+toolchain into `~/.local/opt/rust`, installs rustup (`~/.cargo`, as the
+online installer does) and points it at that folder (`rustup toolchain
+link bundle ~/.local/opt/rust`, then `rustup default bundle`). So
+`~/.cargo/bin` (rustc, cargo, and whatever `cargo install` installs) is on
+`PATH` the usual way, through `~/.cargo/env`. `rustup update` doesn't work
+on this toolchain; a newer bundle replaces it. Building other Rust
+programs still needs their dependencies: a crates.io mirror, or
+`cargo vendor` like i3wsr. i3wsr is built here with the bundled Rust (and
+the C compiler from section 2, for linking) and goes to `~/.cargo/bin`,
+like `cargo install i3wsr`.
 
 ### Afterwards
 
@@ -353,6 +372,18 @@ Appearance).
 **unclutter** hides the mouse cursor while typing. It starts with the X
 session; set `EXTRA_OPTS="-idle 1 -root --ignore-scrolling"` in
 `/etc/default/unclutter`.
+
+**Workspace names** come from their windows, e.g. `3 kitty | chrome`:
+[i3wsr](https://github.com/roosta/i3wsr) renames them as windows open and
+close. The i3 config starts it if it is installed; settings (shorter names
+for some programs) are in `~/.config/i3wsr/config.toml`. It is only
+released as source code, so it needs Rust (section 5). With internet:
+
+```bash
+cargo install --locked i3wsr     # also to update
+```
+
+Without internet the offline bundle builds it (section 5).
 
 **Power settings (laptop):** run `xfce4-power-manager-settings`. Disable the
 screen turning off and enable "Handle screen brightness keys".
@@ -483,24 +514,26 @@ sudo usermod -aG docker $USER
 docker run hello-world
 ```
 
-**Fiji** (updates itself inside its folder, so it must be in your home)
+**Fiji** (updates itself inside its folder, so it must be in your home).
+Without internet it is in the offline bundle (section 5).
 ```bash
 mkdir -p ~/.local/opt && cd ~/.local/opt
-wget https://downloads.imagej.net/fiji/latest/fiji-linux64.zip
-unzip fiji-linux64.zip            # creates Fiji.app/
-rm fiji-linux64.zip
-# The launcher's name depends on the release
-for launcher in fiji-linux-x64 ImageJ-linux64; do
-    [ -x Fiji.app/$launcher ] && ln -sf ~/.local/opt/Fiji.app/$launcher ~/.local/bin/fiji
-done
+wget https://downloads.imagej.net/fiji/latest/fiji-latest-linux64-jdk.zip
+unzip fiji-latest-linux64-jdk.zip    # creates Fiji/
+rm fiji-latest-linux64-jdk.zip
+ln -sf ~/.local/opt/Fiji/fiji-linux-x64 ~/.local/bin/fiji
 ```
+(Older Fiji releases unpacked to `Fiji.app/` with an `ImageJ-linux64`
+launcher; delete such a folder and its link before installing the new one.)
 
 **p4merge** (merge tool in `.gitconfig`, for its 3-way view). Part of
 P4V; find the newest release (`rYY.N`) on
 https://www.perforce.com/downloads/helix-visual-client-p4v and set it below.
-Run the same block again to update.
+Run the same block again to update. Without internet it is in the offline
+bundle (section 5; the version is set at the top of
+`scripts/fetch-offline-bundle.sh`).
 ```bash
-version=r25.1
+version=r26.3
 wget https://www.perforce.com/downloads/perforce/$version/bin.linux26x86_64/p4v.tgz
 tar -xzf p4v.tgz
 rm -rf ~/.local/opt/p4merge

@@ -33,6 +33,54 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 14: more in the offline bundle (Rust, i3wsr, Fiji, p4merge)
+
+* **Rust offline**: rustup can't install toolchains without internet, so
+  the bundle has Rust's standalone installer
+  (`rust-<version>-x86_64-unknown-linux-gnu.tar.xz`, newest stable) and
+  `rustup-init`. install-bundle.sh installs the toolchain
+  into `~/.local/opt/rust`, rustup into `~/.cargo` (`--default-toolchain
+  none --no-modify-path`, works offline) and links the two
+  (`rustup toolchain link bundle`, `rustup default bundle`). Chosen over
+  links in `~/.local/bin` without rustup, because then `cargo install`
+  (→ `~/.cargo/bin`) would not be on PATH; this way online and offline
+  machines look the same, and the existing `~/.cargo/env` lines do the PATH.
+  `rustup update` can't update a linked toolchain: install a newer bundle.
+  Only the components of rustup's default profile (rustc, cargo, std,
+  docs, rustfmt, clippy) plus rust-analyzer are installed: 1.6 GB, most
+  of it the docs; the rest of the installer would add 0.3 GB.
+* **i3wsr** names workspaces after their windows (`3 kitty | chrome`),
+  replacing manual renaming. No prebuilt binaries, so the fetch script
+  downloads the newest release's source and `cargo vendor`s its
+  dependencies (using the bundle's own cargo, no compiler needed there);
+  install-bundle.sh builds it offline (`cargo install --offline --locked
+  --path .`) into `~/.cargo/bin`, the same place as `cargo install i3wsr`.
+  Tested offline (no network namespace): Rust + i3wsr install in about a
+  minute; the whole install, parsers included, peaks at ~0.9 GB of RAM.
+* i3 starts it with `exec_always` (skipped if i3wsr isn't installed).
+  Tested in a nested i3 4.23: a *reload* doesn't run `exec_always` again
+  and keeps the running i3wsr; a *restart* starts a new one and the old one
+  exits by itself, so no `pkill` is needed. Config
+  `~/.config/i3wsr/config.toml`: `" | "` between names, duplicates
+  removed, short lowercase aliases for a few long classes (Chrome,
+  PyCharm...); other windows show their class as it is (`XEyes`). No
+  icons. polybar keeps `strip-wsnumbers = false`, so the number stays
+  visible; the `workspace number N` bindings still reach renamed
+  workspaces (tested).
+* **Fiji** (`fiji-latest-linux64-jdk.zip`, the old `fiji-linux64.zip` URL
+  is gone) and **p4merge** (`p4v.tgz`, version variable at the top of
+  fetch-offline-bundle.sh, now r26.3) are in the bundle, installed into
+  `~/.local/opt/Fiji` (the zip's folder is now `Fiji/`, no longer
+  `Fiji.app/`; the launcher is `fiji-linux-x64`) and
+  `~/.local/opt/p4merge`, with links. An existing Fiji folder is moved to
+  a `.bak.<date>` folder, like nvim's data, since Fiji updates itself (and
+  its plugins) in place. On its first start Fiji adds its own launcher
+  entry and file types to `~/.local/share/applications` and `mime` (so
+  rofi finds it); it uses the home folder from the user database, not
+  `$HOME`. Both start (tested: `fiji --headless -eval`, `p4merge -V`).
+* The bundle is about 1.3 GB now (Fiji 0.7 GB, Rust 0.2 GB, P4V 0.2 GB);
+  each part stays optional: delete a file from the folder to skip it.
+
 ### 2026-10 round 13: review of the whole refresh (USER-NOTES.md)
 
 * Windows-era workarounds removed: `copy_to_home.py` no longer makes
@@ -293,7 +341,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 - [ ] Log out/in: no i3 error bar; `~/.cache/i3-autostart.log` looks sane
 - [ ] polybar at the bottom: workspaces, window title, disk/mem/cpu, clock, tray
 - [ ] Click the clock (long date), CPU (opens btop)
-- [ ] `Super+w` names a workspace; `Alt+<number>` still reaches it
+- [ ] i3wsr names workspaces after their windows; `Alt+<number>` still reaches them; after an i3 restart only one i3wsr runs (`pgrep -a i3wsr`)
 - [ ] picom runs (tested before): GTK menus/tooltips have no black corners, and no shadows or fades
 - [ ] `Alt+Return` opens kitty with fish, font and colors right
 - [ ] `Super+...` bindings get through the remote desktop client at all?
@@ -337,14 +385,6 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
   everywhere, including the remote desktop.
 
 ## Ideas, not done yet
-
-* **Workspace names from their content** with
-  [i3wsr](https://github.com/roosta/i3wsr) (Rust, maintained): names like
-  "3: kitty firefox", started with `exec_always` in the i3 config. No
-  prebuilt binaries: `cargo install i3wsr`, so it needs Rust, and an
-  offline way to get it.
-* **More in the offline bundle**: Rust (rustup can't install toolchains
-  offline; Rust's standalone installers can), i3wsr, Fiji, p4merge.
 
 * **vim-tmux-navigator**: `Ctrl+h/j/k/l` moves between nvim splits *and*
   tmux panes. Costs `Ctrl+l` (clear screen) in the shell.

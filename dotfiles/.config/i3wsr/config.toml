@@ -1,0 +1,21 @@
+# i3wsr: names each workspace after its windows, e.g. "3 kitty | chrome".
+# Started from the i3 config. Options: https://github.com/roosta/i3wsr
+# After changing this file, restart i3 (Alt+Ctrl+Shift+r) to restart i3wsr.
+
+[general]
+# Between window names
+separator = " | "
+
+[options]
+# Two kitty windows show up as "kitty" once
+remove_duplicates = true
+
+# Shorter names for some windows. i3wsr shows the window's class (see it
+# with `xprop WM_CLASS`, the second string); the keys are regexes matched
+# against it.
+[aliases.class]
+"^Google-chrome$" = "chrome"
+"^jetbrains-pycharm" = "pycharm"
+"^Code$" = "code"
+"^org\\.gnome\\.Nautilus$" = "files"
+"^libreoffice" = "office"
