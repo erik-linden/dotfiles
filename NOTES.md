@@ -125,7 +125,10 @@ Decisions, open questions and ideas for this setup. Newest first.
   online machine says when it's outdated; apt's build never checks and
   offline checks fail silently.
 * delta replaces diff-highlight for word-level highlighting too (it marks
-  changed words in `git diff`, `log -p` and `show`).
+  changed words in `git diff`, `log -p` and `show`). Except under
+  `--graph`: delta (also 0.20, the newest) can't read diffs with the graph's
+  `| ` in front, so the graph aliases `lg`/`ll` get diff-highlight as their
+  own pager (`[pager]` in .gitconfig; git allows a pager per alias).
 * Docker setup fixed: it lacked the step that adds Docker's apt repository.
 
 ### 2026-10 round 12: first test on a real Ubuntu 24.04 (VM)

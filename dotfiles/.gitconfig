@@ -10,6 +10,13 @@
 	# Show diffs with delta (apt: git-delta). To go back to plain git, remove
 	# this line and the diffFilter line under [interactive].
 	pager = delta
+[pager]
+	# The graph aliases (git lg / git ll, also with -p): delta can't read
+	# diffs drawn inside a --graph (every line starts with "| "), so these
+	# use git's own diff-highlight instead, which can. It marks the changed
+	# words in reverse video. (The script comes with Ubuntu's git package.)
+	lg = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	ll = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 [init]
 	defaultBranch = main
 # Named colors come from the terminal's palette
