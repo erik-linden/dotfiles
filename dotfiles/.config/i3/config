@@ -26,7 +26,8 @@ client.urgent           #ea6962 #ea6962 #1d2021 #282828 #ea6962
 client.placeholder      #141617 #1d2021 #d4be98 #141617 #1d2021
 client.background       #1d2021
 default_border normal 5
-default_floating_border normal 5
+# floating windows: no border, no title bar (see also the rule below)
+default_floating_border none
 
 # --- Behavior ------------------------------------------------------------
 
@@ -65,6 +66,10 @@ for_window [class="flameshot"] floating enable, border none
 for_window [class="copyq"] floating enable, move position center
 # matplotlib plot windows (class "matplotlib" with Qt, "Matplotlib" with Tk)
 for_window [class="(?i)^matplotlib$"] floating enable
+# No border on floating windows (after the rules above that make windows
+# floating, and overriding the "all windows" rule). Only for windows that
+# open floating; one made floating later with Alt+Shift+Space keeps its border.
+for_window [floating] border none
 # PyCharm dialogs sometimes open without focus
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
 
