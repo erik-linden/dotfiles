@@ -48,13 +48,6 @@ Decisions, open questions and ideas for this setup. Newest first.
   25 for the others (tested: an unfocused `1 vim | com.anthropic.Claude`
   shows as `1 vim | com.anthropic.Cla…`). i3 keeps the full names.
   This settles "long i3wsr workspace names" from round 16.
-* **No border on floating windows**: `default_floating_border none` and
-  `for_window [floating] border none` (after the rules that make windows
-  float, so it overrides round 12's `for_window [all] border normal 5`).
-  Tiled windows keep `normal 5`. A window made floating later with
-  `Alt+Shift+Space` keeps its border (for_window only runs when a window
-  opens). Tested in a nested i3: floating xclock `none`, tiled xeyes
-  `normal 5`.
 
 ### 2026-10 round 17: offline bundle and profile logic tested on the VM
 
