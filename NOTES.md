@@ -46,6 +46,14 @@ Decisions, open questions and ideas for this setup. Newest first.
   one `Fiji.bak` and `nvim.bak` (no timestamped piles), everything rebuilt.
 * The first Rust setup prints a page of `cargo:rerun-if-env-changed`
   lines once; harmless, not seen again.
+* **Online path, straight from docs/SETUP.md** (section 5, `cargo install
+  --locked i3wsr`, the Fiji and p4merge blocks, each as a fresh login
+  shell in an empty home folder): all succeeded (49 s, 22 s, 77 s, 25 s),
+  every tool is found through .profile, and `.bashrc`, `.profile` and the
+  fish files are untouched. nvim's first start: 13 plugins and 28 parsers
+  in 16 s, peak +0.9 GB RAM, no errors; blink.cmp downloads its matcher
+  when it first loads. (starship's installer prints a harmless warning
+  about elvish, a shell we don't use.)
 * **Profile logic** with stand-ins for polybar/xrdb: detection (VM,
   ThinLinc, xrdp, physical, override file), polybar's modules per profile
   and monitor count, grayscale font smoothing only on remote. Not
