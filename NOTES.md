@@ -33,6 +33,22 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 18: i3wsr names from window titles, length cap in the bar
+
+* Tried in the real i3 session: i3wsr shows window classes, so every
+  terminal is just `kitty`. i3wsr can show window titles instead
+  (`display_property = "name"`, e.g. `nvim ~/p/dotfiles`), but browser
+  titles are whole page titles. Trying the middle way first: class names
+  as before, plus `[aliases.name]` for a few titles fish sets in kitty
+  (`vim`, `btop`, `ranger`, `ssh`). Title aliases are checked before
+  class, and an alias replaces the whole name (no folder). Result:
+  `1 vim | com.anthropic.Claude`, `2 btop | vim`.
+* i3wsr has no limit on how many names or how long the name gets, so
+  polybar cuts the labels: `%name:0:40:…%` for the focused workspace,
+  25 for the others (tested: an unfocused `1 vim | com.anthropic.Claude`
+  shows as `1 vim | com.anthropic.Cla…`). i3 keeps the full names.
+  This settles "long i3wsr workspace names" from round 16.
+
 ### 2026-10 round 17: offline bundle and profile logic tested on the VM
 
 * **Offline bundle, end to end**: fresh fetch (1.3 GB, nothing failed),

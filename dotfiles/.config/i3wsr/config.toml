@@ -19,3 +19,13 @@ remove_duplicates = true
 "^Code$" = "code"
 "^org\\.gnome\\.Nautilus$" = "files"
 "^libreoffice" = "office"
+
+# The same for window titles: these are checked first, so a kitty window
+# whose title (set by fish: the running command and folder, e.g.
+# "nvim ~/p/dotfiles") matches shows "vim" instead of "kitty". An alias
+# replaces the whole name, so the folder isn't shown.
+[aliases.name]
+"^n?vim( |$)" = "vim"
+"^btop( |$)" = "btop"
+"^ranger( |$)" = "ranger"
+"^ssh( |$)" = "ssh"
