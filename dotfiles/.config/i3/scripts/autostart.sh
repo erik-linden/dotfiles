@@ -23,9 +23,8 @@ run() {
 
 # --- All machines --------------------------------------------------------
 
-# Colors and Xft.dpi (font scale). The login normally loads this, but not
-# every session type (e.g. remote desktops) does.
-[ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
+# Colors, Xft.dpi (font scale) and font smoothing
+"$scripts/load-xresources.sh"
 
 # GNOME theme/font settings for GTK apps
 [ -x /usr/libexec/gsd-xsettings ] && /usr/libexec/gsd-xsettings &

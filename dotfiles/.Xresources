@@ -32,7 +32,9 @@
 ! Check the current value with: xrdb -query | grep dpi
 Xft.dpi: 96
 
-! Font rendering (matches the gnome-tweaks settings in docs/SETUP.md)
+! Font rendering (matches the gnome-tweaks settings in docs/SETUP.md).
+! On the remote profile, i3/scripts/load-xresources.sh switches Xft.rgba to
+! none (grayscale): subpixel colors fringe over a remote desktop.
 Xft.antialias: 1
 Xft.hinting: 1
 Xft.hintstyle: hintslight

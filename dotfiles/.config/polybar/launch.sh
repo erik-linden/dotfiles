@@ -9,7 +9,7 @@ killall -q polybar
 while pgrep -u "$UID" -x polybar >/dev/null; do sleep 0.1; done
 
 # The bar reads Xft.dpi; make sure it's loaded (this may run before autostart.sh)
-[ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
+"$HOME/.config/i3/scripts/load-xresources.sh"
 
 profile=$("$HOME/.config/i3/scripts/machine-profile.sh")
 

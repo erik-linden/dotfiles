@@ -363,7 +363,9 @@ desktop, the client's layout may decide instead.
 configs only set them relative to each other: i3 and the bar 9, terminal
 and notifications 10, rofi 11. GTK apps follow gnome-tweaks →
 Fonts → Scaling Factor instead. In gnome-tweaks, also set Monospace Text
-to *JetBrainsMono Nerd Font Regular 10* and Antialiasing to Subpixel (RGB).
+to *JetBrainsMono Nerd Font Regular 10* and Antialiasing to Subpixel (RGB),
+or Standard (grayscale) over a remote desktop, where subpixel colors fringe.
+(i3, polybar, rofi and dunst switch to grayscale on their own there.)
 
 **CopyQ** shows a tray icon in the bar; right-click it for settings, e.g.
 the history size (default 200) or a dark theme (File → Preferences →

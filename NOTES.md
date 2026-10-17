@@ -33,6 +33,25 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 16: second review (design)
+
+* tmux starts fish, or bash if fish isn't installed (like kitty).
+* **Grayscale font smoothing over a remote desktop**: subpixel smoothing
+  turns into colored fringes there (the picture is compressed).
+  i3/scripts/load-xresources.sh loads `.Xresources` and sets
+  `Xft.rgba: none` on the remote profile; autostart.sh and polybar's
+  launch.sh both use it (either could otherwise put `rgb` back).
+* polybar: `wm-restack = i3` removed (only logged a warning).
+* Kept as is, on purpose: the § → ~ remap in keyboard-daemon.sh applies
+  on any layout (on a US layout that key is the backtick, but no US
+  keyboards are used); long i3wsr workspace names (see how it looks
+  first); no tray on multi-monitor setups without a primary monitor.
+* Open: kitty closes windows without asking (`confirm_os_window_close
+  0`), and nvim has no swap file (from the old .vimrc), so closing a
+  kitty window running nvim loses unsaved changes. Tested: with swap
+  files on, a normal quit leaves none behind, and a killed nvim leaves
+  one that the next open offers to recover.
+
 ### 2026-10 round 15: fixes from a review of the whole branch
 
 * **Idle locking was on by accident**: X's screensaver starts after 10 idle
@@ -42,8 +61,12 @@ Decisions, open questions and ideas for this setup. Newest first.
   sleep lock once the screen is locked (as xss-lock's own example does);
   before, the suspend waited for logind's timeout. Tested with a stand-in
   i3lock: released after 0.4 s instead of at unlock.
-* i3wsr: `exec_always` also runs on every reload, which left one more
-  i3wsr each time; the i3 config now stops the old one first.
+* i3wsr: the i3 config stops a running i3wsr before starting one. (The
+  review thought `exec_always` also ran on reload and piled up copies;
+  wrong: it only runs on restart, which ends the old i3wsr anyway. The
+  pkill stays as a cheap safeguard. Also: an i3 *reload* doesn't restart
+  polybar either; config changes reach it through its `--reload` flag or
+  an i3 restart.)
 * nvim's compiled spell file (`en.utf-8.add.spl`, binary) is no longer
   copied by copy_to_home.py/copy_to_repo.py (it crashed copy_to_home.py,
   which reads text) and is in .gitignore. nvim builds it from the `.add`
