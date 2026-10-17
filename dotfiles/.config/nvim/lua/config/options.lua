@@ -54,11 +54,16 @@ opt.tabstop = 4             -- 4 whitespaces for tab presentation
 opt.shiftwidth = 4          -- Shift lines by 4 spaces
 opt.expandtab = true        -- Expand tabs into spaces
 
-opt.clipboard = "unnamedplus" -- Use system clipboard
+-- Yank/delete/paste use nvim's own registers, not the system clipboard
+-- (so CopyQ only sees deliberate copies): <leader>y / <leader>p copy to and
+-- paste from the system clipboard (config/keymaps.lua)
 
 opt.backup = false          -- Disable backups
 opt.writebackup = false
-opt.swapfile = false
+-- Swap files (nvim's default) are kept in ~/.local/state/nvim/swap, not
+-- next to the files. A normal quit removes them; if nvim is killed (e.g. its
+-- kitty window closed), the next open offers to recover unsaved changes.
+opt.swapfile = true
 opt.undofile = true         -- Persistent undo, survives closing the file
 
 opt.splitbelow = true       -- More natural split opening

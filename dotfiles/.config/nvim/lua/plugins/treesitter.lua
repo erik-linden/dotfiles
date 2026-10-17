@@ -51,7 +51,9 @@ return {
                 pcall(use_local_sources)
             end
 
-            if vim.fn.executable("tree-sitter") == 1 then
+            -- Needs tree-sitter and a C compiler; without them, nvim would
+            -- try (and fail) again at every start
+            if vim.fn.executable("tree-sitter") == 1 and vim.fn.executable("cc") == 1 then
                 -- Only installs what is missing; runs in the background
                 require("nvim-treesitter").install(require("config.parsers"))
             end

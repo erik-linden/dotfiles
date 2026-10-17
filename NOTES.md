@@ -46,11 +46,18 @@ Decisions, open questions and ideas for this setup. Newest first.
   on any layout (on a US layout that key is the backtick, but no US
   keyboards are used); long i3wsr workspace names (see how it looks
   first); no tray on multi-monitor setups without a primary monitor.
-* Open: kitty closes windows without asking (`confirm_os_window_close
-  0`), and nvim has no swap file (from the old .vimrc), so closing a
-  kitty window running nvim loses unsaved changes. Tested: with swap
-  files on, a normal quit leaves none behind, and a killed nvim leaves
-  one that the next open offers to recover.
+* **nvim swap files back on** (the old .vimrc had them off), while kitty
+  keeps closing windows without asking (handy for tmux, btop). Closing a
+  kitty window running nvim used to lose unsaved changes; now the next
+  open offers to recover them. Tested: a normal quit leaves no swap file,
+  a killed nvim leaves one. They live in ~/.local/state/nvim/swap, not
+  next to the files.
+* **nvim is off the system clipboard** (was `unnamedplus`, from the old
+  .vimrc): every yank and delete ended up in CopyQ's history. `,y`/`,p`
+  copy to / paste from the system clipboard.
+* nvim only installs parsers at startup if a C compiler (`cc`) is there
+  too; without one, it failed again at every start. (Stock Ubuntu has no
+  gcc; SETUP.md section 2 installs build-essential.)
 
 ### 2026-10 round 15: fixes from a review of the whole branch
 

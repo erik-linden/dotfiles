@@ -7,6 +7,12 @@ local map = vim.keymap.set
 -- Save with <leader>w
 map("n", "<leader>w", "<cmd>write<cr>", { desc = "Save" })
 
+-- System clipboard (normal yank/delete/paste don't touch it, see options.lua)
+map({ "n", "x" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+map("n", "<leader>Y", '"+y$', { desc = "Copy to end of line to system clipboard" })
+map({ "n", "x" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+map({ "n", "x" }, "<leader>P", '"+P', { desc = "Paste from system clipboard, before cursor" })
+
 -- Additional escape mapping (same in fish)
 map("i", "jk", "<Esc>")
 

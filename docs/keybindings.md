@@ -81,6 +81,7 @@ Press `,` and wait: a popup lists all leader mappings (`,s` search, `,g` git).
 |---|---|
 | `jk` | Escape |
 | `,w` | Save |
+| `,y` / `,p` | **Copy to / paste from the system clipboard** (`,yy` line, `,y` + selection or motion; `,P` pastes before). Plain `y`/`d`/`p` stay inside nvim |
 | `,f` | Format (ruff: fix, sort imports, format) |
 | `,Enter`, `Esc` | Clear search highlight |
 | `Space` / `Ctrl+Space` | Search forward / backward |
@@ -130,7 +131,7 @@ Press `,` and wait: a popup lists all leader mappings (`,s` search, `,g` git).
 
 | Keys | Action |
 |---|---|
-| `Ctrl+Shift+c` / `v` | Copy / paste |
+| `Ctrl+Shift+c` / `v` | Copy / paste. In nvim (which takes the mouse), hold `Shift` while dragging to select for `Ctrl+Shift+c`, or use `,y` |
 | `Ctrl+Shift+=` / `-` / `Backspace` | Font bigger / smaller / reset |
 | `Ctrl+Shift+h` | **Whole scrollback in a pager** (search with `/`) |
 | `Ctrl+Shift+p`, then `f` | **Pick a path on screen** and insert it (`w` word, `l` line) |
