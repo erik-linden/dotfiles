@@ -24,6 +24,8 @@ if ! command -v polybar >/dev/null; then
     exit 1
 fi
 
+mkdir -p "$HOME/.cache"  # for the logs
+
 # "DP-1: 2560x1440+0+0 (primary)" -> one bar per monitor, the tray goes on the primary one
 polybar --list-monitors | while IFS= read -r line; do
     monitor=${line%%:*}

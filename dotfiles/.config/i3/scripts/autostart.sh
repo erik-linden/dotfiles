@@ -5,6 +5,7 @@
 #
 # Log: ~/.cache/i3-autostart.log
 
+mkdir -p "$HOME/.cache"
 exec >"$HOME/.cache/i3-autostart.log" 2>&1
 
 scripts="$HOME/.config/i3/scripts"

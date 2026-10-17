@@ -9,9 +9,18 @@
 
 override="$HOME/.config/machine-profile"
 if [ -r "$override" ]; then
-    head -n1 "$override" | tr -d '[:space:]'
-    echo
-    exit 0
+    forced=$(head -n1 "$override" | tr -d '[:space:]')
+    case "$forced" in
+        laptop | desktop | remote)
+            echo "$forced"
+            exit 0
+            ;;
+        *)
+            # A typo would otherwise mean different things to different
+            # scripts; detect the profile as usual instead
+            echo "machine-profile.sh: ignoring \"$forced\" in $override (not laptop, desktop or remote)" >&2
+            ;;
+    esac
 fi
 
 # Remote desktop sessions (xrdp, ThinLinc, NoMachine, X2Go)

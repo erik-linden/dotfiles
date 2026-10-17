@@ -33,6 +33,29 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 17: offline bundle and profile logic tested on the VM
+
+* **Offline bundle, end to end**: fresh fetch (1.3 GB, nothing failed),
+  then install-bundle.sh into an empty home folder with the network cut
+  off (`unshare --map-current-user -n`). All tools installed, Rust 1.99
+  linked into rustup, i3wsr built offline, Fiji/p4merge linked, 28
+  parsers; 74 s, peak +1 GB RAM. nvim offline: all 13 plugins, treesitter
+  highlighting, blink.cmp's prebuilt matcher, `:checkhealth` clean, a
+  forced parser update downloads nothing. i3wsr accepts config.toml.
+* **Update path** (same bundle installed again): existing rustup reused,
+  one `Fiji.bak` and `nvim.bak` (no timestamped piles), everything rebuilt.
+* The first Rust setup prints a page of `cargo:rerun-if-env-changed`
+  lines once; harmless, not seen again.
+* **Profile logic** with stand-ins for polybar/xrdb: detection (VM,
+  ThinLinc, xrdp, physical, override file), polybar's modules per profile
+  and monitor count, grayscale font smoothing only on remote. Not
+  testable here: the laptop branch (needs a battery).
+* Fixed: autostart.sh and polybar's launch.sh failed completely without
+  `~/.cache` (they log there); they create it now. A misspelled profile in
+  `~/.config/machine-profile` meant "remote" to polybar but "physical" to
+  autostart.sh; machine-profile.sh now ignores unknown values (with a
+  warning in the autostart log) and detects the profile instead.
+
 ### 2026-10 round 16: second review (design)
 
 * tmux starts fish, or bash if fish isn't installed (like kitty).
