@@ -23,6 +23,7 @@
 .config/picom/picom.conf
 .config/rofi/
 .config/dunst/dunstrc
+.config/xdg-desktop-portal/i3-portals.conf
 
 # Terminal and tools
 .config/kitty/kitty.conf

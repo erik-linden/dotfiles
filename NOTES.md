@@ -48,6 +48,14 @@ Decisions, open questions and ideas for this setup. Newest first.
   25 for the others (tested: an unfocused `1 vim | com.anthropic.Claude`
   shows as `1 vim | com.anthropic.Cla…`). i3 keeps the full names.
   This settles "long i3wsr workspace names" from round 16.
+* **Nautilus started light** despite `color-scheme prefer-dark`: GTK4 /
+  libadwaita apps ask xdg-desktop-portal, and the portal had no backend
+  for `XDG_CURRENT_DESKTOP=i3` (xdg-desktop-portal-gtk and -gnome both
+  say `UseIn=gnome`, and there is no i3-portals.conf), so it offered no
+  Settings interface. New `~/.config/xdg-desktop-portal/i3-portals.conf`:
+  `default=gtk` (the gnome backend needs GNOME Shell), Secret from
+  gnome-keyring, like GNOME's own file. Checked: the portal answers
+  color-scheme 1, and Nautilus opens dark.
 
 ### 2026-10 round 17: offline bundle and profile logic tested on the VM
 

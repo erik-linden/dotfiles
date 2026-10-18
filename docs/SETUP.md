@@ -343,7 +343,12 @@ gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
 ```
 
 Restart the apps afterwards. (A full Gruvbox GTK theme exists too, but it
-is a manual download; not worth it for now.)
+is a manual download; not worth it for now.) Newer GTK4 apps (Nautilus,
+GNOME Text Editor...) read the dark mode setting through
+xdg-desktop-portal, which the dotfiles set up for i3
+(`~/.config/xdg-desktop-portal/i3-portals.conf`). If one still starts
+light right after copying that file, run
+`systemctl --user restart xdg-desktop-portal` (or log in again).
 
 **Keyboard layout.** GNOME keeps its own layout setting, but i3 gets the
 system's X default (`us` if Ubuntu was installed with an English keyboard).
