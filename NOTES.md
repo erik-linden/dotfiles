@@ -56,6 +56,8 @@ Decisions, open questions and ideas for this setup. Newest first.
   `default=gtk` (the gnome backend needs GNOME Shell), Secret from
   gnome-keyring, like GNOME's own file. Checked: the portal answers
   color-scheme 1, and Nautilus opens dark.
+* `jq` back in the apt list (section 2), for JSON in the terminal; it
+  was dropped in round 3 as unused.
 
 ### 2026-10 round 17: offline bundle and profile logic tested on the VM
 

@@ -109,11 +109,11 @@ The desktop itself (i3, polybar...) is installed in section 6.
 #   bat: colored file viewer, also for --help and man pages, btop: system
 #   monitor, curl: downloads, expect: provides `unbuffer`, fd-find: fast
 #   `find` (command `fdfind`, used by fzf-lua), fish: the shell, git-delta:
-#   nicer git diffs, kitty: terminal, ranger: file manager, ripgrep: fast
-#   grep (`rg`, used by fzf and nvim), tmux: terminal multiplexer, tree:
-#   directory tree, xclip: clipboard for tmux, zoxide: `z` to jump to
-#   directories
-sudo apt install bat btop curl expect fd-find fish git-delta kitty ranger ripgrep tmux tree xclip zoxide
+#   nicer git diffs, jq: query and pretty-print JSON, kitty: terminal,
+#   ranger: file manager, ripgrep: fast grep (`rg`, used by fzf and nvim),
+#   tmux: terminal multiplexer, tree: directory tree, xclip: clipboard for
+#   tmux, zoxide: `z` to jump to directories
+sudo apt install bat btop curl expect fd-find fish git-delta jq kitty ranger ripgrep tmux tree xclip zoxide
 
 # Ubuntu calls bat `batcat` (the name was taken); make `bat` work too
 mkdir -p ~/.local/bin && ln -sf /usr/bin/batcat ~/.local/bin/bat
