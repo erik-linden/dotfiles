@@ -59,9 +59,9 @@ Decisions, open questions and ideas for this setup. Newest first.
   replaces fish's own (one added `history merge`).
 * **btop.conf is no longer in the repo**: btop rewrites the whole file
   (adding every option a newer btop knows), so copy_to_home.py always saw
-  a difference. Only the colors matter: SETUP.md section 2 sets
-  `color_theme` and `theme_background` once; btop keeps them and fills in
-  the rest. (vim_keys, the one other change, is back to btop's default.)
+  a difference. SETUP.md section 2 sets the three settings that matter
+  once (`color_theme`, `theme_background`, `vim_keys`); btop keeps them and
+  fills in the rest.
 
 ### 2026-10 round 20: second pass, hand-installed tools that apt can provide
 

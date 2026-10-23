@@ -128,13 +128,14 @@ sudo apt install bat btop curl expect fd-find fish git-delta jq kitty ranger rip
 # Ubuntu calls bat `batcat` (the name was taken); make `bat` work too
 mkdir -p ~/.local/bin && ln -sf /usr/bin/batcat ~/.local/bin/bat
 
-# btop's colors: its built-in Gruvbox Material theme, on the terminal's own
-# background. (btop.conf isn't in the dotfiles: btop rewrites all of it.
-# Any keys it lacks get their defaults.)
+# btop: its built-in Gruvbox Material theme, on the terminal's own
+# background, and h/j/k/l to move around. (btop.conf isn't in the dotfiles:
+# btop rewrites all of it. Any keys it lacks get their defaults.)
 mkdir -p ~/.config/btop && touch ~/.config/btop/btop.conf
-sed -i '/^color_theme *=/d; /^theme_background *=/d' ~/.config/btop/btop.conf
+sed -i '/^color_theme *=/d; /^theme_background *=/d; /^vim_keys *=/d' ~/.config/btop/btop.conf
 # (starts with a newline: btop's file doesn't end with one)
-printf '\n%s\n' 'color_theme = "gruvbox_material_dark"' 'theme_background = False' >> ~/.config/btop/btop.conf
+printf '\n%s\n' 'color_theme = "gruvbox_material_dark"' 'theme_background = False' \
+    'vim_keys = True' >> ~/.config/btop/btop.conf
 
 # Building code: build-essential (gcc, g++, make), autoconf and pkg-config
 # (many projects' build scripts, e.g. i3lock-color), clang, cmake, ninja,
