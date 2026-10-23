@@ -9,11 +9,11 @@ internet** (for example one that only reaches internal package mirrors) say so.
 1. **apt**, if the Ubuntu version is new enough. Without internet, through
    the apt mirror.
 2. **Tools that apt doesn't have, or has too old** (Neovim, a newer kitty,
-   fzf, starship, tree-sitter, uv, pixi, Rust, the font; also i3wsr, Fiji
-   and p4merge), section 5. With
-   internet, each tool's own installer. Without internet, the **offline
-   bundle**: one script downloads everything on a machine with internet,
-   another installs it on the machine without.
+   fzf, starship, tree-sitter, uv, pixi, Rust, the font; also Fiji and
+   p4merge), section 5. With internet, each tool's own installer. Without
+   internet, the **offline bundle**: one script downloads everything on a
+   machine with internet, another installs it on the machine without.
+   (Rust without internet comes from apt instead, section 5.)
 3. **Manual steps**: everything else, described below.
 
 **Where hand-installed programs go.** Everything not from apt is installed
@@ -95,6 +95,16 @@ pip itself (for the rare cases where pip is used directly):
 ```bash
 # sudo pip config --global set global.index-url https://<pypi-mirror>/simple
 # sudo pip config --global set global.trusted-host <pypi-mirror-host>
+```
+
+`~/.cargo/config.toml` (Rust's crates; the mirror's own docs give the URL
+and whether it is a `sparse+https://` registry)
+```toml
+# [source.crates-io]
+# replace-with = "mirror"
+#
+# [source.mirror]
+# registry = "sparse+https://<crates-mirror>/"
 ```
 
 If uv or pixi still complain about certificates, point them at the system store:
@@ -185,11 +195,10 @@ files on the machine, run `./copy_to_repo.py` and check `git diff`.
 
 Neovim 0.11+ (apt: 0.9), a newer kitty, fzf 0.48+ (apt: 0.44; fish needs
 0.48), starship, tree-sitter (builds Neovim's parsers), uv, pixi, Rust and
-the JetBrains Mono Nerd Font. All go into your home folder, no sudo. (i3wsr
-is in section 6, Fiji and p4merge in section 10; without internet, the
-bundle below has them too.) The
-dotfiles already put them on `PATH`, so the installers are told not to edit
-`.bashrc`, `.profile` or the fish config.
+the JetBrains Mono Nerd Font. All go into your home folder, no sudo. (Fiji
+and p4merge are in section 10; without internet, the bundle below has them
+too.) The dotfiles already put them on `PATH`, so the installers are told
+not to edit `.bashrc`, `.profile` or the fish config.
 
 ### With internet
 
@@ -252,11 +261,9 @@ scripts/fetch-offline-bundle.sh ~/dotfiles-bundle
 ```
 
 This downloads Neovim, kitty, fzf, starship, tree-sitter, uv, pixi, the
-font, Rust (the newest stable), Fiji and p4merge, all Neovim plugins
-(`nvim-data.tar.gz`), and the source code of the treesitter parsers
-(`parser-sources.tar.gz`) and of i3wsr (`i3wsr-src.tar.gz`, section 6).
-It needs no compiler, and works on any Linux. It is about 1.3 GB, half of
-it Fiji; delete the files you don't want from the folder, each part is
+font, Fiji and p4merge, all Neovim plugins (`nvim-data.tar.gz`), and the
+source code of the treesitter parsers (`parser-sources.tar.gz`). It needs
+no compiler, and works on any Linux. It is about 1.1 GB, most of it Fiji; delete the files you don't want from the folder, each part is
 optional. The p4merge version is set at the top of the script. Copy
 `~/dotfiles-bundle` to the machine without internet, then:
 
@@ -276,18 +283,25 @@ Don't use the bundle on a machine with internet: its parser sources would
 keep `:TSUpdate` from downloading newer parsers. (To undo that: delete
 `~/.local/share/nvim/parser-sources`.)
 
-**Rust without internet.** rustup can't download toolchains, so the bundle
-has Rust's standalone installer and rustup itself: the script installs the
-toolchain into `~/.local/opt/rust`, installs rustup (`~/.cargo`, as the
-online installer does) and points it at that folder (`rustup toolchain
-link bundle ~/.local/opt/rust`, then `rustup default bundle`). So
-`~/.cargo/bin` (rustc, cargo, and whatever `cargo install` installs) is on
-`PATH` the usual way, through `~/.cargo/env`. `rustup update` doesn't work
-on this toolchain; a newer bundle replaces it. Building other Rust
-programs still needs their dependencies: a crates.io mirror, or
-`cargo vendor` like i3wsr. i3wsr is built here with the bundled Rust (and
-the C compiler from section 2, for linking) and goes to `~/.cargo/bin`,
-like `cargo install i3wsr`.
+**Rust without internet: from apt.** rustup can't download toolchains, but
+Ubuntu packages recent Rust versions (`rustc-1.91`, `cargo-1.91`...),
+which come through the apt mirror. Install the newest one there is
+(`apt-cache search --names-only '^rustc-1\.'`), with the standard library's
+source code, which RustRover needs:
+
+```bash
+sudo apt install rust-1.91-all rust-1.91-src
+# The commands are called cargo-1.91 etc.; link the plain names
+for f in /usr/lib/rust-1.91/bin/*; do ln -sf "$f" ~/.local/bin/; done
+```
+
+In RustRover, set the toolchain to `/usr/lib/rust-1.91/bin` (Settings →
+Rust); it finds the library source from there. For a newer version later:
+install the new packages, run the `ln` line with the new number, remove the
+old ones. Crates (dependencies) need the crates mirror from section 1; for
+a project without one, run `cargo vendor` on a machine with internet and
+follow what it prints. Programs from `cargo install` go to `~/.cargo/bin`,
+which the dotfiles put on `PATH` when it exists.
 
 ### Afterwards
 
@@ -298,8 +312,9 @@ with `fc-list | grep -i jetbrains`.
 
 ```bash
 # Window manager, bar, compositor (so GTK transparency isn't drawn black;
-# no effects), launcher, notifications
-sudo apt install i3 polybar picom rofi dunst
+# no effects), launcher, notifications, python3-i3ipc (for the script that
+# names workspaces after their windows)
+sudo apt install i3 polybar picom rofi dunst python3-i3ipc
 # Lock screen: i3lock, xss-lock (locks on suspend/idle), imagemagick (blurred screenshot)
 sudo apt install i3lock xss-lock imagemagick
 # dex: runs XDG autostart entries, feh: wallpaper, flameshot: screenshots,
@@ -380,17 +395,11 @@ Appearance).
 session; set `EXTRA_OPTS="-idle 1 -root --ignore-scrolling"` in
 `/etc/default/unclutter`.
 
-**Workspace names** come from their windows, e.g. `3 kitty | chrome`:
-[i3wsr](https://github.com/roosta/i3wsr) renames them as windows open and
-close. The i3 config starts it if it is installed; settings (shorter names
-for some programs) are in `~/.config/i3wsr/config.toml`. It is only
-released as source code, so it needs Rust (section 5). With internet:
-
-```bash
-cargo install --locked i3wsr     # also to update
-```
-
-Without internet the offline bundle builds it (section 5).
+**Workspace names** come from their windows, e.g. `3 vim ~/p/dotfiles |
+firefox`: `~/.config/i3/scripts/workspace-names.py`, started by the i3
+config, renames them as windows open, close or change title. It needs
+`python3-i3ipc` (installed above). The naming rules are at the top of the
+script.
 
 **Power settings (laptop):** run `xfce4-power-manager-settings`. Disable the
 screen turning off and enable "Handle screen brightness keys".

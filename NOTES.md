@@ -33,6 +33,37 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 19: own workspace-name script; Rust offline from apt
+
+* **i3wsr replaced by `i3/scripts/workspace-names.py`** (python3-i3ipc
+  from apt). i3wsr's names were raw window classes
+  (`com.anthropic.Claude | firefox_firefox`): X11 has no "nice name", the
+  class is whatever the app sets (snaps get `<snap>_<app>`). The script
+  keeps the rules in plain Python at its top: title rules with captures
+  (`vim ~/p/dotfiles`, from the title fish sets in kitty), class rules
+  (`chrome`, `pycharm`...), and otherwise a cleaned-up class (`claude`,
+  `firefox`). Windows are listed left to right, each name once.
+* The script also cuts long names, 40 characters on the focused workspace
+  and 25 on the others (it renames again on every workspace switch), so
+  polybar shows `%name%` again. `--dry-run` prints the names without
+  renaming. Started with `exec_always`; tested in a nested i3: one
+  instance after a reload, the old one stops on a restart and a new one
+  starts, names follow window moves, errors go to
+  `~/.cache/workspace-names.log`.
+* With i3wsr gone, **the bundle no longer has Rust** (standalone
+  installer, rustup-init, vendored i3wsr sources, the offline build),
+  round 14's Rust parts are undone, and the bundle is ~1.1 GB.
+* **Rust without internet now comes from apt**: Ubuntu 24.04 has versioned
+  packages (`rust-1.91-all`, ~1 year behind the newest Rust), through the
+  apt mirror, updated by apt. `rust-1.91-src` has to be named separately
+  (only "suggested"), and RustRover needs it. Plain command names are links
+  from `/usr/lib/rust-1.91/bin` into `~/.local/bin`. With internet, rustup
+  stays (newest versions, components, targets). Crates offline: a crates.io
+  mirror (placeholder in SETUP.md section 1, URL still to be found) or
+  `cargo vendor`. `.profile` puts `~/.cargo/bin` on PATH also without
+  rustup, for `cargo install`. Checked from the .deb contents; not
+  installed on the VM (it has rustup).
+
 ### 2026-10 round 18: i3wsr names from window titles, length cap in the bar
 
 * Tried in the real i3 session: i3wsr shows window classes, so every
@@ -479,7 +510,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 - [ ] Log out/in: no i3 error bar; `~/.cache/i3-autostart.log` looks sane
 - [ ] polybar at the bottom: workspaces, disk/mem/cpu, clock, tray
 - [ ] Click the clock (long date), CPU (opens btop)
-- [ ] i3wsr names workspaces after their windows; `Alt+<number>` still reaches them; after an i3 restart only one i3wsr runs (`pgrep -a i3wsr`)
+- [ ] workspace-names.py names workspaces after their windows; `Alt+<number>` still reaches them; after an i3 restart only one runs (`pgrep -af workspace-names`)
 - [ ] picom runs (tested before): GTK menus/tooltips have no black corners, and no shadows or fades
 - [ ] `Alt+Return` opens kitty with fish, font and colors right
 - [ ] `Super+...` bindings get through the remote desktop client at all?
@@ -523,6 +554,10 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
   everywhere, including the remote desktop.
 
 ## Ideas, not done yet
+
+* **Second pass over hand-installed tools**: which ones apt (or the apt
+  mirror) could provide instead, so apt keeps them updated (the first pass
+  was at the start of the overhaul; Rust just moved to apt offline).
 
 * **vim-tmux-navigator**: `Ctrl+h/j/k/l` moves between nvim splits *and*
   tmux panes. Costs `Ctrl+l` (clear screen) in the shell.

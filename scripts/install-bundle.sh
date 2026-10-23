@@ -11,11 +11,6 @@
 # Installs to:
 #   ~/.local/kitty.app                      kitty (where kitty's installer puts it)
 #   ~/.pixi/bin                             pixi (where pixi's installer puts it)
-#   ~/.cargo, ~/.rustup                     rustup (where its installer puts it),
-#                                           with the toolchain linked as "bundle"
-#   ~/.local/opt/rust                       the Rust toolchain itself
-#   ~/.cargo/bin/i3wsr                      i3wsr, built here (where `cargo install`
-#                                           puts it)
 #   ~/.local/opt/nvim                       Neovim
 #   ~/.local/opt/Fiji                       Fiji
 #   ~/.local/opt/p4merge                    P4V, with p4merge
@@ -126,55 +121,7 @@ if have nvim-data.tar.gz; then
     tar xzf nvim-data.tar.gz -C "$HOME/.local/share"
 fi
 
-export PATH="$bin:$HOME/.pixi/bin:$HOME/.cargo/bin:$PATH"
-
-# Rust: rustup can't download toolchains here, so the toolchain from Rust's
-# standalone installer goes to ~/.local/opt/rust, and rustup is told to use
-# it (`rustup toolchain link`). rustup itself is installed as usual, so
-# ~/.cargo/bin (rustc, cargo, and what `cargo install` installs) gets on
-# PATH the usual way: .profile, .bashrc and conf.d/rustup.fish load
-# ~/.cargo/env. Running this again replaces the toolchain with the bundle's.
-if have rust.tar.xz; then
-    work=$(mktemp -d)
-    tar xJf rust.tar.xz -C "$work" --strip-components=1
-    rm -rf "$HOME/.local/opt/rust"
-    # The parts rustup installs by default (its "default" profile: rustc,
-    # cargo, the standard library, docs for `rustup doc`, rustfmt, clippy)
-    # plus rust-analyzer; the rest is large and rarely needed.
-    "$work/install.sh" --prefix="$HOME/.local/opt/rust" --disable-ldconfig \
-        --without=rust-docs-json-preview,llvm-tools-preview,llvm-bitcode-linker-preview,rust-analysis-x86_64-unknown-linux-gnu \
-        >/dev/null
-
-    if ! command -v rustup >/dev/null && [ -f rustup-init ]; then
-        # --no-modify-path: the dotfiles already load ~/.cargo/env
-        cp rustup-init "$work/"
-        chmod +x "$work/rustup-init"
-        "$work/rustup-init" -y --quiet --no-modify-path --default-toolchain none
-    fi
-    rm -rf "$work"
-    if command -v rustup >/dev/null; then
-        rustup toolchain link bundle "$HOME/.local/opt/rust"
-        rustup default bundle
-    else
-        echo "    rustup missing (no rustup-init in the bundle), Rust installed but not on PATH."
-    fi
-fi
-
-# i3wsr: built here from the bundled source code (with the vendored source
-# of everything it uses, so cargo needs no internet). Same result as
-# `cargo install i3wsr`: the program goes to ~/.cargo/bin.
-if have i3wsr-src.tar.gz; then
-    if command -v cargo >/dev/null && command -v cc >/dev/null; then
-        work=$(mktemp -d)
-        tar xzf i3wsr-src.tar.gz -C "$work"
-        # (from inside the folder, so cargo reads its .cargo/config.toml)
-        (cd "$work/i3wsr" && cargo install --quiet --offline --locked --path .) \
-            || echo "    Building i3wsr failed."
-        rm -rf "$work"
-    else
-        echo "    cargo or a C compiler (cc, for linking) missing, i3wsr not built."
-    fi
-fi
+export PATH="$bin:$HOME/.pixi/bin:$PATH"
 
 # Treesitter parsers: build them here from the bundled source code, so they
 # match this machine. The nvim config (plugins/treesitter.lua) finds the
@@ -205,7 +152,7 @@ fi
 
 echo
 echo "Done. Make sure $bin is on PATH (log out and in again if it was just created)."
-for cmd in nvim kitty fzf starship tree-sitter uv pixi rustc cargo i3wsr; do
+for cmd in nvim kitty fzf starship tree-sitter uv pixi; do
     if command -v "$cmd" >/dev/null; then
         printf '  %-12s %s\n' "$cmd" "$("$cmd" --version 2>/dev/null | head -n1)"
     fi

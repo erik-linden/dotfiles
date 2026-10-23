@@ -29,6 +29,11 @@ fi
 # Rust, if rustup is installed (rustup recognizes this line and leaves the
 # file alone)
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+# Without rustup (Rust from apt), programs from `cargo install` are still in
+# ~/.cargo/bin
+if [ ! -f "$HOME/.cargo/env" ] && [ -d "$HOME/.cargo/bin" ]; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Default terminal for i3-sensible-terminal and others
 export TERMINAL=kitty

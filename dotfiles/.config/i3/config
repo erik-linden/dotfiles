@@ -76,12 +76,12 @@ exec --no-startup-id $scripts/autostart.sh
 # The bar restarts together with i3
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-# Workspace names from their windows ("3 kitty | chrome"), if i3wsr is
-# installed. Settings: ~/.config/i3wsr/config.toml. exec_always runs again
-# when i3 restarts (not on a reload); the old i3wsr normally exits then by
-# itself, the pkill makes sure. Renamed workspaces are reached with
-# "workspace number", as in the bindings below.
-exec_always --no-startup-id "pkill -x i3wsr; command -v i3wsr >/dev/null && exec i3wsr"
+# Workspace names from their windows ("3 vim ~/p/dotfiles | firefox"); the
+# rules are at the top of the script. exec_always: started again when i3
+# restarts (not on a reload), the old one stops by itself. Renamed
+# workspaces are reached with "workspace number", as in the bindings below.
+# Errors: ~/.cache/workspace-names.log
+exec_always --no-startup-id $scripts/workspace-names.py 2> ~/.cache/workspace-names.log
 
 # --- Volume (the bar picks up changes by itself) -------------------------
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
