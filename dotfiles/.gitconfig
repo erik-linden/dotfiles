@@ -61,7 +61,13 @@
 [diff]
 	# Better diffs when code is moved around
 	algorithm = histogram
+	# Moved lines in their own colors (in delta: magenta where they were
+	# taken out, cyan where they landed), also when only their indentation
+	# changed, e.g. a loop level removed: an unchanged loop body shows as
+	# moved, edited lines as normal red/green. (`git diff -w` hides
+	# indentation changes completely.)
 	colorMoved = default
+	colorMovedWS = allow-indentation-change
 [branch]
 	# `git branch` lists the most recently used first
 	sort = -committerdate

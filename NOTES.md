@@ -58,6 +58,11 @@ Decisions, open questions and ideas for this setup. Newest first.
   color-scheme 1, and Nautilus opens dark.
 * `jq` back in the apt list (section 2), for JSON in the terminal; it
   was dropped in round 3 as unused.
+* git `diff.colorMovedWS = allow-indentation-change` (next to
+  `colorMoved = default`, which was already on): code that only changed
+  indentation counts as moved. Tested: removing a loop level shows the
+  unchanged body in the moved colors (magenta/cyan in delta) and only the
+  `for` line as removed.
 
 ### 2026-10 round 17: offline bundle and profile logic tested on the VM
 
