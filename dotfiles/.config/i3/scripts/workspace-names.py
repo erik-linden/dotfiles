@@ -42,7 +42,7 @@ TITLE_RULES = [
     ("kitty", r"^nvim +\((.*)\)$", r"vim \1"),      # vim and the folder
     ("kitty", r"^n?vim\b", "vim"),                  # vim before it set a title
     ("kitty", r"^(btop|htop|ranger)\b", r"\1"),
-    ("kitty", r"^ssh (\S+)", r"ssh \1"),           # ssh and the host
+    ("kitty", r"^ssh (\S+)", r"ssh \1"),            # ssh and the host
     (r"^org\.gnome\.Nautilus$", r"^(.+)$", r"files \1"),
 ]
 
