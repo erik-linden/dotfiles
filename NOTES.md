@@ -33,6 +33,31 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 21: fixes from a review of the whole repo
+
+* **Login bash shells** (e.g. ssh to one of these machines) had no
+  starship, fzf or bat settings: Ubuntu's `.profile` reads `.bashrc` before
+  it puts `~/.local/bin` on PATH, so `.bashrc` didn't find them. `.bashrc`
+  now adds `~/.local/bin` itself if it's missing. Tested with a clean
+  `bash -l`.
+* **dex started picom and nm-applet** from `/etc/xdg/autostart` on every
+  machine, before autostart.sh. picom: whichever started first won, so a
+  physical machine could end up without the GPU/vsync flags. nm-applet ran
+  on the remote profile too (it isn't meant to), and twice on physical
+  machines. `~/.config/autostart/{picom,nm-applet}.desktop` with
+  `Hidden=true` turn the system entries off for this user; checked with
+  `dex --dry-run`.
+* **unclutter never ran**: apt's `unclutter-xfixes` has only the program;
+  the session startup file and `/etc/default/unclutter` come from
+  `unclutter-startup`. autostart.sh starts it now (`--timeout 1
+  --ignore-scrolling`, the same as the documented `-idle 1`), and SETUP.md
+  no longer edits `/etc`.
+* Stale docs fixed: delta's fallback (SETUP.md said git breaks without
+  it), xss-lock "idle", the kitty update check comment, pip.conf's
+  `--site` (that is per environment), default-jdk unexplained, and two
+  ideas below that were done or outdated. up-or-search.fish says why it
+  replaces fish's own (one added `history merge`).
+
 ### 2026-10 round 20: second pass, hand-installed tools that apt can provide
 
 * Checked every hand-installed program against 24.04's apt. Two moved:
@@ -597,7 +622,6 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 
 * **vim-tmux-navigator**: `Ctrl+h/j/k/l` moves between nvim splits *and*
   tmux panes. Costs `Ctrl+l` (clear screen) in the shell.
-* **Clipboard history**: CopyQ (apt) or greenclip, with a rofi binding.
 * **eza** (`ls` with icons/git status). In apt for 24.04.
 * **lazygit** in a tmux popup or nvim float.
 * **autorandr** to save/restore monitor setups on the laptop, instead of
@@ -608,7 +632,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
   * **mini.nvim** modules: `mini.surround` (add/change quotes and brackets
     around text), `mini.ai` (more text objects), `mini.pairs` (auto-close brackets).
   * **diffview.nvim**: review all changes of a branch, file history, and a
-    3-way merge view (could replace p4merge).
+    3-way merge view (could replace kdiff3).
   * **flash.nvim**: jump anywhere on screen with 2-3 keystrokes.
   * **trouble.nvim**: nicer list for diagnostics/references/quickfix.
   * **oil.nvim**: edit directories like text (rename/move files by editing lines).

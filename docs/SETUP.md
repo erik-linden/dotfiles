@@ -9,8 +9,9 @@ internet** (for example one that only reaches internal package mirrors) say so.
 1. **apt**, if the Ubuntu version is new enough. Without internet, through
    the apt mirror.
 2. **Tools that apt doesn't have, or has too old** (Neovim, fzf, starship,
-   tree-sitter, uv, pixi, Rust, the font; also Fiji), section 5. With internet, each tool's own installer. Without
-   internet, the **offline bundle**: one script downloads everything on a
+   tree-sitter, uv, pixi, Rust, the font; also Fiji), section 5. With
+   internet, each tool's own installer. Without internet, the **offline
+   bundle**: one script downloads everything on a
    machine with internet, another installs it on the machine without.
    (Rust without internet comes from apt instead, section 5.)
 3. **Manual steps**: everything else, described below.
@@ -127,9 +128,10 @@ sudo apt install bat btop curl expect fd-find fish git-delta jq kitty ranger rip
 # Ubuntu calls bat `batcat` (the name was taken); make `bat` work too
 mkdir -p ~/.local/bin && ln -sf /usr/bin/batcat ~/.local/bin/bat
 
-# Building C/C++ code: build-essential (gcc, g++, make), autoconf and
-# pkg-config (many projects' build scripts, e.g. i3lock-color), clang, cmake,
-# ninja. Also needed to build Neovim's treesitter parsers.
+# Building code: build-essential (gcc, g++, make), autoconf and pkg-config
+# (many projects' build scripts, e.g. i3lock-color), clang, cmake, ninja,
+# default-jdk (Java). The C compiler is also needed to build Neovim's
+# treesitter parsers.
 sudo apt install build-essential autoconf pkg-config clang cmake ninja-build default-jdk
 
 # Applications
@@ -169,8 +171,8 @@ git config --file ~/.gitconfig.local user.email <your email>
 Diffs are shown with [delta](https://github.com/dandavison/delta) (apt
 package `git-delta`, configured in `.gitconfig`). Inside the pager: `n`/`N`
 jumps between files, `q` quits. Side by side for one command:
-`git -c delta.side-by-side=true diff`. If delta is not installed, git
-fails to show diffs; then install it or remove the `pager` lines in `.gitconfig`.
+`git -c delta.side-by-side=true diff`. Without delta, git falls back to
+plain `less`.
 
 **SSH keys** from another machine:
 ```bash
@@ -197,8 +199,9 @@ files on the machine, run `./copy_to_repo.py` and check `git diff`.
 Neovim 0.11+ (apt: 0.9), fzf 0.48+ (apt: 0.44; fish needs
 0.48), starship, tree-sitter (builds Neovim's parsers), uv, pixi, Rust and
 the JetBrains Mono Nerd Font. All go into your home folder, no sudo. (Fiji is
-in section 10; without internet, the bundle below has it too.) The dotfiles already put them on `PATH`, so the installers are told
-not to edit `.bashrc`, `.profile` or the fish config.
+in section 10; without internet, the bundle below has it too.) The dotfiles
+already put them on `PATH`, so the installers are told not to edit
+`.bashrc`, `.profile` or the fish config.
 
 ### With internet
 
@@ -308,13 +311,13 @@ with `fc-list | grep -i jetbrains`.
 # no effects), launcher, notifications, python3-i3ipc (for the script that
 # names workspaces after their windows), qt5ct (dark colors for Qt apps)
 sudo apt install i3 polybar picom rofi dunst python3-i3ipc qt5ct
-# Lock screen: i3lock, xss-lock (locks on suspend/idle), imagemagick (blurred screenshot)
+# Lock screen: i3lock, xss-lock (locks before suspend), imagemagick (pixelated screenshot)
 sudo apt install i3lock xss-lock imagemagick
 # dex: runs XDG autostart entries, feh: wallpaper, flameshot: screenshots,
 # numlockx: numlock on at login, arandr: monitor setup GUI,
 # pavucontrol: volume mixer (right-click the volume in the bar),
 # copyq: clipboard history (Alt+y), unclutter-xfixes: hides the mouse
-# cursor while typing
+# cursor when it isn't moved
 sudo apt install dex feh flameshot numlockx arandr pavucontrol copyq unclutter-xfixes
 
 # Laptop only: bluetooth, brightness keys/lid/suspend
@@ -409,9 +412,10 @@ or Standard (grayscale) over a remote desktop, where subpixel colors fringe.
 the history size (default 200) or a dark theme (File → Preferences →
 Appearance).
 
-**unclutter** hides the mouse cursor while typing. It starts with the X
-session; set `EXTRA_OPTS="-idle 1 -root --ignore-scrolling"` in
-`/etc/default/unclutter`.
+**unclutter** hides the mouse cursor after a second without moving it.
+`autostart.sh` starts it (the timeout is set there); the apt package
+doesn't start by itself. Don't install `unclutter-startup` too, or it runs
+twice.
 
 **Workspace names** come from their windows, e.g. `3 vim init.lua |
 firefox`: `~/.config/i3/scripts/workspace-names.py`, started by the i3

@@ -1,0 +1,8 @@
+# Turns off the system's autostart entry /etc/xdg/autostart/picom.desktop
+# for this user (a file with the same name here wins). dex in
+# i3/scripts/autostart.sh would otherwise start picom on every machine,
+# before autostart.sh starts it with its own settings for the profile.
+[Desktop Entry]
+Type=Application
+Name=picom
+Hidden=true

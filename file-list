@@ -18,6 +18,7 @@
 .Xresources
 .config/i3/config
 .config/i3/scripts/
+.config/autostart/
 .config/polybar/
 .config/picom/picom.conf
 .config/rofi/

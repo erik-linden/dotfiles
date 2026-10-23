@@ -38,6 +38,9 @@ run dunst
 run gnome-keyring-daemon --start --components=secrets
 
 # XDG autostart .desktop files, https://wiki.archlinux.org/index.php/XDG_Autostart
+# Programs this script starts itself (picom, nm-applet) are turned off there
+# by files in ~/.config/autostart, so they don't start twice or with the
+# wrong settings.
 run dex --autostart --environment i3
 
 # No idle locking (on purpose, see NOTES.md): turn off X's screensaver,
@@ -53,6 +56,10 @@ run copyq
 "$scripts/keyboard-daemon.sh" &
 
 run numlockx on
+
+# Hide the mouse cursor after 1 s without moving it (not while scrolling).
+# apt's unclutter-xfixes doesn't start by itself.
+run unclutter --timeout 1 --ignore-scrolling
 
 # Wallpaper, solid background color as fallback
 wallpaper="$HOME/Pictures/wallpaper.jpg"

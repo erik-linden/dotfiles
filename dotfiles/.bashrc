@@ -117,7 +117,13 @@ if ! shopt -oq posix; then
 fi
 
 # --- Additions to Ubuntu's default .bashrc (everything above is unchanged) ---
-# ~/.local/bin is put on PATH by ~/.profile.
+
+# ~/.local/bin (fzf, starship, bat... below need it). ~/.profile adds it too,
+# but in a login shell (e.g. ssh to this machine) it runs this file first.
+case ":$PATH:" in
+    *":$HOME/.local/bin:"*) ;;
+    *) PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # PATH: pixi, and Rust if rustup is installed. Install pixi and uv without
 # letting them edit this file (see docs/SETUP.md); rustup finds the line
