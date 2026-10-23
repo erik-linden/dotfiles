@@ -83,15 +83,16 @@
 	# Remember how conflicts were resolved and reuse it
 	enabled = true
 [merge]
-	tool = p4merge
+	# `git mergetool`: kdiff3 (apt) shows base, yours and theirs side by
+	# side and the result below. git knows kdiff3, so it needs no command
+	# line here; it starts kdiff3 with --auto, which saves and closes at
+	# once if kdiff3 can resolve every conflict by itself.
+	tool = kdiff3
 	# Also show the common ancestor in conflict markers
 	conflictStyle = zdiff3
 [mergetool]
 	prompt = false
 	keepBackup = false
-[mergetool "p4merge"]
-	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-	trustExitCode = false
 [difftool]
 	prompt = false
 [alias]

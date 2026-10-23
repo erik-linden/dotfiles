@@ -8,9 +8,8 @@ internet** (for example one that only reaches internal package mirrors) say so.
 
 1. **apt**, if the Ubuntu version is new enough. Without internet, through
    the apt mirror.
-2. **Tools that apt doesn't have, or has too old** (Neovim, a newer kitty,
-   fzf, starship, tree-sitter, uv, pixi, Rust, the font; also Fiji and
-   p4merge), section 5. With internet, each tool's own installer. Without
+2. **Tools that apt doesn't have, or has too old** (Neovim, fzf, starship,
+   tree-sitter, uv, pixi, Rust, the font; also Fiji), section 5. With internet, each tool's own installer. Without
    internet, the **offline bundle**: one script downloads everything on a
    machine with internet, another installs it on the machine without.
    (Rust without internet comes from apt instead, section 5.)
@@ -20,12 +19,12 @@ internet** (for example one that only reaches internal package mirrors) say so.
 in your home folder, without sudo:
 
 1. If the program has **its own installer or documented place**, use that,
-   so the paths match its documentation: kitty (`~/.local/kitty.app`), pixi
-   (`~/.pixi/bin`), uv (`~/.local/bin`), rustup (`~/.cargo`).
+   so the paths match its documentation: pixi (`~/.pixi/bin`), uv
+   (`~/.local/bin`), rustup (`~/.cargo`).
    The offline bundle uses the same places.
 2. Otherwise, a **single file** (fzf, starship, tree-sitter, bazel) goes
    straight into `~/.local/bin`, which `.profile` puts on `PATH`,
-3. and a **folder** (Neovim, Fiji, p4merge) goes into `~/.local/opt/<name>`,
+3. and a **folder** (Neovim, Fiji) goes into `~/.local/opt/<name>`,
    with a link to its executable in `~/.local/bin`. Updating means replacing
    the folder; uninstalling means deleting the folder and the link.
 
@@ -134,8 +133,10 @@ mkdir -p ~/.local/bin && ln -sf /usr/bin/batcat ~/.local/bin/bat
 sudo apt install build-essential autoconf pkg-config clang cmake ninja-build default-jdk
 
 # Applications
-sudo apt install ffmpeg gimp inkscape keepass2 krita libreoffice meld pinta \
-    qdirstat shutter v4l-utils vlc font-manager gnome-tweaks
+#   kdiff3: git's merge tool (3-way: base, yours, theirs, result below),
+#   meld: git's directory diffs (`git dt`)
+sudo apt install ffmpeg gimp inkscape kdiff3 keepass2 krita libreoffice meld \
+    pinta qdirstat shutter v4l-utils vlc font-manager gnome-tweaks
 
 # Optional, only if you need them
 #   openssh-server: ssh *into* this machine (not needed to ssh out)
@@ -148,8 +149,8 @@ sudo apt install openssh-server cifs-utils smbclient
 sudo apt install texlive-full
 ```
 
-`kitty` from apt (0.32) works with these dotfiles. Section 5 installs a newer
-one into `~/.local`, which takes precedence.
+`kitty` comes from apt (0.32): the dotfiles need nothing newer, and apt
+keeps it updated.
 
 ## 3. Git
 
@@ -193,11 +194,10 @@ files on the machine, run `./copy_to_repo.py` and check `git diff`.
 
 ## 5. Tools that apt doesn't have, or has too old
 
-Neovim 0.11+ (apt: 0.9), a newer kitty, fzf 0.48+ (apt: 0.44; fish needs
+Neovim 0.11+ (apt: 0.9), fzf 0.48+ (apt: 0.44; fish needs
 0.48), starship, tree-sitter (builds Neovim's parsers), uv, pixi, Rust and
-the JetBrains Mono Nerd Font. All go into your home folder, no sudo. (Fiji
-and p4merge are in section 10; without internet, the bundle below has them
-too.) The dotfiles already put them on `PATH`, so the installers are told
+the JetBrains Mono Nerd Font. All go into your home folder, no sudo. (Fiji is
+in section 10; without internet, the bundle below has it too.) The dotfiles already put them on `PATH`, so the installers are told
 not to edit `.bashrc`, `.profile` or the fish config.
 
 ### With internet
@@ -207,20 +207,13 @@ update (uv, pixi and Rust can also update themselves: `uv self update`,
 `pixi self-update`, `rustup update`).
 
 ```bash
-mkdir -p ~/.local/bin ~/.local/opt ~/.local/share/applications
+mkdir -p ~/.local/bin ~/.local/opt
 
 # Neovim
 rm -rf ~/.local/opt/nvim && mkdir ~/.local/opt/nvim
 curl -fL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
     | tar xz --strip-components=1 -C ~/.local/opt/nvim
 ln -sf ~/.local/opt/nvim/bin/nvim ~/.local/bin/nvim
-
-# kitty (installs to ~/.local/kitty.app), with launcher entries so rofi finds it
-curl -fL https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
-cp ~/.local/kitty.app/share/applications/kitty*.desktop ~/.local/share/applications/
-sed -i "s|Icon=kitty|Icon=$HOME/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g; s|Exec=kitty|Exec=$HOME/.local/kitty.app/bin/kitty|g" \
-    ~/.local/share/applications/kitty*.desktop
 
 # fzf (the release file's name has the version in it, so ask GitHub for it)
 curl -fL "$(curl -fsSL https://api.github.com/repos/junegunn/fzf/releases/latest \
@@ -260,11 +253,11 @@ On a Linux x86_64 machine **with internet** (with the dotfiles repo cloned):
 scripts/fetch-offline-bundle.sh ~/dotfiles-bundle
 ```
 
-This downloads Neovim, kitty, fzf, starship, tree-sitter, uv, pixi, the
-font, Fiji and p4merge, all Neovim plugins (`nvim-data.tar.gz`), and the
-source code of the treesitter parsers (`parser-sources.tar.gz`). It needs
-no compiler, and works on any Linux. It is about 1.1 GB, most of it Fiji; delete the files you don't want from the folder, each part is
-optional. The p4merge version is set at the top of the script. Copy
+This downloads Neovim, fzf, starship, tree-sitter, uv, pixi, the font,
+Fiji, all Neovim plugins (`nvim-data.tar.gz`), and the source code of the
+treesitter parsers (`parser-sources.tar.gz`). It needs no compiler, and
+works on any Linux. It is about 0.85 GB, most of it Fiji; delete the files
+you don't want from the folder, each part is optional. Copy
 `~/dotfiles-bundle` to the machine without internet, then:
 
 ```bash
@@ -541,20 +534,3 @@ ln -sf ~/.local/opt/Fiji/fiji-linux-x64 ~/.local/bin/fiji
 ```
 (Older Fiji releases unpacked to `Fiji.app/` with an `ImageJ-linux64`
 launcher; delete such a folder and its link before installing the new one.)
-
-**p4merge** (merge tool in `.gitconfig`, for its 3-way view). Part of
-P4V; find the newest release (`rYY.N`) on
-https://www.perforce.com/downloads/helix-visual-client-p4v and set it below.
-Run the same block again to update. Without internet it is in the offline
-bundle (section 5; the version is set at the top of
-`scripts/fetch-offline-bundle.sh`).
-```bash
-version=r26.3
-wget https://www.perforce.com/downloads/perforce/$version/bin.linux26x86_64/p4v.tgz
-tar -xzf p4v.tgz
-rm -rf ~/.local/opt/p4merge
-mkdir -p ~/.local/opt/p4merge
-mv p4v-*/* ~/.local/opt/p4merge/
-ln -sf ~/.local/opt/p4merge/bin/p4merge ~/.local/bin/p4merge
-rm -r p4v.tgz p4v-*
-```

@@ -13,10 +13,6 @@
 
 set -uo pipefail
 
-# p4merge (part of P4V): the newest release (rYY.N) is listed on
-# https://www.perforce.com/downloads/helix-visual-client-p4v
-p4v_version=r26.3
-
 out=${1:-$HOME/dotfiles-bundle}
 repo=$(cd "$(dirname "$0")/.." && pwd)
 mkdir -p "$out"
@@ -42,7 +38,6 @@ fetch() {
 
 gh=https://github.com
 fetch "$gh/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz" nvim-linux-x86_64.tar.gz
-fetch "$(gh_latest kovidgoyal/kitty 'kitty-[0-9.]+-x86_64\.txz$')" kitty-x86_64.txz
 fetch "$(gh_latest junegunn/fzf 'linux_amd64\.tar\.gz$')" fzf-linux_amd64.tar.gz
 fetch "$gh/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz" starship.tar.gz
 fetch "$gh/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz" tree-sitter-linux-x64.gz
@@ -50,7 +45,6 @@ fetch "$gh/astral-sh/uv/releases/latest/download/uv-x86_64-unknown-linux-gnu.tar
 fetch "$gh/prefix-dev/pixi/releases/latest/download/pixi-x86_64-unknown-linux-musl.tar.gz" pixi.tar.gz
 fetch "$gh/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz" JetBrainsMono.tar.xz
 fetch https://downloads.imagej.net/fiji/latest/fiji-latest-linux64-jdk.zip fiji-linux64.zip
-fetch "https://www.perforce.com/downloads/perforce/$p4v_version/bin.linux26x86_64/p4v.tgz" p4v.tgz
 
 # --- Neovim plugins and treesitter parser sources ----------------------------
 # Runs the downloaded nvim with the repo's config and a separate data dir, so

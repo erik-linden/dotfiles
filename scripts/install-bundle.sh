@@ -9,14 +9,12 @@
 # ~/.local/bin and folders in ~/.local/opt/<name> with a link in ~/.local/bin.
 #
 # Installs to:
-#   ~/.local/kitty.app                      kitty (where kitty's installer puts it)
 #   ~/.pixi/bin                             pixi (where pixi's installer puts it)
 #   ~/.local/opt/nvim                       Neovim
 #   ~/.local/opt/Fiji                       Fiji
-#   ~/.local/opt/p4merge                    P4V, with p4merge
-#   ~/.local/bin                            links to nvim, kitty, kitten, fiji,
-#                                           p4merge, and the single-file fzf,
-#                                           starship, tree-sitter, uv, uvx
+#   ~/.local/bin                            links to nvim and fiji, and the
+#                                           single-file fzf, starship,
+#                                           tree-sitter, uv, uvx
 #   ~/.local/share/fonts/JetBrainsMono      font
 #   ~/.local/share/nvim                     Neovim plugins, parser sources, and
 #                                           the parsers, built here (needs a
@@ -26,7 +24,7 @@ set -euo pipefail
 
 bundle=$(cd "${1:-$(dirname "$0")}" && pwd)
 bin="$HOME/.local/bin"
-mkdir -p "$bin" "$HOME/.local/opt" "$HOME/.local/share/applications"
+mkdir -p "$bin" "$HOME/.local/opt"
 cd "$bundle"
 
 have() { [ -f "$1" ] && echo "==> $1"; }
@@ -36,21 +34,6 @@ if have nvim-linux-x86_64.tar.gz; then
     mkdir -p "$HOME/.local/opt/nvim"
     tar xzf nvim-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/.local/opt/nvim"
     ln -sf "$HOME/.local/opt/nvim/bin/nvim" "$bin/nvim"
-fi
-
-if have kitty-x86_64.txz; then
-    # Where kitty's own installer puts it
-    kitty="$HOME/.local/kitty.app"
-    rm -rf "$kitty"
-    mkdir -p "$kitty"
-    tar xJf kitty-x86_64.txz -C "$kitty"
-    ln -sf "$kitty/bin/kitty" "$kitty/bin/kitten" "$bin/"
-    # Desktop entries, so rofi finds kitty
-    cp "$kitty/share/applications/"kitty*.desktop "$HOME/.local/share/applications/"
-    sed -i "s|Icon=kitty|Icon=$kitty/share/icons/hicolor/256x256/apps/kitty.png|g" \
-        "$HOME/.local/share/applications/"kitty*.desktop
-    sed -i "s|Exec=kitty|Exec=$kitty/bin/kitty|g" \
-        "$HOME/.local/share/applications/"kitty*.desktop
 fi
 
 if have fzf-linux_amd64.tar.gz; then
@@ -93,14 +76,6 @@ if have fiji-linux64.zip; then
     else
         echo "    unzip missing (sudo apt install unzip), Fiji not installed."
     fi
-fi
-
-if have p4v.tgz; then
-    # Only p4merge (the merge tool in .gitconfig) gets a link
-    rm -rf "$HOME/.local/opt/p4merge"
-    mkdir -p "$HOME/.local/opt/p4merge"
-    tar xzf p4v.tgz --strip-components=1 -C "$HOME/.local/opt/p4merge"
-    ln -sf "$HOME/.local/opt/p4merge/bin/p4merge" "$bin/p4merge"
 fi
 
 if have JetBrainsMono.tar.xz; then
@@ -152,14 +127,12 @@ fi
 
 echo
 echo "Done. Make sure $bin is on PATH (log out and in again if it was just created)."
-for cmd in nvim kitty fzf starship tree-sitter uv pixi; do
+for cmd in nvim fzf starship tree-sitter uv pixi; do
     if command -v "$cmd" >/dev/null; then
         printf '  %-12s %s\n' "$cmd" "$("$cmd" --version 2>/dev/null | head -n1)"
     fi
 done
-# (GUI programs: only check that they are there)
-for cmd in fiji p4merge; do
-    if command -v "$cmd" >/dev/null; then
-        printf '  %-12s %s\n' "$cmd" "$(command -v "$cmd")"
-    fi
-done
+# (Fiji is a GUI program: only check that it is there)
+if command -v fiji >/dev/null; then
+    printf '  %-12s %s\n' fiji "$(command -v fiji)"
+fi

@@ -33,6 +33,27 @@ Decisions, open questions and ideas for this setup. Newest first.
 
 ## Decisions
 
+### 2026-10 round 20: second pass, hand-installed tools that apt can provide
+
+* Checked every hand-installed program against 24.04's apt. Two moved:
+  * **kitty from apt** (0.32.2, already in the section 2 list): the
+    config only uses long-standing options and 0.32 loads it without a
+    warning, and `kitten` (for `ssh`) is in the package. The hand-installed
+    kitty (`~/.local/kitty.app`, its launcher entries, the bundle part) is
+    gone; apt keeps kitty updated, also through the mirror offline.
+  * **p4merge → kdiff3** (apt, ~80 MB with its KDE libraries, instead of
+    P4V's 530 MB folder and a version looked up by hand). Same layout:
+    base, yours, theirs on top, the result below. git has kdiff3 built in
+    (`merge.tool = kdiff3`, no `cmd`), started with `--auto`. Tested with
+    a real conflict: it opens with a small "conflicts" summary to click
+    away, and in a light theme (Qt app, doesn't follow GTK's dark mode).
+* Stay hand-installed, apt has none or too old: Neovim (0.9.5, need 0.11+),
+  fzf (0.44, fish's `fzf --fish` needs 0.48), tree-sitter CLI (0.20.8),
+  starship, uv, pixi, bazelisk (not in apt), the Nerd Font (apt has only
+  plain JetBrains Mono), Fiji (apt has plain ImageJ), i3lock-color.
+  Chrome, Docker and CUDA already update through their own apt repos.
+* The bundle is now ~0.85 GB, most of it Fiji.
+
 ### 2026-10 round 19: own workspace-name script; Rust offline from apt
 
 * **i3wsr replaced by `i3/scripts/workspace-names.py`** (python3-i3ipc
@@ -536,7 +557,7 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
 - [ ] Font sizes OK; `xrdb -query | grep dpi` shows 96; try 108 or 120 to compare
 - [ ] GTK dark mode (open a file dialog, e.g. in Chrome)
 - [ ] Caps lock as Ctrl in ThinLinc, and whether Windows' caps lock state gets out of sync
-- [ ] `git mergetool` settings now apply (p4merge without prompts)
+- [ ] `git mergetool` opens kdiff3 without prompts
 
 ## Open questions
 
@@ -560,10 +581,6 @@ then the bundle (nvim, fzf, starship, uv...). Then `./copy_to_home.py`.
   everywhere, including the remote desktop.
 
 ## Ideas, not done yet
-
-* **Second pass over hand-installed tools**: which ones apt (or the apt
-  mirror) could provide instead, so apt keeps them updated (the first pass
-  was at the start of the overhaul; Rust just moved to apt offline).
 
 * **vim-tmux-navigator**: `Ctrl+h/j/k/l` moves between nvim splits *and*
   tmux panes. Costs `Ctrl+l` (clear screen) in the shell.
