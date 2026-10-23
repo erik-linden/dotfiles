@@ -40,9 +40,15 @@
 	dark = true
 	navigate = true
 	line-numbers = true
-	# Code colors from the terminal's palette. The background tints for
-	# removed/added lines can't be made from the 16 terminal colors, so they
-	# are hex values from docs/palette.md.
+	# Code colors from the terminal's palette (syntax-theme = ansi).
+	# Removed and added lines get a background tint, with the code's syntax
+	# colors on top. The tints can't be terminal colors: the terminal's red
+	# and green are bright text colors, and as backgrounds they'd hide the
+	# code (red code on a red line). So they are fixed hex values, a dark
+	# red and green picked to go with Gruvbox (delta's defaults are a
+	# generic dark red/green); "emph" is the stronger tint for the words
+	# that changed within a line. The line-number and frame colors below
+	# are palette.md colors.
 	syntax-theme = ansi
 	minus-style = syntax "#3c1f1e"
 	minus-emph-style = syntax "#6b2e2b"
