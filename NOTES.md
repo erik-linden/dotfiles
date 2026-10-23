@@ -63,6 +63,12 @@ Decisions, open questions and ideas for this setup. Newest first.
   `cargo vendor`. `.profile` puts `~/.cargo/bin` on PATH also without
   rustup, for `cargo install`. Checked from the .deb contents; not
   installed on the VM (it has rustup).
+* **nvim sets its own window title** (`title`, `titlestring`):
+  `nvim <file> (<folder>)`, folder shortened like fish's. fish's title is
+  the typed command line plus the *shell's* folder (`nvim ~/.gitconfig ~`),
+  so the first rule showed `vim ~`, and fish can't know which file is open
+  later. Now: `vim .gitconfig`, or `vim ~/p/dotfiles` without a file. A
+  Nautilus window shows `files <folder>` (its title is the folder name).
 
 ### 2026-10 round 18: i3wsr names from window titles, length cap in the bar
 

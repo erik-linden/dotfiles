@@ -70,3 +70,11 @@ opt.splitbelow = true       -- More natural split opening
 opt.splitright = true
 
 opt.confirm = true          -- Ask instead of failing on :q with unsaved changes
+
+-- Window title "nvim <file> (<folder>)", e.g. "nvim init.lua (~/p/dotfiles)":
+-- the current file's name (none for help, file tree...) and nvim's working
+-- folder, shortened like fish does. i3's workspace names use it
+-- (i3/scripts/workspace-names.py).
+opt.title = true
+opt.titlestring = "nvim %{&buftype == '' ? expand('%:t') : ''}"
+    .. " (%{pathshorten(fnamemodify(getcwd(), ':~'))})"

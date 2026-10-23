@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Name each i3 workspace after its windows, e.g. "3 vim ~/p/dotfiles | firefox".
+"""Name each i3 workspace after its windows, e.g. "3 vim init.lua | firefox".
 
 Started by the i3 config (exec_always). It listens to i3 and renames the
 workspaces whenever a window opens, closes, moves or changes its title, and
@@ -32,13 +32,18 @@ except ImportError:
 # (class regex, title regex, name); \1 in the name is the title's first
 # group in parentheses. The first matching rule wins.
 #
-# fish sets kitty's title to the running command (its first 20 characters)
-# and the folder, e.g. "nvim init.lua ~/p/dotfiles", or just the folder
-# when nothing runs.
+# nvim sets its own title, "nvim <file> (<folder>)" (nvim/lua/config/
+# options.lua); without a file it's "nvim  (<folder>)". For other programs
+# fish sets kitty's title: the command line (its first 20 characters) and
+# the shell's folder, e.g. "btop ~", or just the folder when nothing runs.
+# Nautilus's title is the folder it shows.
 TITLE_RULES = [
-    ("kitty", r"^n?vim\b.* (\S+)$", r"vim \1"),     # vim and the folder
+    ("kitty", r"^nvim (.+) \(.*\)$", r"vim \1"),    # vim and the file
+    ("kitty", r"^nvim +\((.*)\)$", r"vim \1"),      # vim and the folder
+    ("kitty", r"^n?vim\b", "vim"),                  # vim before it set a title
     ("kitty", r"^(btop|htop|ranger)\b", r"\1"),
     ("kitty", r"^ssh (\S+)", r"ssh \1"),           # ssh and the host
+    (r"^org\.gnome\.Nautilus$", r"^(.+)$", r"files \1"),
 ]
 
 # Names for window classes, (class regex, name). The first match wins.

@@ -395,7 +395,7 @@ Appearance).
 session; set `EXTRA_OPTS="-idle 1 -root --ignore-scrolling"` in
 `/etc/default/unclutter`.
 
-**Workspace names** come from their windows, e.g. `3 vim ~/p/dotfiles |
+**Workspace names** come from their windows, e.g. `3 vim init.lua |
 firefox`: `~/.config/i3/scripts/workspace-names.py`, started by the i3
 config, renames them as windows open, close or change title. It needs
 `python3-i3ipc` (installed above). The naming rules are at the top of the

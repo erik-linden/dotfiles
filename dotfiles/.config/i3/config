@@ -76,7 +76,7 @@ exec --no-startup-id $scripts/autostart.sh
 # The bar restarts together with i3
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-# Workspace names from their windows ("3 vim ~/p/dotfiles | firefox"); the
+# Workspace names from their windows ("3 vim init.lua | firefox"); the
 # rules are at the top of the script. exec_always: started again when i3
 # restarts (not on a reload), the old one stops by itself. Renamed
 # workspaces are reached with "workspace number", as in the bindings below.
