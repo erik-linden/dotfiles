@@ -29,7 +29,6 @@
 # Terminal and tools
 .config/kitty/kitty.conf
 .tmux.conf
-.config/btop/btop.conf
 .config/ranger/rc.conf
 .gitconfig
 

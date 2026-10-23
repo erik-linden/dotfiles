@@ -85,4 +85,4 @@ color7  #d4be98   color15 #ddc7a1
 | git/delta | `.gitconfig` (`[delta]`: diff background tints)   |
 | lockscreen| `.config/i3/scripts/lock.sh`                      |
 | neovim    | plugin `sainnhe/gruvbox-material`                 |
-| btop      | built-in `gruvbox_material_dark` theme            |
+| btop      | built-in `gruvbox_material_dark` theme (SETUP.md) |
