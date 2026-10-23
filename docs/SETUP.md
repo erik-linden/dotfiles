@@ -11,9 +11,9 @@ internet** (for example one that only reaches internal package mirrors) say so.
 2. **Tools that apt doesn't have, or has too old** (Neovim, fzf, starship,
    tree-sitter, uv, pixi, Rust, the font; also Fiji), section 5. With
    internet, each tool's own installer. Without internet, the **offline
-   bundle**: one script downloads everything on a
-   machine with internet, another installs it on the machine without.
-   (Rust without internet comes from apt instead, section 5.)
+   bundle**: one script downloads everything on a machine with internet,
+   another installs it on the machine without. (Rust without internet comes
+   from apt instead, section 5.)
 3. **Manual steps**: everything else, described below.
 
 **Where hand-installed programs go.** Everything not from apt is installed
@@ -36,7 +36,10 @@ The one exception is i3lock-color, which replaces the system's `i3lock`
 or one of its dependencies, is missing from the mirror, download the `.deb`
 files on an Ubuntu 24.04 machine with internet and copy them over.
 `-o Dir::Cache::archives="$PWD"` makes apt save the downloaded files in the
-current folder instead of its own cache (`/var/cache/apt/archives`):
+current folder instead of its own cache (`/var/cache/apt/archives`). apt
+only downloads what that machine doesn't have installed yet, so packages
+(or dependencies) it already has are left out; use a machine that lacks
+them, e.g. a fresh VM or an `ubuntu:24.04` container:
 
 ```bash
 mkdir debs && cd debs
@@ -66,8 +69,7 @@ of this repo on purpose.
 
 `~/.config/uv/uv.toml`
 ```toml
-# Use the system certificate store (with the company CA).
-# uv versions before ~0.9 call this `native-tls = true` instead.
+# Use the system certificate store (with the company CA)
 system-certs = true
 
 # [[index]]
@@ -90,11 +92,16 @@ system-certs = true
 # index-url = "https://<pypi-mirror>/simple"
 ```
 
-pip itself (for the rare cases where pip is used directly):
+pip itself (for the rare cases where pip is used directly, e.g. in a
+`python3 -m venv` environment), for all users. Ubuntu has no system-wide
+pip to run `pip config` with, so write the file:
 
-```bash
-# sudo pip config --global set global.index-url https://<pypi-mirror>/simple
-# sudo pip config --global set global.trusted-host <pypi-mirror-host>
+`/etc/pip.conf` (with sudo)
+```ini
+# [global]
+# index-url = https://<pypi-mirror>/simple
+# # pip has its own certificate list; use the system's (with the company CA)
+# cert = /etc/ssl/certs/ca-certificates.crt
 ```
 
 `~/.cargo/config.toml` (Rust's crates; the mirror's own docs give the URL
@@ -160,12 +167,7 @@ sudo apt install openssh-server cifs-utils smbclient
 sudo apt install texlive-full
 ```
 
-`kitty` comes from apt (0.32): the dotfiles need nothing newer, and apt
-keeps it updated.
-
 ## 3. Git
-
-Ubuntu 24.04's git (2.43) is new enough for everything in `.gitconfig`.
 
 ```bash
 sudo apt install git git-lfs
@@ -185,9 +187,9 @@ plain `less`.
 
 **SSH keys** from another machine:
 ```bash
-rsync -avh <old-machine>:.ssh/id_rsa* ~/.ssh/
-# If this machine is a server:
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+rsync -avh '<old-machine>:.ssh/id_*' ~/.ssh/
+# To also log in to this machine with that key (from the other machine):
+cat ~/.ssh/id_*.pub >> ~/.ssh/authorized_keys
 ```
 
 ## 4. Dotfiles
@@ -338,7 +340,8 @@ look wrong, run `sudo apt remove xfce4-notifyd`.
 
 **Machine profile.** `~/.config/i3/scripts/machine-profile.sh` detects
 whether this is a `laptop`, a `desktop` or a `remote` (VM / remote
-desktop) session. The autostart script (`scripts/autostart.sh`) and the bar use it:
+desktop) session. The autostart script (`~/.config/i3/scripts/autostart.sh`)
+and the bar use it:
 
 | Profile | Extra programs | Bar modules |
 |---------|----------------|-------------|
@@ -362,9 +365,9 @@ gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
 ```
 
-Restart the apps afterwards. (A full Gruvbox GTK theme exists too, but it
-is a manual download; not worth it for now.) Newer GTK4 apps (Nautilus,
-GNOME Text Editor...) read the dark mode setting through
+Restart the apps afterwards. (GTK apps get Yaru's dark colors, not
+Gruvbox: a Gruvbox GTK theme would be a manual download.) Newer GTK4 apps
+(Nautilus, GNOME Text Editor...) read the dark mode setting through
 xdg-desktop-portal, which the dotfiles set up for i3
 (`~/.config/xdg-desktop-portal/i3-portals.conf`). If one still starts
 light right after copying that file, run
@@ -570,5 +573,5 @@ unzip fiji-latest-linux64-jdk.zip    # creates Fiji/
 rm fiji-latest-linux64-jdk.zip
 ln -sf ~/.local/opt/Fiji/fiji-linux-x64 ~/.local/bin/fiji
 ```
-(Older Fiji releases unpacked to `Fiji.app/` with an `ImageJ-linux64`
-launcher; delete such a folder and its link before installing the new one.)
+To update by reinstalling, move the old `Fiji/` folder away first (`unzip`
+would ask about every file); it holds any plugins you added.

@@ -8,7 +8,7 @@ Read NOTES.md first (constraints, decisions, open questions) and README.md.
 * Target versions are what Ubuntu 24.04 apt ships (i3 4.23, polybar 3.7,
   picom 10, rofi 1.7, dunst 1.9, tmux 3.4, fish 3.7, kitty 0.32), except for
   tools installed from the offline bundle or their own installers (Neovim
-  0.11+, newest kitty, fzf, starship, uv, pixi).
+  0.11+, fzf, starship, tree-sitter, uv, pixi).
 * Machines with and without internet are both supported. Don't hard-code
   "no internet" into configs; offline-only steps belong in docs/SETUP.md,
   marked as such.
