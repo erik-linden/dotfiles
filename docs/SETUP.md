@@ -306,8 +306,8 @@ with `fc-list | grep -i jetbrains`.
 ```bash
 # Window manager, bar, compositor (so GTK transparency isn't drawn black;
 # no effects), launcher, notifications, python3-i3ipc (for the script that
-# names workspaces after their windows)
-sudo apt install i3 polybar picom rofi dunst python3-i3ipc
+# names workspaces after their windows), qt5ct (dark colors for Qt apps)
+sudo apt install i3 polybar picom rofi dunst python3-i3ipc qt5ct
 # Lock screen: i3lock, xss-lock (locks on suspend/idle), imagemagick (blurred screenshot)
 sudo apt install i3lock xss-lock imagemagick
 # dex: runs XDG autostart entries, feh: wallpaper, flameshot: screenshots,
@@ -357,6 +357,31 @@ xdg-desktop-portal, which the dotfiles set up for i3
 (`~/.config/xdg-desktop-portal/i3-portals.conf`). If one still starts
 light right after copying that file, run
 `systemctl --user restart xdg-desktop-portal` (or log in again).
+
+**Dark mode for Qt apps** (kdiff3, CopyQ, flameshot...). Qt doesn't follow
+the GTK setting outside GNOME, so `.profile` points Qt apps at qt5ct
+(`QT_QPA_PLATFORMTHEME=qt5ct`, if qt5ct is installed). Its settings in
+`~/.config/qt5ct/` pick the Fusion style and a Gruvbox palette; they apply
+from the next login. (The `qt5ct` program can change them, but rewrites
+the file; then run `./copy_to_repo.py`.)
+
+kdiff3 paints its text panes in its own colors, kept in
+`~/.config/kdiff3rc` together with its window size, so they aren't in the
+repo. Set them once (colors from docs/palette.md, as r,g,b):
+
+```bash
+set_color() { kwriteconfig5 --file kdiff3rc --group "KDiff3 Options" --key "$1" "$2"; }
+set_color FgColor                   212,190,152   # fg0
+set_color BgColor                   29,32,33      # bg0
+set_color DiffBgColor               40,40,40      # bg1: lines that differ
+set_color ColorA                    125,174,163   # blue: text from A (base)
+set_color ColorB                    169,182,101   # green: text from B (yours)
+set_color ColorC                    211,134,155   # purple: text from C (theirs)
+set_color ColorForConflict          234,105,98    # red
+set_color CurrentRangeBgColor       60,56,54      # bg3: the selected difference
+set_color CurrentRangeDiffBgColor   71,60,41      # bg_visual_yellow: its changed lines
+set_color ManualAlignmentRangeColor 80,73,69      # bg5
+```
 
 **Keyboard layout.** GNOME keeps its own layout setting, but i3 gets the
 system's X default (`us` if Ubuntu was installed with an English keyboard).

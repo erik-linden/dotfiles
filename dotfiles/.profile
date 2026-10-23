@@ -37,3 +37,10 @@ fi
 
 # Default terminal for i3-sensible-terminal and others
 export TERMINAL=kitty
+
+# Qt apps (kdiff3, CopyQ, flameshot...) take their style and dark colors from
+# qt5ct (~/.config/qt5ct), if it is installed. Outside GNOME/KDE, Qt would
+# otherwise use its light defaults.
+if command -v qt5ct >/dev/null; then
+    export QT_QPA_PLATFORMTHEME=qt5ct
+fi

@@ -23,6 +23,7 @@
 .config/rofi/
 .config/dunst/dunstrc
 .config/xdg-desktop-portal/i3-portals.conf
+.config/qt5ct/
 
 # Terminal and tools
 .config/kitty/kitty.conf

@@ -53,6 +53,19 @@ Decisions, open questions and ideas for this setup. Newest first.
   plain JetBrains Mono), Fiji (apt has plain ImageJ), i3lock-color.
   Chrome, Docker and CUDA already update through their own apt repos.
 * The bundle is now ~0.85 GB, most of it Fiji.
+* **Dark Qt apps with qt5ct** (apt). Qt only follows the GTK theme on
+  GNOME-like desktops; with `QT_QPA_PLATFORMTHEME=gtk3` kdiff3 got GTK
+  icons but stayed light. qt5ct with the Fusion style and a palette made
+  from docs/palette.md (`~/.config/qt5ct/colors/gruvbox-material-dark.conf`)
+  works; `.profile` sets `QT_QPA_PLATFORMTHEME=qt5ct` if qt5ct is
+  installed, so CopyQ and flameshot get it too. qt5ct.conf's `~` path
+  works (tested with a separate home). The qt5ct program rewrites its
+  config without comments, so the explanation is here and in SETUP.md.
+* kdiff3 paints its text panes itself (white by default, ignoring the
+  palette). Its colors are in `kdiff3rc` (group `KDiff3 Options`, `r,g,b`),
+  which also holds window state that kdiff3 rewrites, so like
+  fish_variables it isn't in the repo: SETUP.md has a one-time
+  `kwriteconfig5` block (kwriteconfig5 comes with kdiff3's KDE libraries).
 
 ### 2026-10 round 19: own workspace-name script; Rust offline from apt
 
