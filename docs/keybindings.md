@@ -137,6 +137,8 @@ Press `,` and wait: a popup lists all leader mappings (`,s` search, `,g` git).
 | `Ctrl+Shift+p`, then `f` | **Pick a path on screen** and insert it (`w` word, `l` line) |
 | `Ctrl+Shift+e` | Pick a URL on screen and open it |
 | Click | Open a link (click and drag selects) |
+| Right-click | Copy the selection. In nvim, right-click opens nvim's menu, which has Copy |
+| Middle click | Paste the last selected text |
 
 ## ranger
 
