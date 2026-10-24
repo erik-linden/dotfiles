@@ -10,7 +10,7 @@ return {
                 local function map(mode, lhs, rhs, desc)
                     vim.keymap.set(mode, lhs, rhs, { buffer = buf, desc = desc })
                 end
-                -- Same as vim-gitgutter. In diff mode ]c/[c keep their built-in meaning.
+                -- ]c/[c jump between hunks; in diff mode they keep their built-in meaning.
                 map("n", "]c", function()
                     if vim.wo.diff then vim.cmd.normal({ "]c", bang = true }) else gs.nav_hunk("next") end
                 end, "Next git hunk")

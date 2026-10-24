@@ -11,7 +11,7 @@ JetBrains Mono Nerd Font and the Gruvbox Material Dark Hard colors.
 | `copy_to_home.py` | Repo → home (asks before overwriting changes, `--dry-run` to preview) |
 | `copy_to_repo.py` | Home → repo (then check `git diff`) |
 | `scripts/` | Offline bundle: download tools on one machine, install on another |
-| `docs/SETUP.md` | Setting up a new machine, or migrating one from the old setup |
+| `docs/SETUP.md` | Setting up a new machine |
 | `docs/keybindings.md` | Key bindings across i3, kitty, tmux, nvim, fish, rofi |
 | `docs/palette.md` | The color palette and where each color is used |
 | `NOTES.md` | Decisions, open questions, ideas, testing checklist |

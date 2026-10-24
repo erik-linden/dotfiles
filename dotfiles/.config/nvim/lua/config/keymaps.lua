@@ -51,7 +51,7 @@ map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostics to locati
 -- LSP: Neovim 0.11 defaults are
 --   K hover, grn rename, gra code action, grr references, gri implementation,
 --   gO document symbols, <C-s> signature help (insert mode)
--- Old YCM mappings kept for muscle memory:
+-- Extra mappings, for muscle memory:
 map("n", "<F3>", vim.lsp.buf.definition, { desc = "Go to definition" })
 map("n", "<F4>", vim.lsp.buf.hover, { desc = "Documentation" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })

@@ -16,7 +16,7 @@ return {
         config = function()
             vim.diagnostic.config({
                 severity_sort = true,
-                -- Like ALE: only show the message for the line the cursor is on
+                -- Only show the message for the line the cursor is on
                 virtual_text = { current_line = true },
                 underline = true,
                 float = { border = "rounded", source = true },
@@ -76,7 +76,7 @@ return {
         end,
     },
 
-    -- Formatting, <leader>f (was :ALEFix)
+    -- Formatting, <leader>f
     {
         "stevearc/conform.nvim",
         cmd = "ConformInfo",
@@ -96,7 +96,7 @@ return {
         },
     },
 
-    -- Completion popup (was YouCompleteMe). Tab/Shift-Tab cycle like YCM,
+    -- Completion popup. Tab/Shift-Tab cycle through the suggestions,
     -- Enter or C-y accepts, C-e closes, C-space opens.
     {
         "saghen/blink.cmp",

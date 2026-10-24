@@ -78,7 +78,7 @@ def parse_xrandr_output(output):
     # Put build-in displays first, then sort by name.
     displays = sorted(displays, key=lambda d: (re.match("(eDP|eDP-[0-9]+|LVDS|LVDS-[0-9]+)", d.name) is None, d.name))
 
-    # If we have a lid and it's closed, removed the built-in
+    # If we have a lid and it's closed, remove the built-in
     # display from the list of connected displays.
     lid_state = pathlib.Path("/proc/acpi/button/lid/LID0/state")
     if lid_state.exists() and lid_state.read_text().split()[-1] == "closed":

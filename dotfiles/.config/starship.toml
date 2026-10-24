@@ -24,7 +24,7 @@ symbol = " "
 symbol = " "
 
 [conda]
-# Moving from conda to pixi/uv; show the conda env only if one is active
+# Show a conda env only when one is activated (not base)
 ignore_base = true
 symbol = "󰯲 "
 

@@ -2,7 +2,7 @@
 # Reference: man 5 dunst, or /etc/xdg/dunst/dunstrc for all options with comments
 # Test with: notify-send -u critical "Summary" "Body text"
 #
-# Key bindings are in the i3 config (dunst dropped its own [shortcuts]):
+# Key bindings are in the i3 config (dunst has none of its own):
 #   $super+n close, $super+Shift+n close all, $super+m history, $super+period actions
 
 [global]
