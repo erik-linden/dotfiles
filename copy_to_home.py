@@ -282,14 +282,16 @@ def _print_block(diff, begin, end, block, blocks):
     # Context: up to _PAD unchanged lines on each side. It stops at a
     # neighboring change, since whether its lines end up in the file depends
     # on the answer to that change.
+    # Unchanged lines keep their "  " prefix, so they line up with the
+    # "- " / "+ " of the changed ones.
     before = _unchanged(reversed(diff[max(0, begin - _PAD) : begin]))[::-1]
     after = _unchanged(diff[end : end + _PAD])
     for line in before:
-        print(dim("    " + line[2:].rstrip("\n")))
+        print(dim("    " + line.rstrip("\n")))
     for line in diff[begin:end]:
         _print_diff_line(line, indent="    ")
     for line in after:
-        print(dim("    " + line[2:].rstrip("\n")))
+        print(dim("    " + line.rstrip("\n")))
 
 
 def _unchanged(lines):
